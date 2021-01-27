@@ -6,22 +6,26 @@
 /*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 10:12:08 by grivalan          #+#    #+#             */
-/*   Updated: 2020/12/15 19:18:23 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/01/11 15:34:19 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_substr(char const *s, unsigned int start, size_t len)
+char	*ft_substr(char const *s, int start, int len)
 {
 	char	*new_str;
-	size_t	i;
-	size_t	j;
-	size_t	strlen;
+	int		i;
+	int		j;
+	int		strlen;
 
 	if (!s)
 		return (0);
-	if (start > (strlen = ft_strlen(s)))
+	if ((strlen = ft_strlen(s)) < 0)
+		strlen = 0;
+	if (start < 0)
+		start = strlen + start;
+	if (start > strlen)
 		len = 0;
 	else if (strlen < len)
 		len = strlen - start;

@@ -3,27 +3,44 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+         #
+#    By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/24 18:59:35 by grivalan          #+#    #+#              #
-#    Updated: 2021/01/02 12:26:02 by grivalan         ###   ########lyon.fr    #
+#    Updated: 2021/01/25 12:28:57 by grivalan         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
-NAME =		Cub3D.out
+NAME =		Cub3D
 
 LIB  =		./libft
 
+MLX  =		./mlx
+
 SRCS =		main.c\
-			file_treatment/parsing_file.c\
-			file_treatment/ft_file_to_struct.c\
-			file_treatment/error_file.c\
-			file_treatment/check_map.c\
-			file_treatment/ft_modif_map.c\
+			srcs/load/ft_load.c\
+			srcs/load/file/ft_init_file.c\
+			srcs/load/file/parsing_file.c\
+			srcs/load/file/ft_file_to_struct.c\
+			srcs/load/file/error_file.c\
+			srcs/load/map/check_map.c\
+			srcs/load/map/ft_modif_map.c\
+			srcs/load/builds/create_builds.c\
+			srcs/load/map/ft_scan_map.c\
+			srcs/load/map/ft_create_plane.c\
+			srcs/load/builds/delete_builds.c\
+			srcs/load/file/ft_image_generate.c\
+			srcs/load/screen/ft_screen.c\
+			srcs/load/file/ft_check_struct.c\
+			srcs/sprite/init_player.c\
+			srcs/sprite/init_ennemy.c\
+			srcs/mini_map/mini_map.c\
+			srcs/clear/clear_file.c\
+			srcs/tools/ft_color_generate.c\
+			srcs/draw/ft_draw.c
 
 CC = gcc
 
-FLAGS =		-Wall -Wextra -Werror
+CFLAGS =		-Wall -Wextra -Werror
 
 INCLUDES =	includes
 
@@ -34,16 +51,20 @@ OBJS =		$(SRCS:.c=.o)
 
 $(NAME):	$(OBJS)
 			$(MAKE) -C $(LIB)
-			$(CC) -o $(NAME) $(OBJS) libft/libft.a
+			$(MAKE) -C $(MLX)
+			cp mlx/libmlx.dylib .
+			$(CC) -g3 -fsanitize=address -o $(NAME) $(OBJS) -I $(INCLUDES) libft/libft.a -Lmlx -lmlx -lm
 
 all :		$(NAME)
 
 clean :
 		rm -rf $(OBJS)
-		$(MAKE) clean -C ./libft
+		$(MAKE) clean -C $(LIB)
+		$(MAKE) clean -C $(MLX)
 
 fclean :	clean
-			$(MAKE) fclean -C ./libft
+			$(MAKE) fclean -C $(LIB)
+			rm -f libmlx.dylib
 			rm -f $(NAME)
 
 re : fclean all

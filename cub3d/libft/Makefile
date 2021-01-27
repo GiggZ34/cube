@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+         #
+#    By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/24 18:59:35 by grivalan          #+#    #+#              #
-#    Updated: 2020/12/31 22:11:26 by grivalan         ###   ########lyon.fr    #
+#    Updated: 2021/01/25 10:22:50 by grivalan         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,6 +31,7 @@ SRCS		=	ft_calloc.c\
 				ft_isprint.c\
 				ft_itoa_base.c\
 				ft_lstdelone.c\
+				ft_lstclearone.c\
 				ft_lstnew.c\
 				ft_memcmp.c\
 				ft_putchar_fd.c\
@@ -74,7 +75,14 @@ SRCS		=	ft_calloc.c\
 				ft_count_words.c\
 				ft_count_array.c\
 				ft_strstr.c\
-				ft_free_array.c
+				ft_free_array.c\
+				ft_nsplit.c\
+				ft_intersect_plane_dot.c\
+				ft_size_vec_plane.c\
+				ft_vector_calculator.c\
+				ft_deg_to_rad.c\
+				ft_rotate_vector.c\
+				ft_norm_vector_calculate.c
 
 INCLUDES	=	libft.h
 

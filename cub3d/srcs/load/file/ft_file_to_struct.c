@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 11:03:58 by grivalan          #+#    #+#             */
-/*   Updated: 2021/01/20 09:26:39 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/02/02 11:58:06 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,10 @@ static int		ft_two_parameter(t_game *game, char **array)
 	int len;
 
 	len = ft_strlen(*array);
-	if (!game->screen && !ft_strncmp(*array, "R", len))
+	if (!ft_strncmp(*array, "R", len))
 	{
-		if (!(game->screen = ft_calloc(sizeof(t_screen), 1)))
-			return (3);
-		game->screen->width = ft_atoi(array[1]);
-		game->screen->height = ft_atoi(array[2]);
+		game->screen.width = ft_atoi(array[1]);
+		game->screen.height = ft_atoi(array[2]);
 	}
 	else
 		return (5);

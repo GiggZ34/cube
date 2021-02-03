@@ -1,20 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_abs.c                                           :+:      :+:    :+:   */
+/*   ft_map_cpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/07 13:18:16 by grivalan          #+#    #+#             */
-/*   Updated: 2021/01/28 11:50:21 by grivalan         ###   ########lyon.fr   */
+/*   Created: 2021/01/31 12:19:30 by grivalan          #+#    #+#             */
+/*   Updated: 2021/01/31 12:20:20 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "cub3d.h"
 
-long long	ft_abs(long long n)
+char			**ft_map_cpy(char **map, int height)
 {
-	if (n < 0)
-		n *= -1;
-	return (n);
+	char	**new_map;
+	int		i;
+
+	if (!map)
+		return (NULL);
+	if (!(new_map = ft_calloc(sizeof(char**), height + 1)))
+		return (NULL);
+	new_map[height] = NULL;
+	i = -1;
+	while (map[++i])
+		new_map[i] = ft_strdup(map[i]);
+	return (new_map);
 }

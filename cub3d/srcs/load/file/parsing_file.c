@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 22:51:43 by grivalan          #+#    #+#             */
-/*   Updated: 2021/01/25 15:27:57 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/02/01 12:31:02 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,35 +15,38 @@
 static int		ft_check_file(t_game *game)
 {
 	t_file		*file;
-	t_screen	*screen;
+	t_screen	screen;
 
 	file = game->file;
 	screen = game->screen;
-	if (screen && file->ground_color > -1 && file->sky_color > -1
+	if (screen.width > -1 && screen.height > -1
+			&& file->ground_color > -1 && file->sky_color > -1
 			&& file->texture_ea && file->texture_no && file->texture_ea
 			&& file->texture_we && file->texture_s)
 		return (1);
 	return (0);
 }
 
-char			**ft_generate_map(char **map, char *line)
+static char			**ft_generate_map(t_file *file, char *line)
 {
 	char	**str;
 	int		i;
 
 	if (!line)
-		return (map);
-	if (!(str = calloc(sizeof(char **), ft_count_array(map) + 2)))
+		return (file->map);
+	if (file->width_map < (int)ft_strlen(line))
+		file->width_map = ft_strlen(line);
+	if (!(str = calloc(sizeof(char **), ft_count_array(file->map) + 2)))
 		return (0);
 	i = 0;
-	if (map)
+	if (file->map)
 	{
-		while (map[i])
+		while (file->map[i])
 		{
-			str[i] = map[i];
+			str[i] = file->map[i];
 			i++;
 		}
-		free(map);
+		free(file->map);
 	}
 	str[i] = line;
 	str[i + 1] = 0;
@@ -69,7 +72,7 @@ int				ft_parsing_file(t_game *game, int fd, t_file *file)
 			}
 			else if (ft_check_file(game) && (file->map || line[0]))
 			{
-				if (!(file->map = ft_generate_map(file->map, line)))
+				if (!(file->map = ft_generate_map(file, line)))
 					ft_error_file(file, 3, "in function ft_parsing_file");
 			}
 			else

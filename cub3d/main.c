@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 11:41:36 by grivalan          #+#    #+#             */
-/*   Updated: 2021/01/26 10:20:47 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/02/02 15:19:27 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ int				main(int ac, char **av)
 	{
 		if (ft_load(av[1], &game) != 0)
 			return (FAIL_EXIT);
-		exit(0);
 		ft_draw(&game);
 		// ft_mini_map(&game);
 		mlx_loop(game.mlx);

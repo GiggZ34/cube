@@ -6,36 +6,33 @@
 /*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 08:26:00 by grivalan          #+#    #+#             */
-/*   Updated: 2021/01/26 10:19:45 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/02/03 12:39:04 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static int		ft_search_color(t_texture *texture, t_dot dot)
+static int		ft_search_color(t_texture *texture, t_dot dot, t_plane plane)
 {
-	double i;
-	double j;
+	int i;
+	int j;
 
-	dot.x -= (int)dot.x;
-	j = texture->width * dot.x;
+	j = 0;
+	if (!texture)
+		return (0);
+	if (plane.a == 1)
+	{
+		dot.y -= (int)dot.y;
+		j = texture->width * dot.y;
+	}
+	else if (plane.b == 1)
+	{
+		dot.x -= (int)dot.x;
+		j = texture->width * dot.x;
+	}
 	dot.z -= (int)dot.z;
 	i = texture->height * dot.z;
-	if (texture)
-	{
-		return (255);
-		return (texture->color[(int)i][(int)j]);
-	}
-	return (0);
-}
-
-double		ft_size_vec_wall(t_wall *p, t_vector vec, t_dot orign)
-{
-	double	fac;
-
-	if ((fac = p->a * vec.x + p->b * vec.y + p->c * vec.z) == 0)
-		return (-1);
-	return (-(p->a * orign.x + p->b * orign.y + p->c * orign.z + p->d) / fac);
+	return (texture->color[i][j]);
 }
 
 static t_wall		*ft_wall_inter(t_list *lst, t_vector v, t_dot pos, t_dot *mem)
@@ -51,18 +48,21 @@ static t_wall		*ft_wall_inter(t_list *lst, t_vector v, t_dot pos, t_dot *mem)
 	while (lst)
 	{
 		wall = lst->content;
-		size = ft_size_vec_wall(wall, v, pos);
+		size = ft_size_vec_plane(&(wall->plane), v, pos);
 		inter_dot = ft_intersect_plane_dot(pos, v, size);
-		if (size >= 0 && (size_mem > size || size_mem < 0))
+		if ((size >= 0 && (size < size_mem || size_mem == -1))
+			&& (inter_dot.z >= 0 && inter_dot.z <= 1)
+			&& ((wall->plane.a == 1 && (wall->pos.y <= inter_dot.y
+							&& wall->pos.y + wall->width > inter_dot.y))
+			|| (wall->plane.b == 1 && (wall->pos.x <= inter_dot.x
+							&& wall->pos.x + wall->width > inter_dot.x))))
 		{
-			if (inter_dot.z >= 0 && inter_dot.z <= 1)
-			{
-				wall_mem = wall;
-				size_mem = size;
-				*mem = inter_dot;
-			}
+			wall_mem = wall;
+			size_mem = size;
 			*mem = inter_dot;
 		}
+		if (!wall_mem && size >= 0 && (inter_dot.z < 0 || inter_dot.z > 1))
+			*mem = inter_dot;
 		lst = lst->next;
 	}
 	return (wall_mem);
@@ -72,45 +72,34 @@ static int		ft_color_dot(t_game *game, t_vector vec)
 {
 	t_player	*player;
 	t_wall		*wall;
-	t_dot		inter_dot;
+	t_dot		dot;
 
 	player = game->player;
-	wall = ft_wall_inter(game->lst_walls, vec, player->position, &inter_dot);
-	if (inter_dot.z > 1)
+	wall = ft_wall_inter(player->view.lst_walls, vec, player->position, &dot);
+	if (dot.z > 1)
 		return (game->file->ground_color);
-	else if (inter_dot.z < 0)
+	else if (dot.z < 0)
 		return (game->file->sky_color);
 	else if (wall)
-		return (ft_search_color(wall->add, inter_dot));
+		return (ft_search_color(wall->texture, dot, wall->plane));
 	return (0);
 }
 
 int				ft_draw(t_game *game)
 {
-	double		i;
-	double		j;
-	int			px_w;
-	int			px_h;
+	int			x;
+	int			y;
 	t_vector	vec;
 
-	i = 0;
-	px_h = 0;
-
-	while (i <= game->screen->height_fov)
+	y = -1;
+	while (++y < game->screen.height)
 	{
-		vec = game->player->view;
-		px_w = 0;
-		j = 0;
-		while (j >= -FOV)
+		x = -1;
+		while (++x < game->screen.width)
 		{
-			mlx_pixel_put(game->mlx, game->window, px_w, px_h, ft_color_dot(game, vec));
-			px_w++;
-			j -= FOV / game->screen->width;
-			vec = ft_rotate_vector(vec, j, 'z');
+			vec = game->player->view.tab_vectors[y * game->screen.width + x];
+			mlx_pixel_put(game->mlx, game->window, x, y, ft_color_dot(game, vec));
 		}
-		px_h++;
-		i += game->screen->height_fov / game->screen->height;
-		vec = ft_rotate_vector(vec, i, 'x');
 	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/23 11:24:29 by grivalan          #+#    #+#             */
-/*   Updated: 2021/01/25 10:23:24 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/01/28 15:10:18 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ typedef struct	s_plane
 	double		b;
 	double		c;
 	double		d;
+	void		*add;
 }				t_plane;
 
 
@@ -64,7 +65,10 @@ typedef struct	s_plane
 ** Function Math
 */
 
-int				ft_abs(long n);
+long long		ft_abs(long long n);
+long long		ft_min(long long a, long long b);
+long long		ft_max(long long a, long long b);
+void			ft_sort_numbers(int *tab, int n);
 t_vector		ft_normal_vector_calculator(t_dot dot1, t_dot dot2);
 t_vector		ft_rotate_vector(t_vector vec, double angle, char axis);
 double			ft_size_vec_plane(t_plane *plane, t_vector vec, t_dot orign);

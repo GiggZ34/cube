@@ -6,7 +6,7 @@
 #    By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/24 18:59:35 by grivalan          #+#    #+#              #
-#    Updated: 2021/01/25 12:28:57 by grivalan         ###   ########lyon.fr    #
+#    Updated: 2021/02/02 15:55:10 by grivalan         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,16 +23,20 @@ SRCS =		main.c\
 			srcs/load/file/ft_file_to_struct.c\
 			srcs/load/file/error_file.c\
 			srcs/load/map/check_map.c\
-			srcs/load/map/ft_modif_map.c\
-			srcs/load/builds/create_builds.c\
+			srcs/load/map/ft_map_cpy.c\
 			srcs/load/map/ft_scan_map.c\
 			srcs/load/map/ft_create_plane.c\
-			srcs/load/builds/delete_builds.c\
+			srcs/load/walls/create_walls.c\
+			srcs/load/walls/ft_search_walls.c\
 			srcs/load/file/ft_image_generate.c\
 			srcs/load/screen/ft_screen.c\
 			srcs/load/file/ft_check_struct.c\
+			srcs/view/ft_scan_view.c\
+			srcs/view/ft_wall_to_view.c\
+			srcs/view/ft_init_tab_vector.c\
 			srcs/sprite/init_player.c\
 			srcs/sprite/init_ennemy.c\
+			srcs/sprite/ft_ennemy_to_list.c\
 			srcs/mini_map/mini_map.c\
 			srcs/clear/clear_file.c\
 			srcs/tools/ft_color_generate.c\

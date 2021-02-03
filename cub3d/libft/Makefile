@@ -6,7 +6,7 @@
 #    By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/24 18:59:35 by grivalan          #+#    #+#              #
-#    Updated: 2021/01/25 10:22:50 by grivalan         ###   ########lyon.fr    #
+#    Updated: 2021/01/28 15:10:54 by grivalan         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,9 @@ SRCS		=	ft_calloc.c\
 				ft_strncmp.c\
 				ft_substr.c\
 				ft_abs.c\
+				ft_min.c\
+				ft_max.c\
+				ft_sort_numbers.c\
 				ft_char_to_str.c\
 				ft_isalpha.c\
 				ft_isprint.c\

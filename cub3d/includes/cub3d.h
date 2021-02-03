@@ -6,36 +6,23 @@
 /*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 11:56:01 by grivalan          #+#    #+#             */
-/*   Updated: 2021/01/25 17:23:20 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/02/02 15:54:37 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 
 # define CUB3D_H
+# include "../mlx/mlx.h"
 # include "../libft/libft.h"
 # include <stdio.h>
 # include <math.h>
-# include "../mlx/mlx.h"
 # define FAIL_EXIT -1
 # define MIN_SCREEN_WIDTH 100
 # define MIN_SCREEN_HEIGHT 100
 # define MAX_SCREEN_WIDTH 2560
 # define MAX_SCREEN_HEIGHT 1400
 # define FOV 60.0
-
-typedef struct		s_wall
-{
-	int				id;
-	double			a;
-	double			b;
-	double			c;
-	double			d;
-	t_dot			pos;
-	double			width;
-	double			height;
-	void			*add;
-}					t_wall;
 
 typedef struct		s_texture
 {
@@ -48,11 +35,34 @@ typedef struct		s_texture
 	int				endian;
 }					t_texture;
 
+typedef struct		s_view
+{
+	t_vector		view;
+	t_list			*lst_walls;
+	t_list			*lst_sprites;
+	t_vector		*vector;
+	t_dot			extremity[2];
+	t_vector		*tab_vectors;
+}					t_view;
+
+typedef struct		s_wall
+{
+	int				id;
+	t_plane			plane;
+	t_texture		*texture;
+	t_dot			pos;
+	int				width;
+	int				*tab_size;
+	int				n_tab_size;
+}					t_wall;
+
 typedef struct		s_file
 {
 	int				ground_color;
 	int				sky_color;
 	char			**map;
+	int				width_map;
+	int				height_map;
 	int				error_code;
 	char			*error_message[8];
 	t_texture		*texture_no;
@@ -77,8 +87,8 @@ typedef struct		s_screen
 typedef struct		s_player
 {
 	t_dot			position;
-	t_vector		view;
-	char			dir;
+	t_view			view;
+	int				dir;
 	double			vx;
 	double			vy;
 	double			angle;
@@ -103,11 +113,14 @@ typedef struct		s_game
 	void			*mlx;
 	void			*window;
 	t_file			*file;
-	t_screen		*screen;
+	t_screen		screen;
 	t_player		*player;
 	t_list			*lst_sprites;
 	t_list			*lst_planes;
-	t_list			*lst_walls;
+	t_list			*lst_walls_top;
+	t_list			*lst_walls_bottom;
+	t_list			*lst_walls_right;
+	t_list			*lst_walls_left;
 }					t_game;
 
 /*
@@ -130,19 +143,27 @@ int					ft_clear_file(t_file *file, int fd, int error_code);
 int					ft_load(char *r_f, t_game *game);
 int					ft_init_file(t_file *file, t_game *game, char *dir_file);
 int					ft_parsing_file(t_game *game, int fd, t_file *file);
-char				**ft_generate_map(char **map, char *line);
 int					ft_file_to_struct(t_game *game, t_file *file, char *line);
+char				**ft_map_cpy(char **map, int height);
 int					ft_check_map(t_game *game, t_file *file);
 void				ft_scan_map(t_game *game, char **map, int i, int j);
-int					ft_create_plane(t_game *game, int x, int y, char dir);
-int					ft_modif_map(t_game *game, char **map_checked);
-int					ft_create_walls(t_list *lst_planes, t_game *game);
-int					ft_delete_walls(t_list **lst_walls);
+int					ft_create_plane(t_game *game, t_list **lst, int *pos, char dir);
+int					ft_create_walls(t_list **lst_planes);
 int					ft_img_generate(void *mlx, t_file *file, char *dir, char *type);
 void				ft_screen(t_game *game);
+int					ft_init_tab_vector(t_game *game, t_vector vec);
 int					ft_init_ennemy(t_game *game, int x, int y);
 t_player			*ft_init_player(t_game *game, int x, int y, char dir);
 int					ft_check_struct(t_game *game);
+
+/*
+**	Function update
+*/
+
+int					ft_search_walls(t_game *game);
+void				ft_scan_view(t_game *game, char **map, int x, int y);
+int					ft_wall_to_view(t_game *game, t_list **lst, int *pos, char dir);
+int					ft_ennemy_to_list(t_game *game, int x, int y);
 
 /*
 **	Functions error

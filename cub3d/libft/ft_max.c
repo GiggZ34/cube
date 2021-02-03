@@ -1,20 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_abs.c                                           :+:      :+:    :+:   */
+/*   ft_max.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/07 13:18:16 by grivalan          #+#    #+#             */
-/*   Updated: 2021/01/28 11:50:21 by grivalan         ###   ########lyon.fr   */
+/*   Created: 2021/01/28 11:47:48 by grivalan          #+#    #+#             */
+/*   Updated: 2021/01/28 11:49:00 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-long long	ft_abs(long long n)
+long long	ft_max(long long a, long long b)
 {
-	if (n < 0)
-		n *= -1;
-	return (n);
+	if (a >= b)
+		return (a);
+	else
+		return (b);
 }

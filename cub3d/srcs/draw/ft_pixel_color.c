@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 11:10:27 by grivalan          #+#    #+#             */
-/*   Updated: 2021/02/10 14:05:17 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/02/11 14:02:01 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ static int	ft_search_sprite_color(t_texture *texture, double x, double y)
 	h = y * texture->height;
 	return (texture->color[h][w]);
 }
-/*/
+
 static int	ft_search_sprites(t_game *game, t_vector vec, double *size)
 {
 	t_list		*lst;
@@ -146,7 +146,6 @@ static int	ft_search_sprites(t_game *game, t_vector vec, double *size)
 		sprite = plane->add;
 		tmp_size = ft_size_vec_plane(plane, vec, pos);
 		inter = ft_intersect_plane_dot(pos, vec, tmp_size);
-	//	printf("%d __ inter.x [ %.f ] | inter.y [ %.f ] | inter.z [ %.f ]\n",ft_lstsize(game->lst_sprites) - ft_lstsize(lst) + 1, inter.x, inter.y, inter.z);
 		if ((*size < 0 || *size > tmp_size)
 			&& inter.x >= sprite->position.x - 0.25 && inter.x <= sprite->position.x + 0.25
 			&& inter.y >= sprite->position.y - 0.25 && inter.y <= sprite->position.y + 0.25
@@ -159,35 +158,31 @@ static int	ft_search_sprites(t_game *game, t_vector vec, double *size)
 	}
 	return (color);
 }
-
+/*/
 int			ft_pixel_color(t_game *game, t_vector vec)
 {
 	double	size_x;
 	double	size_y;
-	double	size_s;
 	int		color_x;
 	int		color_y;
-	int		color_sprite;
 
-	color_sprite = ft_search_sprites(game, vec, &size_s);
+//	color_sprite = ft_search_sprites(game, vec, &size_s);
 	color_x = ft_search_color_x(game, vec, &size_x);
 	color_y = ft_search_color_y(game, vec, &size_y);
-	if (color_sprite == -1 && color_x == -1 && color_y == -1)
+	if (color_x == -1 && color_y == -1)
 	{
 		if (vec.z > 0)
 			return (game->file->ground_color);
 		else
 			return (game->file->sky_color);
 	}
-	if (color_sprite == -1 && color_x == -1)
+	if (color_x == -1)
 		return (color_y);
-	else if (color_sprite == -1 && color_y == -1)
+	else if (color_y == -1)
 		return (color_x);
 	else
 	{
-		if (color_sprite > -1 && size_s < size_x && size_s < size_y)
-			return (color_sprite);
-		else if (size_x > -1 && size_x < size_y)
+		if (size_x > -1 && size_x < size_y)
 			return (color_x);
 		else
 			return (color_y);

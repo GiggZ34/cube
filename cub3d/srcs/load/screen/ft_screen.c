@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 15:21:03 by grivalan          #+#    #+#             */
-/*   Updated: 2021/02/06 17:44:20 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/02/11 14:40:14 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,5 +19,7 @@ int				ft_screen(t_game *game)
 		return (game->file->error_code = 3);
 	if (!(game->screen.color = (int*)mlx_get_data_addr(game->screen.ptr, &game->screen.bit, &game->screen.size, &game->screen.endian)))
 		return (game->file->error_code = 3);
+	game->screen.size /= 4;
+
 	return (0);
 }

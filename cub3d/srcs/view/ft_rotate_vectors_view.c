@@ -6,15 +6,16 @@
 /*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 10:19:27 by grivalan          #+#    #+#             */
-/*   Updated: 2021/02/09 13:11:20 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/02/11 14:11:56 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int		ft_rotate_vectors_view(t_game *game, t_vector *tab, double angle)
+int		ft_rotate_vectors_view(t_game *game, t_vector *tab, double angle, char dir)
 {
-	int i;
+	int	i;
+	int	end;
 
 	i = -1;
 	if (angle < 0)
@@ -26,9 +27,10 @@ int		ft_rotate_vectors_view(t_game *game, t_vector *tab, double angle)
 		game->player->angle += 2 * M_PI;
 	else if (game->player->angle >= 2 * M_PI)
 		game->player->angle -= 2 * M_PI;
-	while (++i < game->screen.height * game->screen.width)
-		tab[i] = ft_rotate_vector(tab[i], angle, 'z');
-	game->player->view.view = ft_rotate_vector(game->player->view.view, angle, 'z');
+	end = game->screen.height * game->screen.size;
+	while (++i < end)
+		tab[i] = ft_rotate_vector(tab[i], angle, dir);
+	game->player->view.view = ft_rotate_vector(game->player->view.view, angle, dir);
 	ft_edit_sprite_plane(game->lst_sprites, game->player->view.view);
 	return (0);
 }

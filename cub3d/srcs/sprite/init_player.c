@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 08:33:59 by grivalan          #+#    #+#             */
-/*   Updated: 2021/02/09 13:40:42 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/02/11 14:12:05 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,11 @@ t_player	*ft_init_player(t_game *game, int x, int y, char dir)
 	if (ft_init_tab_vector(game, game->player->position))
 		return (NULL);
 	if (dir == 'S')
-		ft_rotate_vectors_view(game, game->player->view.tab_vectors, (angle = M_PI / 2));
+		ft_rotate_vectors_view(game, game->player->view.tab_vectors, (angle = M_PI / 2), 'z');
 	else if (dir == 'W')
-		ft_rotate_vectors_view(game, game->player->view.tab_vectors, (angle = M_PI));
+		ft_rotate_vectors_view(game, game->player->view.tab_vectors, (angle = M_PI), 'z');
 	else if (dir == 'N')
-		ft_rotate_vectors_view(game, game->player->view.tab_vectors, (angle = 3 / 2 * M_PI));
+		ft_rotate_vectors_view(game, game->player->view.tab_vectors, (angle = 3 / 2 * M_PI), 'z');
 	else
 		angle = 0;
 	game->player->angle = angle;

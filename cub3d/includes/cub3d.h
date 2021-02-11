@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 11:56:01 by grivalan          #+#    #+#             */
-/*   Updated: 2021/02/09 13:10:17 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/02/11 14:46:44 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ typedef struct		s_texture
 typedef struct		s_view
 {
 	t_vector		view;
-	t_list			*lst_walls;
 	t_list			*lst_sprites;
 	t_vector		*vector;
 	t_dot			extremity[2];
@@ -165,7 +164,7 @@ int					ft_check_struct(t_game *game);
 */
 
 int					ft_update(t_game *game);
-int					ft_rotate_vectors_view(t_game *game, t_vector *tab, double angle);
+int					ft_rotate_vectors_view(t_game *game, t_vector *tab, double angle, char dir);
 int					ft_translation_vector(t_game *game, double velocity, double angle);
 int					ft_edit_sprite_plane(t_list *lst, t_vector normal);
 

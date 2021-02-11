@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 15:29:44 by grivalan          #+#    #+#             */
-/*   Updated: 2020/12/15 19:15:12 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/02/04 14:03:51 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,15 @@
 
 void	ft_lstadd_back(t_list **alst, t_list *new)
 {
-	t_list *ptr;
+	t_list	*current;
 
 	if (alst)
 	{
 		if (*alst)
 		{
-			ptr = ft_lstlast(*alst);
-			ptr->next = new;
+			current = ft_lstlast(*alst);
+			current->next = new;
+			new->previous = current;
 		}
 		else
 			*alst = new;

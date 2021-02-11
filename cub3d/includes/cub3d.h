@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 11:56:01 by grivalan          #+#    #+#             */
-/*   Updated: 2021/02/02 15:54:37 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/02/09 13:10:17 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,16 +45,13 @@ typedef struct		s_view
 	t_vector		*tab_vectors;
 }					t_view;
 
-typedef struct		s_wall
+typedef struct		s_tab_plane
 {
-	int				id;
-	t_plane			plane;
-	t_texture		*texture;
-	t_dot			pos;
-	int				width;
-	int				*tab_size;
-	int				n_tab_size;
-}					t_wall;
+	t_list			**left;
+	t_list			**right;
+	t_list			**top;
+	t_list			**bottom;
+}					t_tab_plane;
 
 typedef struct		s_file
 {
@@ -77,18 +74,21 @@ typedef struct		s_screen
 	int				width;
 	int				height;
 	double			w_vec;
-	double			h_vec;
-	double			height_fov;
-	t_dot			first_pixel;
-	int				first_pixel_x;
-	int				first_pixel_y;
+	void			*ptr;
+	int				*color;
+	int				size;
+	int				endian;
+	int				bit;
 }					t_screen;
 
 typedef struct		s_player
 {
 	t_dot			position;
 	t_view			view;
-	int				dir;
+	double			walk_volocity;
+	int				walk_speed_max;
+	double			run_volocity;
+	int				run_speed_max;
 	double			vx;
 	double			vy;
 	double			angle;
@@ -98,8 +98,8 @@ typedef struct		s_player
 
 typedef struct		s_sprite
 {
-	char			*type;
 	t_dot			position;
+	t_plane			plane;
 	double			vx;
 	double			vy;
 	double			angle;
@@ -116,11 +116,12 @@ typedef struct		s_game
 	t_screen		screen;
 	t_player		*player;
 	t_list			*lst_sprites;
-	t_list			*lst_planes;
-	t_list			*lst_walls_top;
-	t_list			*lst_walls_bottom;
-	t_list			*lst_walls_right;
-	t_list			*lst_walls_left;
+	t_list			*lst_planes_sprites;
+	t_tab_plane		tab_planes;
+	t_list			*lst_planes_top;
+	t_list			*lst_planes_bottom;
+	t_list			*lst_planes_right;
+	t_list			*lst_planes_left;
 }					t_game;
 
 /*
@@ -148,10 +149,13 @@ char				**ft_map_cpy(char **map, int height);
 int					ft_check_map(t_game *game, t_file *file);
 void				ft_scan_map(t_game *game, char **map, int i, int j);
 int					ft_create_plane(t_game *game, t_list **lst, int *pos, char dir);
-int					ft_create_walls(t_list **lst_planes);
+t_plane				*ft_search_plane(t_list *lst, int x, int y, char dir);
+void				ft_sort_planes(t_list *lst);
+void				ft_asort_planes(t_list *lst);
+int					ft_lst_planes_to_tab(t_game *game);
 int					ft_img_generate(void *mlx, t_file *file, char *dir, char *type);
-void				ft_screen(t_game *game);
-int					ft_init_tab_vector(t_game *game, t_vector vec);
+int					ft_screen(t_game *game);
+int					ft_init_tab_vector(t_game *game, t_dot origin);
 int					ft_init_ennemy(t_game *game, int x, int y);
 t_player			*ft_init_player(t_game *game, int x, int y, char dir);
 int					ft_check_struct(t_game *game);
@@ -160,10 +164,10 @@ int					ft_check_struct(t_game *game);
 **	Function update
 */
 
-int					ft_search_walls(t_game *game);
-void				ft_scan_view(t_game *game, char **map, int x, int y);
-int					ft_wall_to_view(t_game *game, t_list **lst, int *pos, char dir);
-int					ft_ennemy_to_list(t_game *game, int x, int y);
+int					ft_update(t_game *game);
+int					ft_rotate_vectors_view(t_game *game, t_vector *tab, double angle);
+int					ft_translation_vector(t_game *game, double velocity, double angle);
+int					ft_edit_sprite_plane(t_list *lst, t_vector normal);
 
 /*
 **	Functions error
@@ -183,5 +187,6 @@ int					ft_mini_map(t_game *game);
 */
 
 int					ft_draw(t_game *game);
+int					ft_pixel_color(t_game *game, t_vector v);
 
 #endif

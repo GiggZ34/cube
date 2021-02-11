@@ -6,105 +6,72 @@
 /*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 12:45:25 by grivalan          #+#    #+#             */
-/*   Updated: 2021/02/01 13:20:13 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/02/05 16:13:18 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static t_wall		*ft_init_plane(t_game *game, int x, int y, char dir)
+static t_plane	*ft_init_plane(t_game *game, int x, int y, char dir)
 {
-	t_wall	*wall;
+	t_plane	*plane;
 
-	if (!(wall = ft_calloc(sizeof(t_wall), 1)))
-		return (0);
-	wall->plane.a = 0;
-	wall->plane.b = 0;
-	wall->plane.c = 0;
-	wall->width = 0;
-	wall->pos.x = x;
-	wall->pos.y = y;
-	wall->n_tab_size = 1;
-	if (!(wall->tab_size = ft_calloc(sizeof(int), ft_max(game->file->height_map, game->file->width_map))))
-	{
-		free(wall);
+	if (!(plane = ft_calloc(sizeof(t_plane), 1)))
 		return (NULL);
-	}
-	if (dir == 'R' || dir == 'L')
+	plane->a = 0;
+	plane->b = 0;
+	plane->c = 0;
+	if (dir == 'L')
 	{
-		wall->tab_size[wall->n_tab_size - 1] = y;
-		wall->plane.a = 1;
-		wall->plane.d = -x;
-		if (dir == 'R')
-			wall->texture =	game->file->texture_we;
-		else
-			wall->texture = game->file->texture_ea;
+		plane->a = 1;
+		plane->d = -x;
+		plane->add = game->file->texture_we;
 	}
-	else if (dir == 'T' || dir == 'B')
+	else if (dir == 'R')
 	{
-		wall->tab_size[wall->n_tab_size - 1] = x;
-		wall->plane.b = 1;
-		wall->plane.d = -y;
-		if (dir == 'T')
-			wall->texture =	game->file->texture_no;
-		else
-			wall->texture = game->file->texture_so;
+		plane->a = -1;
+		plane->d = x;
+		plane->add = game->file->texture_ea;
 	}
-	return (wall);
+	else if (dir == 'T')
+	{
+		plane->b = 1;
+		plane->d = -y;
+		plane->add = game->file->texture_no;
+	}
+	else if (dir == 'B')
+	{
+		plane->b = -1;
+		plane->d = y;
+		plane->add = game->file->texture_so;
+	}
+	return (plane);
 }
 
-static int			ft_plane_to_list(t_list **plane, t_wall *wall)
+static int		ft_plane_to_list(t_list **lst, t_plane *plane)
 {
-	t_list	*lst;
+	t_list	*new_lst;
 
-	if (!(lst = ft_lstnew(wall)))
+	if (!(new_lst = ft_lstnew(plane)))
 		return (3);
-	ft_lstadd_back(plane, lst);
+	ft_lstadd_back(lst, new_lst);
 	return (0);
 }
 
-static t_wall		*ft_search_plane(t_list *lst, int x, int y, char dir)
+int				ft_create_plane(t_game *game, t_list **lst, int *pos, char dir)
 {
-	t_wall	*wall;
+	t_plane	*plane;
 
-	while (lst)
+	if (!(plane = ft_search_plane(*lst, pos[0], pos[1], dir)))
 	{
-		wall = lst->content;
-		if (dir == 'R' || dir == 'L')
-		{
-			if (wall->plane.a == 1 && wall->plane.d == -x)
-			{
-				wall->n_tab_size++;
-				wall->tab_size[wall->n_tab_size - 1] = y;
-				wall->pos.y = ft_min(wall->pos.y, y);
-				return (wall);
-			}
-		}
-		else if (dir == 'T' || dir == 'B')
-		{
-			if (wall->plane.b == 1 && wall->plane.d == -y)
-			{
-				wall->n_tab_size++;
-				wall->tab_size[wall->n_tab_size - 1] = x;
-				wall->pos.x = ft_min(wall->pos.x, x);
-				return (wall);
-			}
-		}
-		lst = lst->next;
-	}
-	return (NULL);
-}
-
-int					ft_create_plane(t_game *game, t_list **lst, int *pos, char dir)
-{
-	t_wall	*wall;
-
-	if (!(wall = ft_search_plane(*lst, pos[0], pos[1], dir)))
-	{
-		if (!(wall = ft_init_plane(game, pos[0], pos[1], dir)))
+		if (!(plane = ft_init_plane(game, pos[0], pos[1], dir)))
 			return (3);
-		if (ft_plane_to_list(lst, wall))
+		if (ft_plane_to_list(lst, plane))
+		{
+			free(plane);
 			return (3);
+		}
+		ft_sort_planes(*lst);
 	}
 	return (0);
 }

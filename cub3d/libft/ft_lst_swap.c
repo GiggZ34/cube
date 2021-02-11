@@ -1,21 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_max.c                                           :+:      :+:    :+:   */
+/*   ft_lst_swap.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/28 11:47:48 by grivalan          #+#    #+#             */
-/*   Updated: 2021/02/04 09:51:09 by grivalan         ###   ########lyon.fr   */
+/*   Created: 2021/02/04 14:59:28 by grivalan          #+#    #+#             */
+/*   Updated: 2021/02/04 15:02:21 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-double	ft_max(double a, double b)
+void		ft_lst_swap(t_list *a, t_list *b)
 {
-	if (a >= b)
-		return (a);
-	else
-		return (b);
+	void	*tmp;
+
+	tmp = a->content;
+	a->content = b->content;
+	b->content = tmp;
 }

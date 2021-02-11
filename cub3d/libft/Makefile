@@ -6,7 +6,7 @@
 #    By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/24 18:59:35 by grivalan          #+#    #+#              #
-#    Updated: 2021/01/28 15:10:54 by grivalan         ###   ########lyon.fr    #
+#    Updated: 2021/02/04 15:03:08 by grivalan         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,6 +35,7 @@ SRCS		=	ft_calloc.c\
 				ft_itoa_base.c\
 				ft_lstdelone.c\
 				ft_lstclearone.c\
+				ft_lst_swap.c\
 				ft_lstnew.c\
 				ft_memcmp.c\
 				ft_putchar_fd.c\
@@ -82,10 +83,11 @@ SRCS		=	ft_calloc.c\
 				ft_nsplit.c\
 				ft_intersect_plane_dot.c\
 				ft_size_vec_plane.c\
-				ft_vector_calculator.c\
+				ft_create_vector.c\
 				ft_deg_to_rad.c\
 				ft_rotate_vector.c\
-				ft_norm_vector_calculate.c
+				ft_norm_vector_calculate.c\
+				ft_scalar_product.c
 
 INCLUDES	=	libft.h
 

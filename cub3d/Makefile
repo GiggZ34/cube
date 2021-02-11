@@ -6,7 +6,7 @@
 #    By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/24 18:59:35 by grivalan          #+#    #+#              #
-#    Updated: 2021/02/02 15:55:10 by grivalan         ###   ########lyon.fr    #
+#    Updated: 2021/02/09 10:46:58 by grivalan         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,25 +26,29 @@ SRCS =		main.c\
 			srcs/load/map/ft_map_cpy.c\
 			srcs/load/map/ft_scan_map.c\
 			srcs/load/map/ft_create_plane.c\
-			srcs/load/walls/create_walls.c\
-			srcs/load/walls/ft_search_walls.c\
+			srcs/load/planes/ft_search_plane.c\
+			srcs/load/planes/ft_sort_planes.c\
+			srcs/load/planes/ft_lst_planes_to_tab.c\
 			srcs/load/file/ft_image_generate.c\
 			srcs/load/screen/ft_screen.c\
 			srcs/load/file/ft_check_struct.c\
-			srcs/view/ft_scan_view.c\
-			srcs/view/ft_wall_to_view.c\
 			srcs/view/ft_init_tab_vector.c\
+			srcs/view/ft_rotate_vectors_view.c\
+			srcs/view/ft_translation_vector.c\
 			srcs/sprite/init_player.c\
 			srcs/sprite/init_ennemy.c\
 			srcs/sprite/ft_ennemy_to_list.c\
+			srcs/sprite/ft_edit_sprite_plan.c\
 			srcs/mini_map/mini_map.c\
 			srcs/clear/clear_file.c\
 			srcs/tools/ft_color_generate.c\
-			srcs/draw/ft_draw.c
+			srcs/update/ft_update.c\
+			srcs/draw/ft_draw.c\
+			srcs/draw/ft_pixel_color.c
 
 CC = gcc
 
-CFLAGS =		-Wall -Wextra -Werror
+CFLAGS =	-Wall -Wextra -Werror
 
 INCLUDES =	includes
 

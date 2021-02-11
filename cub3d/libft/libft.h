@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/23 11:24:29 by grivalan          #+#    #+#             */
-/*   Updated: 2021/01/28 15:10:18 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/02/04 15:02:48 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ typedef struct	s_list
 {
 	void			*content;
 	struct s_list	*next;
+	struct s_list	*previous;
 }				t_list;
 
 typedef struct	s_fd
@@ -65,12 +66,13 @@ typedef struct	s_plane
 ** Function Math
 */
 
-long long		ft_abs(long long n);
-long long		ft_min(long long a, long long b);
-long long		ft_max(long long a, long long b);
+double			ft_abs(double n);
+double			ft_min(double a, double b);
+double			ft_max(double a, double b);
 void			ft_sort_numbers(int *tab, int n);
-t_vector		ft_normal_vector_calculator(t_dot dot1, t_dot dot2);
+t_vector		ft_create_vector(t_dot dot1, t_dot dot2);
 t_vector		ft_rotate_vector(t_vector vec, double angle, char axis);
+t_vector		ft_scalar_product(t_vector *vec1, t_vector *vec2);
 double			ft_size_vec_plane(t_plane *plane, t_vector vec, t_dot orign);
 t_dot			ft_intersect_plane_dot(t_dot origin, t_vector vec, double t);
 double			ft_norm_vector_calculate(t_vector v);
@@ -99,6 +101,7 @@ void			ft_lstclearone(t_list **lst, t_list *element, void (*del)(void*));
 void			ft_lstclear(t_list **lst, void (*del)(void*));
 void			ft_lstiter(t_list *lst, void (*f)(void *));
 t_list			*ft_lstmap(t_list *lst, void *(*f)(void *), void (*d)(void *));
+void			ft_lst_swap(t_list *a, t_list *b);
 
 /*
 ** Function memory

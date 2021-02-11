@@ -1,34 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_translation_vector.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/28 11:41:36 by grivalan          #+#    #+#             */
-/*   Updated: 2021/02/10 14:07:12 by grivalan         ###   ########lyon.fr   */
+/*   Created: 2021/02/06 17:54:10 by grivalan          #+#    #+#             */
+/*   Updated: 2021/02/09 10:07:33 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int				main(int ac, char **av)
+int		ft_translation_vector(t_game *game, double velocity, double angle)
 {
-	t_game	game;
-
-	if (ac == 2)
-	{
-		if (ft_load(av[1], &game) != 0)
-			return (FAIL_EXIT);
-		dprintf(1, "%d\n", game.file->error_code);
-		if (!game.file->error_code)
-			ft_update(&game);
-		ft_clear_file(game.file, -1, 0);
-		free(game.window);
-		free(game.mlx);
-	}
-	else
-		ft_error_file(game.file, 8, "");
-
+	game->player->walk_volocity = velocity;
+	if (game->player->walk_volocity > game->player->walk_speed_max)
+		game->player->walk_volocity = game->player->walk_speed_max;
+	double y = sin(game->player->angle + angle) * velocity;
+	double x = cos(game->player->angle + angle) * velocity;
+	game->player->position.y += y;
+	game->player->position.x += x;
 	return (0);
 }

@@ -6,15 +6,18 @@
 /*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 15:21:03 by grivalan          #+#    #+#             */
-/*   Updated: 2021/02/03 09:39:03 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/02/06 17:44:20 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void				ft_screen(t_game *game)
+int				ft_screen(t_game *game)
 {
-	game->screen.height_fov = FOV * game->screen.height / game->screen.width;
-	if (game->screen.height_fov > FOV)
-		game->screen.height_fov = FOV;
+	game->screen.w_vec = (1 / FOV) / game->screen.width;
+	if (!(game->screen.ptr = mlx_new_image(game->mlx, game->screen.width, game->screen.height)))
+		return (game->file->error_code = 3);
+	if (!(game->screen.color = (int*)mlx_get_data_addr(game->screen.ptr, &game->screen.bit, &game->screen.size, &game->screen.endian)))
+		return (game->file->error_code = 3);
+	return (0);
 }

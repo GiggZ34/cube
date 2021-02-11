@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 17:57:26 by grivalan          #+#    #+#             */
-/*   Updated: 2021/02/01 12:26:39 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/02/04 09:50:21 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ static int	ft_change_resolution(t_game *game)
 {
 	double ratio_x;
 	double ratio_y;
+	double ratio;
 
 	ratio_x = 0;
 	ratio_y = 0;
@@ -37,12 +38,9 @@ static int	ft_change_resolution(t_game *game)
 		ratio_y = MAX_SCREEN_HEIGHT / game->screen.height;
 	if (ratio_x == 0 && ratio_y == 0)
 		return (0);
-	if (ratio_x > ratio_y)
-		ratio_y = ratio_x;
-	else
-		ratio_x = ratio_y;
-	game->screen.width *= ratio_x;
-	game->screen.height *= ratio_y;
+	ratio = ft_max(ratio_x, ratio_y);
+	game->screen.width *= ratio;
+	game->screen.height *= ratio;
 	return (ft_check_resolution(game->screen.width, game->screen.height));
 }
 

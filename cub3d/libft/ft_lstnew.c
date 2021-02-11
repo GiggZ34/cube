@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 12:00:56 by grivalan          #+#    #+#             */
-/*   Updated: 2020/11/26 14:23:05 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/02/04 13:49:33 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ t_list	*ft_lstnew(void *content)
 	if ((lst = malloc(sizeof(t_list))) == NULL)
 		return (0);
 	lst->content = content;
-	lst->next = 0;
+	lst->next = NULL;
+	lst->previous = NULL;
 	return (lst);
 }

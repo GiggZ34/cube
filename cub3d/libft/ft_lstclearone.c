@@ -6,13 +6,25 @@
 /*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 10:10:42 by grivalan          #+#    #+#             */
-/*   Updated: 2021/01/25 12:54:58 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/02/04 14:45:07 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_lstclearone(t_list **lst, t_list *element, void (*del)(void*))
+static void	ft_search_lst(t_list **pre, t_list **now, t_list **next, t_list *el)
+{
+	*next = (*now)->next;
+	while (*now && *now != el)
+	{
+		*pre = *now;
+		*now = *next;
+		if (*next)
+			*next = (*now)->next;
+	}
+}
+
+void		ft_lstclearone(t_list **lst, t_list *element, void (*del)(void*))
 {
 	t_list	*current;
 	t_list	*previous;
@@ -22,20 +34,20 @@ void	ft_lstclearone(t_list **lst, t_list *element, void (*del)(void*))
 		return ;
 	previous = NULL;
 	current = *lst;
-	next = current->next;
-	while (current != element)
-	{
-		previous = current;
-		current = next;
-		if (next)
-			next = current->next;
-	}
-	if (current == element)
+	ft_search_lst(&previous, &current, &next, element);
+	if (current && current == element)
 	{
 		if (!previous)
+		{
 			*lst = next;
+			(*lst)->previous = NULL;
+		}
 		else
+		{
 			previous->next = next;
+			if (next)
+				next->previous = previous;
+		}
 		del(element->content);
 		free(element);
 	}

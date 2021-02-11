@@ -6,13 +6,13 @@
 /*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/28 14:01:24 by grivalan          #+#    #+#             */
-/*   Updated: 2021/01/28 14:02:37 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/02/04 09:50:49 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-long long	ft_min(long long a, long long b)
+double	ft_min(double a, double b)
 {
 	if (a <= b)
 		return (a);

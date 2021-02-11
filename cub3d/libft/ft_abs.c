@@ -6,13 +6,13 @@
 /*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 13:18:16 by grivalan          #+#    #+#             */
-/*   Updated: 2021/01/28 11:50:21 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/02/04 09:57:56 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-long long	ft_abs(long long n)
+double	ft_abs(double n)
 {
 	if (n < 0)
 		n *= -1;

@@ -14,8 +14,6 @@ NAME =		Cub3D
 
 LIB  =		./libft
 
-MLX  =		./mlx
-
 SRCS =		main.c\
 			srcs/load/ft_load.c\
 			srcs/load/file/ft_init_file.c\
@@ -55,24 +53,20 @@ INCLUDES =	includes
 OBJS =		$(SRCS:.c=.o)
 
 %.o: %.c includes/cub3d.h
-			$(CC) $(CFLAGS) -c $< -o $(<:.c=.o) -I $(INCLUDES)
+			$(CC) $(CFLAG) -c $< -o $(<:.c=.o) -I $(INCLUDES)
 
 $(NAME):	$(OBJS)
 			$(MAKE) -C $(LIB)
-			$(MAKE) -C $(MLX)
-			cp mlx/libmlx.dylib .
-			$(CC) -g3 -fsanitize=address -o $(NAME) $(OBJS) -I $(INCLUDES) libft/libft.a -Lmlx -lmlx -lm
+			$(CC) -o $(NAME) $(OBJS) -I $(INCLUDES) libft/libft.a -lmlx -lm -lbsd -lX11 -lXext
 
 all :		$(NAME)
 
 clean :
 		rm -rf $(OBJS)
 		$(MAKE) clean -C $(LIB)
-		$(MAKE) clean -C $(MLX)
 
 fclean :	clean
 			$(MAKE) fclean -C $(LIB)
-			rm -f libmlx.dylib
 			rm -f $(NAME)
 
 re : fclean all

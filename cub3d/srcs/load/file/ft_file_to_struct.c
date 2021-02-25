@@ -50,9 +50,7 @@ static int		ft_two_parameter(t_game *game, char **array)
 static int		ft_one_parameter(void *mlx, t_file *file, char **array)
 {
 	char	*link;
-	size_t	len;
 
-	len = ft_strlen(*array);
 	if (!(link = ft_strdup(array[1])))
 		return (-3);
 	if (!ft_strncmp(*array, "NO", 2))

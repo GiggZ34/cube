@@ -28,10 +28,12 @@ static size_t	ft_letter(char const *s, char *c)
 	int		i;
 
 	nb_letters = 0;
-	i = -1;
+	i = 0;
+	if (ft_is_charset(s[i], c))
+		nb_letters++;
 	while (s[i] && !ft_is_charset(s[++i], c))
 		nb_letters++;
-	return (nb_letters);
+	return (nb_letters + 1);
 }
 
 static	int		ft_free_split(char **str)
@@ -50,8 +52,8 @@ static int		ft_str_to_tab(char **new_s, char *str, char *c, size_t nb_words)
 	size_t i;
 	size_t j;
 
-	i = 0;
-	while (i < nb_words)
+	i = -1;
+	while (++i < nb_words)
 	{
 		while (*str && ft_is_charset(*str, c))
 			str++;
@@ -59,11 +61,8 @@ static int		ft_str_to_tab(char **new_s, char *str, char *c, size_t nb_words)
 			return (ft_free_split(new_s));
 		j = 0;
 		while (*str && !ft_is_charset(*str, c))
-		{
-			new_s[i][j++] = *str;
-			str++;
-		}
-		new_s[i++][j] = '\0';
+			new_s[i][j++] = *str++;
+		new_s[i][j] = '\0';
 	}
 	return (0);
 }

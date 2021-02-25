@@ -21,7 +21,7 @@ static t_list		**ft_planes_top_to_tab(t_game *game)
 	int		i;
 
 	size = game->file->height_map;
-	if (!(tab = ft_calloc(sizeof(t_plane*), size)))
+	if (!(tab = ft_calloc(sizeof(t_plane*), size + 1)))
 		return (NULL);
 	i = -1;
 	while (++i <= size)
@@ -45,7 +45,7 @@ static t_list		**ft_planes_bottom_to_tab(t_game *game)
 	int		i;
 
 	size = game->file->height_map;
-	if (!(tab = ft_calloc(sizeof(t_plane*), size)))
+	if (!(tab = ft_calloc(sizeof(t_plane*), size + 1)))
 		return (NULL);
 	i = -1;
 	while (++i <= size)
@@ -69,7 +69,7 @@ static t_list		**ft_planes_right_to_tab(t_game *game)
 	int		i;
 
 	size = game->file->width_map;
-	if (!(tab = ft_calloc(sizeof(t_plane*), size)))
+	if (!(tab = ft_calloc(sizeof(t_plane*), size + 1)))
 		return (NULL);
 	i = -1;
 	while (++i <= size)
@@ -93,7 +93,7 @@ static t_list		**ft_planes_left_to_tab(t_game *game)
 	int		i;
 
 	size = game->file->width_map;
-	if (!(tab = ft_calloc(sizeof(t_plane*), size)))
+	if (!(tab = ft_calloc(sizeof(t_plane*), size + 1)))
 		return (NULL);
 	i = -1;
 	while (++i <= size)

@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 11:56:01 by grivalan          #+#    #+#             */
-/*   Updated: 2021/02/11 14:46:44 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/02/16 13:30:42 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 
 # define CUB3D_H
-# include "../mlx/mlx.h"
+# include <mlx.h>
 # include "../libft/libft.h"
 # include <stdio.h>
 # include <math.h>
@@ -101,6 +101,9 @@ typedef struct		s_sprite
 	t_plane			plane;
 	double			vx;
 	double			vy;
+	double			width;
+	double			height;
+	double			ratio;
 	double			angle;
 	int				live;
 	int				state;
@@ -115,7 +118,6 @@ typedef struct		s_game
 	t_screen		screen;
 	t_player		*player;
 	t_list			*lst_sprites;
-	t_list			*lst_planes_sprites;
 	t_tab_plane		tab_planes;
 	t_list			*lst_planes_top;
 	t_list			*lst_planes_bottom;

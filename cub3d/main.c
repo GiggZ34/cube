@@ -26,8 +26,8 @@ int				main(int ac, char **av)
 		free(game.window);
 		free(game.mlx);
 	}
-	else
-		ft_error_file(game.file, 8, "");
+//	else
+//		ft_error_file(game.file, 8, "");
 
 	return (0);
 }

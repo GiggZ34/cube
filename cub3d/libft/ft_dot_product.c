@@ -1,30 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstclear.c                                      :+:      :+:    :+:   */
+/*   ft_dot_product.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/26 15:59:11 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/04 09:26:27 by grivalan         ###   ########lyon.fr   */
+/*   Created: 2021/02/03 13:15:01 by grivalan          #+#    #+#             */
+/*   Updated: 2021/02/28 11:15:18 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_lstclear(t_list **lst, void (*del)(void*), int del_content)
+double	ft_dot_product(t_vector vec1, t_vector vec2)
 {
-	t_list *tmp;
+	double	result;
 
-	if (lst)
-	{
-		while (*lst)
-		{
-			tmp = (*lst)->next;
-			if (del_content == 1)
-				ft_lstdelone((*lst), (*del));
-			(*lst) = tmp;
-			tmp = 0;
-		}
-	}
+	result = vec1.x * vec2.x;
+	result += vec1.y * vec2.y;
+	result += vec1.z * vec2.z;
+	return (result);
 }

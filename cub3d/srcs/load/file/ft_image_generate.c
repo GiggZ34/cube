@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_image_generate.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 15:08:29 by grivalan          #+#    #+#             */
-/*   Updated: 2021/02/16 12:19:33 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/03 15:09:29 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ static int	ft_image_to_struct(t_file *file, void *img, int *dim, char *type)
 	if (!(texture_bits = (int*)mlx_get_data_addr(img,
 	&(texture->bits_per_pixel), &(texture->size_line), &(texture->endian))))
 		return (3);
-	texture->size_line /= 4;
-	if (!(texture->color = ft_nsplit(texture_bits, dim[0] * dim[1], dim[0])))
+	texture->size_line /= sizeof(*texture_bits);
+	if (!(texture->color = ft_nsplit(texture_bits, texture->size_line * dim[1], texture->size_line)))
 		return (3);
 	if (!ft_strncmp(type, "NO", 2))
 		file->texture_no = texture;
@@ -61,13 +61,14 @@ int			ft_img_generate(void *mlx, t_file *file, char *dir, char *type)
 {
 	void	*img;
 	int		dim[2];
+	int		ext;
 
-//	if ((ext = ft_search_extension(dir)) == 0)
-//	{
-//		if (!(img = mlx_png_file_to_image(mlx, dir, &dim[0], &dim[1])))
-//			return (10);
-//	}
-	if (ft_search_extension(dir) == 1)
+	if ((ext = ft_search_extension(dir)) == 0)
+	{
+		if (!(img = mlx_png_file_to_image(mlx, dir, &dim[0], &dim[1])))
+			return (10);
+	}
+	else if (ext == 1)
 	{
 		if (!(img = mlx_xpm_file_to_image(mlx, dir, &dim[0], &dim[1])))
 			return (10);

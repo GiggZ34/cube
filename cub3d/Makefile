@@ -6,13 +6,15 @@
 #    By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/24 18:59:35 by grivalan          #+#    #+#              #
-#    Updated: 2021/02/09 10:46:58 by grivalan         ###   ########lyon.fr    #
+#    Updated: 2021/03/04 09:35:10 by grivalan         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
 NAME =		Cub3D
 
 LIB  =		./libft
+
+MLX  =		./mlx
 
 SRCS =		main.c\
 			srcs/load/ft_load.c\
@@ -46,27 +48,31 @@ SRCS =		main.c\
 
 CC = gcc
 
-CFLAGS =	-Wall -Wextra -Werror
+CFLAGS =	-Wall -Wextra -Werror -Ofast
 
 INCLUDES =	includes
 
 OBJS =		$(SRCS:.c=.o)
 
-%.o: %.c includes/cub3d.h
-			$(CC) $(CFLAG) -c $< -o $(<:.c=.o) -I $(INCLUDES)
+%.o: %.c includes/cub3d.h libft/libft.h mlx/mlx.h
+			$(CC) $(CFLAGS) -c $< -o $(<:.c=.o) -I $(INCLUDES)
 
 $(NAME):	$(OBJS)
 			$(MAKE) -C $(LIB)
-			$(CC) -o $(NAME) $(OBJS) -I $(INCLUDES) libft/libft.a -lmlx -lm -lbsd -lX11 -lXext
+			$(MAKE) -C $(MLX)
+			cp mlx/libmlx.dylib .
+			$(CC) -o $(NAME) $(OBJS) -I $(INCLUDES) libft/libft.a -Lmlx -lmlx -lm
 
 all :		$(NAME)
 
 clean :
 		rm -rf $(OBJS)
 		$(MAKE) clean -C $(LIB)
+		$(MAKE) clean -C $(MLX)
 
 fclean :	clean
 			$(MAKE) fclean -C $(LIB)
+			rm -f libmlx.dylib
 			rm -f $(NAME)
 
 re : fclean all

@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 18:32:12 by grivalan          #+#    #+#             */
-/*   Updated: 2020/12/09 10:42:57 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/04 09:28:29 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 	{
 		if (!(new_lst = ft_lstnew((*f)(lst->content))))
 		{
-			ft_lstclear(&begin, (*del));
+			ft_lstclear(&begin, (*del), 1);
 			return (0);
 		}
 		ft_lstadd_back(&begin, new_lst);

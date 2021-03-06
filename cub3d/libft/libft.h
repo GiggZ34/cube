@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/23 11:24:29 by grivalan          #+#    #+#             */
-/*   Updated: 2021/02/04 15:02:48 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/04 09:25:14 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,9 @@ double			ft_min(double a, double b);
 double			ft_max(double a, double b);
 void			ft_sort_numbers(int *tab, int n);
 t_vector		ft_create_vector(t_dot dot1, t_dot dot2);
+t_vector		ft_normalize_vector(t_vector vec);
 t_vector		ft_rotate_vector(t_vector vec, double angle, char axis);
-t_vector		ft_scalar_product(t_vector *vec1, t_vector *vec2);
+double			ft_dot_product(t_vector vec1, t_vector vec2);
 double			ft_size_vec_plane(t_plane *plane, t_vector vec, t_dot orign);
 t_dot			ft_intersect_plane_dot(t_dot origin, t_vector vec, double t);
 double			ft_norm_vector_calculate(t_vector v);
@@ -98,7 +99,7 @@ t_list			*ft_lstlast(t_list *lst);
 void			ft_lstadd_back(t_list **alst, t_list *new);
 void			ft_lstdelone(t_list *lst, void (*del)(void*));
 void			ft_lstclearone(t_list **lst, t_list *element, void (*del)(void*));
-void			ft_lstclear(t_list **lst, void (*del)(void*));
+void			ft_lstclear(t_list **lst, void (*del)(void*), int del_content);
 void			ft_lstiter(t_list *lst, void (*f)(void *));
 t_list			*ft_lstmap(t_list *lst, void *(*f)(void *), void (*d)(void *));
 void			ft_lst_swap(t_list *a, t_list *b);

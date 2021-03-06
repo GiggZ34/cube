@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 10:19:27 by grivalan          #+#    #+#             */
-/*   Updated: 2021/02/11 14:11:56 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/02 14:45:56 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,5 @@ int		ft_rotate_vectors_view(t_game *game, t_vector *tab, double angle, char dir)
 	while (++i < end)
 		tab[i] = ft_rotate_vector(tab[i], angle, dir);
 	game->player->view.view = ft_rotate_vector(game->player->view.view, angle, dir);
-	ft_edit_sprite_plane(game->lst_sprites, game->player->view.view);
 	return (0);
 }

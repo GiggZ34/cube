@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 10:43:23 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/04 15:30:05 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/07 00:26:51 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,23 +53,23 @@ int		ft_update_sprites(t_list *lst_sprites, t_player *player)
 
 int		ft_keypress(int keycode, t_game *game)
 {
-	if (keycode == 53)
+	if (keycode == DESTROY)
 		return (mlx_destroy_window(game->mlx, game->window));
-	if (keycode == 123)
+	if (keycode == RIGHT)
 		ft_rotate_vectors_view(game, game->player->view.tab_vectors, -M_PI / 10, 'z');
-	else if (keycode == 124)
+	else if (keycode == LEFT)
 		ft_rotate_vectors_view(game, game->player->view.tab_vectors, M_PI / 10, 'z');
-	if (keycode == 125)
+	if (keycode == UP)
 		ft_rotate_vectors_view(game, game->player->view.tab_vectors, -M_PI / 10, 'x');
-	else if (keycode == 126)
+	else if (keycode == DOWN)
 		ft_rotate_vectors_view(game, game->player->view.tab_vectors, M_PI / 10, 'x');
-	if (keycode == 0)
+	if (keycode == A)
 		ft_translation_vector(game, -0.5, 0);
-	else if (keycode == 2)
+	else if (keycode == D)
 		ft_translation_vector(game, 0.5, 0);
-	if (keycode == 13)
+	if (keycode == W)
 		ft_translation_vector(game, -0.5, M_PI / 2);
-	else if (keycode == 1)
+	else if (keycode == S)
 		ft_translation_vector(game, -0.5, -M_PI / 2);
 	return (0);
 }

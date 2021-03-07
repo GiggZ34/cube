@@ -49,6 +49,8 @@ int				ft_check_map(t_game *game, t_file *file)
 	int			pos[2];
 
 	file->height_map = ft_count_array(file->map);
+	pos[0] = 0;
+	pos[1] = 0;
 	if (!(map_check = ft_map_cpy(file->map, file->height_map)))
 		return (-3);
 	if (ft_start_pos(file, &pos[0], &pos[1]) == 0)

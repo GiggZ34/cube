@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 11:10:27 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/06 16:01:36 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/07 12:00:55 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ static int	ft_search_sprite_color(t_sprite *sprite, t_texture *texture, double x
 
 static double	ft_diff_vector(t_vector v1, t_vector v2)
 {
-	return (ft_dot_product(v1, v2) / (ft_norm_vector_calculate(v1) * ft_norm_vector_calculate(v2)));
+	return ((v1.x * v2.x + v1.y * v2.y) / (sqrt(pow(v1.x, 2) + pow(v1.y, 2)) * sqrt(pow(v2.x, 2) + pow(v2.y, 2))));
 }
 
 static int	ft_search_sprites(t_game *game, t_vector vec, double *size, t_list *lst)
@@ -155,6 +155,7 @@ static int	ft_search_sprites(t_game *game, t_vector vec, double *size, t_list *l
 			dir.x = -sprite->normal.x;
 			dir.y = -sprite->normal.y;
 			dir.z = 0;
+			printf("%f\n", ft_diff_vector(dir, vec));
 			if (ft_diff_vector(dir, vec) > 0)
 				dist = -sqrt(dist);
 			else
@@ -179,6 +180,7 @@ int			ft_pixel_color(t_game *game, t_vector vec)
 	int		color_y;
 	int		color_sprite;
 
+	size_x = 0;
 	color_sprite = ft_search_sprites(game, vec, &size_s, game->player->view.sprites_in_fov);
 	color_x = ft_search_color_x(game, vec, &size_x);
 	color_y = ft_search_color_y(game, vec, &size_y);

@@ -63,16 +63,16 @@ int			ft_img_generate(void *mlx, t_file *file, char *dir, char *type)
 	int		dim[2];
 	int		ext;
 
-	if ((ext = ft_search_extension(dir)) == 0)
-	{
-		if (!(img = mlx_png_file_to_image(mlx, dir, &dim[0], &dim[1])))
-			return (10);
-	}
-	else if (ext == 1)
+	if ((ext = ft_search_extension(dir)) == 1)
 	{
 		if (!(img = mlx_xpm_file_to_image(mlx, dir, &dim[0], &dim[1])))
 			return (10);
 	}
+//	else if (ext == 0 && LINUX == 0)
+//	{
+//		if (!(img = mlx_png_file_to_image(mlx, dir, &dim[0], &dim[1])))
+//			return (10);
+//	}
 	else
 		return (9);
 	if (ft_image_to_struct(file, img, dim, type) == -1)

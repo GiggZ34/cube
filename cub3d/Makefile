@@ -6,11 +6,13 @@
 #    By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/24 18:59:35 by grivalan          #+#    #+#              #
-#    Updated: 2021/03/04 09:35:10 by grivalan         ###   ########lyon.fr    #
+#    Updated: 2021/03/07 02:15:51 by grivalan         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
 NAME =		Cub3D
+
+NAME2	=	Cub3Dlinux
 
 LIB  =		./libft
 
@@ -39,7 +41,6 @@ SRCS =		main.c\
 			srcs/sprite/init_ennemy.c\
 			srcs/sprite/ft_ennemy_to_list.c\
 			srcs/sprite/ft_edit_sprite_plan.c\
-			srcs/mini_map/mini_map.c\
 			srcs/clear/clear_file.c\
 			srcs/tools/ft_color_generate.c\
 			srcs/update/ft_update.c\
@@ -54,16 +55,27 @@ INCLUDES =	includes
 
 OBJS =		$(SRCS:.c=.o)
 
-%.o: %.c includes/cub3d.h libft/libft.h mlx/mlx.h
+%.o: %.c includes/cub3d.h libft/libft.h
 			$(CC) $(CFLAGS) -c $< -o $(<:.c=.o) -I $(INCLUDES)
 
+OBJS_LINUX = $(SRCS:.c=.o)
+
+%.o: %.c includes/cub3d.h libft/libft.h
+			$(CC) $(CFLAGS) -D LINUX -c $< -o $(<:.c=.o) -I $(INCLUDES)
+
 $(NAME):	$(OBJS)
-			$(MAKE) -C $(LIB)
-			$(MAKE) -C $(MLX)
-			cp mlx/libmlx.dylib .
-			$(CC) -o $(NAME) $(OBJS) -I $(INCLUDES) libft/libft.a -Lmlx -lmlx -lm
+		$(MAKE) -C $(LIB)
+		$(MAKE) -C $(MLX)
+		cp mlx/libmlx.dylib .
+		$(CC) -o $(NAME) $(OBJS) -I $(INCLUDES) libft/libft.a -Lmlx -lmlx -lm
+
+$(NAME2) :	$(OBJS_LINUX)
+		$(MAKE) -C $(LIB)
+		$(CC) -o $(NAME) $(OBJS) -I $(INCLUDES) libft/libft.a -lmlx -lm -lbsd -lX11 -lXext
 
 all :		$(NAME)
+
+linux :		$(NAME2)
 
 clean :
 		rm -rf $(OBJS)

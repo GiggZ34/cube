@@ -3,7 +3,7 @@ C 116,193,232
 
 
 
-SO ./textures/R1.png
+SO ./textures/R1.xpm
 
 
 		R 		400 400
@@ -14,7 +14,7 @@ NO ./textures/R1.xpm
 
 
 
-WE ./textures/1.png
+WE ./textures/1.xpm
 
 
 EA ./textures/1.xpm

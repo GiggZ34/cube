@@ -1,26 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
+/*   control_linux.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/25 18:55:45 by grivalan          #+#    #+#             */
-/*   Updated: 2020/12/15 19:16:33 by grivalan         ###   ########lyon.fr   */
+/*   Created: 2021/03/06 23:29:01 by grivalan          #+#    #+#             */
+/*   Updated: 2021/03/07 00:15:07 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-size_t	ft_putstr_fd(char *s, int fd)
-{
-	size_t len;
-
-	len = 0;
-	if (s)
-	{
-		len = ft_strlen(s);
-		return (write(fd, s, len));
-	}
-	return (len);
-}
+#define DESTROY 65307
+#define DOWN 65362
+#define UP 65364
+#define RIGHT 65361
+#define LEFT 65363
+#define W 'w'
+#define S 's'
+#define A 'a'
+#define D 'd'

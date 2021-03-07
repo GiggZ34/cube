@@ -19,8 +19,8 @@ size_t	ft_putendl_fd(char *s, int fd)
 	len = ft_strlen(s);
 	if (s)
 	{
-		write(fd, s++, len);
-		len += write(fd, "\n", 1);
+		len = write(fd, s++, len);
+		return (len + write(fd, "\n", 1));
 	}
 	return (len);
 }

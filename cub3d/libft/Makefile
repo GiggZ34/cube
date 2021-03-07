@@ -6,7 +6,7 @@
 #    By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/24 18:59:35 by grivalan          #+#    #+#              #
-#    Updated: 2021/03/02 14:30:05 by grivalan         ###   ########lyon.fr    #
+#    Updated: 2021/03/07 14:20:04 by grivalan         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -88,7 +88,8 @@ SRCS		=	ft_calloc.c\
 				ft_rotate_vector.c\
 				ft_norm_vector_calculate.c\
 				ft_dot_product.c\
-				ft_normalize_vector.c
+				ft_normalize_vector.c\
+				ft_vec_norm_define.c
 
 INCLUDES	=	libft.h
 

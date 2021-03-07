@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/23 11:24:29 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/04 09:25:14 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/07 14:21:23 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ double			ft_max(double a, double b);
 void			ft_sort_numbers(int *tab, int n);
 t_vector		ft_create_vector(t_dot dot1, t_dot dot2);
 t_vector		ft_normalize_vector(t_vector vec);
+t_vector		ft_vec_norm_define(t_vector vec, double size);
 t_vector		ft_rotate_vector(t_vector vec, double angle, char axis);
 double			ft_dot_product(t_vector vec1, t_vector vec2);
 double			ft_size_vec_plane(t_plane *plane, t_vector vec, t_dot orign);

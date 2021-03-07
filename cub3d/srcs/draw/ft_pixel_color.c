@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pixel_color.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 11:10:27 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/07 13:13:21 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/07 17:31:26 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,14 +120,11 @@ static int	ft_search_sprite_color(t_sprite *sprite, t_texture *texture, double x
 	int	w;
 	int	h;
 
-	w = texture->width / 2 + (x / sprite->width * texture->width);
+	x /= sprite->width;
+	y = 1 - y / sprite->height;
+	w = x * texture->width;
 	h = y * texture->height;
 	return (texture->color[h][w]);
-}
-
-static double	ft_diff_vector(t_vector v1, t_vector v2)
-{
-	return ((v1.x * v2.x + v1.y * v2.y) / (sqrt(pow(v1.x, 2) + pow(v1.y, 2)) * sqrt(pow(v2.x, 2) + pow(v2.y, 2))));
 }
 
 static int	ft_search_sprites(t_game *game, t_vector vec, double *size, t_list *lst)
@@ -147,20 +144,14 @@ static int	ft_search_sprites(t_game *game, t_vector vec, double *size, t_list *l
 		sprite = lst->content;
 		tmp_size = ft_size_vec_plane(&sprite->plane, vec, game->player->position);
 		inter = ft_intersect_plane_dot(game->player->position, vec, tmp_size);
-		dist = pow(sprite->position.x - inter.x, 2) + pow(sprite->position.y - inter.y, 2);
+		dist = pow(sprite->frist_px.x - inter.x, 2) + pow(sprite->frist_px.y - inter.y, 2);
 		if (((*size < 0 && tmp_size > 0) || (*size > tmp_size && tmp_size > 0))
-			&& dist <= pow(sprite->width / 2, 2)
-			&& inter.z >= 0 && inter.z <= 1)
+			&& dist < pow(sprite->width, 2)
+			&& inter.z > 1 - sprite->ratio && inter.z < 1)
 		{
-			dir.x = -sprite->normal.x;
-			dir.y = -sprite->normal.y;
-			dir.z = 0;
-//			printf("%f\n", ft_diff_vector(dir, vec));
-			if (ft_diff_vector(dir, vec) > 0)
-				dist = -sqrt(dist);
-			else
-				dist = sqrt(dist);
-			if ((tmp_color = ft_search_sprite_color(sprite, sprite->tile_sheet, dist, inter.z)) >= 0)
+			dir.x = sprite->frist_px.x - inter.x;
+			dir.y = sprite->frist_px.y - inter.y;
+			if (dir.x / sprite->vec_write.x >= 0 && (tmp_color = ft_search_sprite_color(sprite, sprite->tile_sheet, sqrt(dist), 1 - inter.z)) >= 0)
 			{
 				*size = tmp_size;
 				color = tmp_color;

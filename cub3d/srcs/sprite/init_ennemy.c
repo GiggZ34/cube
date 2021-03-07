@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/17 13:26:07 by grivalan          #+#    #+#             */
-/*   Updated: 2021/02/16 15:07:06 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/07 17:34:12 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ int					ft_init_ennemy(t_game *game, int x, int y)
 	ennemy->position.y = y + 0.5;
 	ennemy->position.z = 0;
 	ennemy->ratio = 0.7;
-	ennemy->height = ennemy->tile_sheet->height * ennemy->ratio;
-	ennemy->width = ennemy->tile_sheet->size_line * ennemy->ratio / ennemy->height;
-	ennemy->height = 1;
+	ennemy->height = ennemy->tile_sheet->height;
+	ennemy->width = ennemy->tile_sheet->size_line / ennemy->height * ennemy->ratio;
+	ennemy->height = ennemy->ratio;
 	if (!(new_lst = ft_lstnew(ennemy)))
 	{
 		free(ennemy);

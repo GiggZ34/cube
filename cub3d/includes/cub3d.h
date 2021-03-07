@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 11:56:01 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/07 13:15:03 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/07 15:49:17 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 # ifndef LINUX
-#  define LINUX 0
 #  include "../mlx/mlx.h"
 #  include "control_mac.h"
 # else
@@ -119,6 +118,8 @@ typedef struct		s_sprite
 	t_dot			position;
 	t_plane			plane;
 	t_vector		normal;
+	t_dot			frist_px;
+	t_vector		vec_write;
 	t_vector		first_col;
 	t_collide		collide;
 	double			vx;

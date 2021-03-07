@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 11:10:27 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/07 12:00:55 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/07 13:13:21 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,7 +155,7 @@ static int	ft_search_sprites(t_game *game, t_vector vec, double *size, t_list *l
 			dir.x = -sprite->normal.x;
 			dir.y = -sprite->normal.y;
 			dir.z = 0;
-			printf("%f\n", ft_diff_vector(dir, vec));
+//			printf("%f\n", ft_diff_vector(dir, vec));
 			if (ft_diff_vector(dir, vec) > 0)
 				dist = -sqrt(dist);
 			else

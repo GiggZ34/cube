@@ -6,13 +6,14 @@
 /*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 11:56:01 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/07 02:17:53 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/07 13:15:03 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 # ifndef LINUX
+#  define LINUX 0
 #  include "../mlx/mlx.h"
 #  include "control_mac.h"
 # else

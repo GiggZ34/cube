@@ -6,7 +6,7 @@
 #    By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/24 18:59:35 by grivalan          #+#    #+#              #
-#    Updated: 2021/03/07 02:15:51 by grivalan         ###   ########lyon.fr    #
+#    Updated: 2021/03/07 13:08:23 by grivalan         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,13 +55,13 @@ INCLUDES =	includes
 
 OBJS =		$(SRCS:.c=.o)
 
-%.o: %.c includes/cub3d.h libft/libft.h
+%.o: %.c includes/cub3d.h libft/libft.h includes/control_mac.h
 			$(CC) $(CFLAGS) -c $< -o $(<:.c=.o) -I $(INCLUDES)
 
 OBJS_LINUX = $(SRCS:.c=.o)
 
-%.o: %.c includes/cub3d.h libft/libft.h
-			$(CC) $(CFLAGS) -D LINUX -c $< -o $(<:.c=.o) -I $(INCLUDES)
+%.o: %.c includes/cub3d.h libft/libft.h includes/control_linux.h
+			$(CC) $(CFLAGS) -c $< -o $(<:.c=.o) -I $(INCLUDES)
 
 $(NAME):	$(OBJS)
 		$(MAKE) -C $(LIB)
@@ -71,7 +71,7 @@ $(NAME):	$(OBJS)
 
 $(NAME2) :	$(OBJS_LINUX)
 		$(MAKE) -C $(LIB)
-		$(CC) -o $(NAME) $(OBJS) -I $(INCLUDES) libft/libft.a -lmlx -lm -lbsd -lX11 -lXext
+		$(CC) -D LINUX -o $(NAME) $(OBJS_LINUX) -I $(INCLUDES) libft/libft.a -lmlx -lm -lbsd -lX11 -lXext
 
 all :		$(NAME)
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pixel_color.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 11:10:27 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/08 01:48:55 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/08 13:20:16 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,7 +146,7 @@ static int	ft_search_sprites(t_game *game, t_vector vec, double *size, t_list *l
 		inter = ft_intersect_plane_dot(game->player->position, vec, tmp_size);
 		dist = pow(sprite->frist_px.x - inter.x, 2) + pow(sprite->frist_px.y - inter.y, 2);
 		if (((*size < 0 && tmp_size > 0) || (*size > tmp_size && tmp_size > 0))
-			&& dist <= pow(sprite->width, 2)
+			&& (dist <= pow(sprite->width, 2))
 			&& inter.z >= 1 - sprite->height && inter.z <= 1)
 		{
 			dir.x = sprite->frist_px.x - inter.x;

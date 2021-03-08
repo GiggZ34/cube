@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 11:56:01 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/07 22:52:18 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/08 19:05:45 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 #  include "control_linux.h"
 # endif
 # include "../libft/libft.h"
+# include <sys/time.h>
+# include <pthread.h>
 # include <stdio.h>
 # include <math.h>
 # define FAIL_EXIT -1
@@ -27,6 +29,9 @@
 # define MIN_SCREEN_HEIGHT 100
 # define MAX_SCREEN_WIDTH 2560
 # define MAX_SCREEN_HEIGHT 1400
+# define FRAME_RATE 50000
+# define ROTATE_SPEED M_PI
+# define SPEED_MAX 5
 # define FOV 60.0
 # define FOV_COS -0.30
 # define FOV_DIST 50
@@ -59,6 +64,10 @@ typedef struct		s_collide
 	t_vector		bottom;
 	t_vector		left;
 	t_vector		right;
+	int				top_bool;
+	int				bottom_bool;
+	int				left_bool;
+	int				right_bool;
 }					t_collide;
 
 typedef struct		s_tab_plane
@@ -97,11 +106,24 @@ typedef struct		s_screen
 	int				bit;
 }					t_screen;
 
+typedef struct		s_control
+{
+	int				w;
+	int				s;
+	int				a;
+	int				d;
+	int				up;
+	int				down;
+	int				right;
+	int				left;
+}					t_control;
+
 typedef struct		s_player
 {
 	t_dot			position;
 	t_view			view;
 	t_collide		collide;
+	t_control		control;
 	double			walk_volocity;
 	int				walk_speed_max;
 	double			run_volocity;
@@ -138,6 +160,10 @@ typedef struct		s_game
 {
 	void			*mlx;
 	void			*window;
+	struct timeval	time;
+	unsigned long	time_start;
+	unsigned long	time_end;
+	double			delta_time;
 	t_file			*file;
 	t_screen		screen;
 	t_player		*player;
@@ -154,6 +180,7 @@ typedef struct		s_game
 */
 
 int					ft_color_generate(int red, int green, int blue, int alpha);
+void				ft_delta_time_generate(t_game *game);
 
 /*
 **	Functions free
@@ -189,7 +216,7 @@ int					ft_check_struct(t_game *game);
 **	Function update
 */
 
-int					ft_update_loop(t_game *game);
+int					ft_game_loop(t_game *game);
 int					ft_rotate_vectors_collides(t_player *player, double angle);
 int					ft_translation_vector(t_game *game, double velocity, double angle);
 int					ft_edit_sprite_plane(t_sprite *sprite, t_vector player_normal);

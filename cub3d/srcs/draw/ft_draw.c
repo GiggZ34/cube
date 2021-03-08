@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_draw.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 08:26:00 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/07 22:29:56 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/08 17:07:24 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 

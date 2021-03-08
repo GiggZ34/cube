@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_edit_sprite_plan.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 10:16:53 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/07 22:51:49 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/08 18:06:09 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 

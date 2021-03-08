@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+         #
+#    By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/24 18:59:35 by grivalan          #+#    #+#              #
-#    Updated: 2021/03/07 22:24:54 by grivalan         ###   ########lyon.fr    #
+#    Updated: 2021/03/08 17:43:51 by grivalan         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,16 +45,17 @@ SRCS =		main.c\
 			srcs/sprite/ft_edit_sprite_plan.c\
 			srcs/clear/clear_file.c\
 			srcs/tools/ft_color_generate.c\
+			srcs/tools/ft_delta_time_generator.c\
 			srcs/update/ft_update.c\
 			srcs/draw/ft_draw.c\
-			srcs/draw/ft_pixel_color.c
+			srcs/draw/ft_pixel_color.c\
 
 CC = gcc
 
 ifeq ($(UNAME), Linux)
 CFLAGS =	-Wall -Wextra -Werror -Ofast -D LINUX
 else
-CFLAGS =	-Wall -Wextra -Werror -Ofast
+CFLAGS =	-Wall -Wextra -Werror -Ofast -g
 endif
 
 INCLUDES =	includes
@@ -68,7 +69,7 @@ $(NAME):	$(OBJS)
 		$(MAKE) -C $(LIB)
 		$(MAKE) -C $(MLX)
 		cp mlx/libmlx.dylib .
-		$(CC) -o $(NAME) $(OBJS) -I $(INCLUDES) libft/libft.a -Lmlx -lmlx -lm
+		$(CC) -g3 -fsanitize=address -o $(NAME) $(OBJS) -I $(INCLUDES) libft/libft.a -Lmlx -lmlx -lm
 
 $(NAME2) :	$(OBJS)
 		$(MAKE) -C $(LIB)

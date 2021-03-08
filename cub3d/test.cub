@@ -3,24 +3,25 @@ C 0,0,0
 
 
 
-SO ./textures/R1.xpm
+SO ./textures/s5.xpm
 
 
 		R 		500 500
-NO ./textures/R1.xpm
+NO ./textures/s5.xpm
 
 
 
 
 
 
-WE ./textures/Cliff_022.xpm
+WE ./textures/s5.xpm
 
 
-EA ./textures/Cliff_022.xpm
+EA ./textures/s5.xpm
 
 S ./textures/s3.xpm
 F 211,205,210
+
         1111111111111111111111111
         1000000000110000000000001
         1011000001110002222222201

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_init_tab_vector.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 15:26:02 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/04 15:33:16 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/08 11:08:36 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 

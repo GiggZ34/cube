@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 11:41:36 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/07 13:27:35 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/08 18:52:28 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int				main(int ac, char **av)
 		if (ft_load(av[1], &game) != 0)
 			return (FAIL_EXIT);
 		if (!game.file->error_code)
-			ft_update_loop(&game);
+			ft_game_loop(&game);
 		ft_clear_file(game.file, -1, 0);
 		free(game.window);
 		free(game.mlx);

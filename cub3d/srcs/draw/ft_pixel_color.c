@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pixel_color.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 11:10:27 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/07 17:31:26 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/08 01:48:55 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,12 +146,12 @@ static int	ft_search_sprites(t_game *game, t_vector vec, double *size, t_list *l
 		inter = ft_intersect_plane_dot(game->player->position, vec, tmp_size);
 		dist = pow(sprite->frist_px.x - inter.x, 2) + pow(sprite->frist_px.y - inter.y, 2);
 		if (((*size < 0 && tmp_size > 0) || (*size > tmp_size && tmp_size > 0))
-			&& dist < pow(sprite->width, 2)
-			&& inter.z > 1 - sprite->ratio && inter.z < 1)
+			&& dist <= pow(sprite->width, 2)
+			&& inter.z >= 1 - sprite->height && inter.z <= 1)
 		{
 			dir.x = sprite->frist_px.x - inter.x;
 			dir.y = sprite->frist_px.y - inter.y;
-			if (dir.x / sprite->vec_write.x >= 0 && (tmp_color = ft_search_sprite_color(sprite, sprite->tile_sheet, sqrt(dist), 1 - inter.z)) >= 0)
+			if (dir.x * sprite->vec_write.x >= 0 && dir.y * sprite->vec_write.y >= 0 && (tmp_color = ft_search_sprite_color(sprite, sprite->tile_sheet, sqrt(dist), 1 - inter.z)) >= 0)
 			{
 				*size = tmp_size;
 				color = tmp_color;

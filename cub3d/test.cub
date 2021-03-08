@@ -6,7 +6,7 @@ C 0,0,0
 SO ./textures/R1.xpm
 
 
-		R 		1000 700
+		R 		500 500
 NO ./textures/R1.xpm
 
 
@@ -19,7 +19,7 @@ WE ./textures/Cliff_022.xpm
 
 EA ./textures/Cliff_022.xpm
 
-S ./textures/s3.png
+S ./textures/s3.xpm
 F 211,205,210
         1111111111111111111111111
         1000000000110000000000001

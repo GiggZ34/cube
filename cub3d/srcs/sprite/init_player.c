@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_player.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 08:33:59 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/07 17:34:46 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/07 22:33:32 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,15 @@ t_player	*ft_init_player(t_game *game, int x, int y, char dir)
 	if (ft_init_tab_vector(game, game->player->position))
 		return (NULL);
 	if (dir == 'E')
-		ft_rotate_vectors_view(game, game->player->view.tab_vectors, (angle = M_PI / 2), 'z');
+		angle = M_PI / 2;
 	else if (dir == 'S')
-		ft_rotate_vectors_view(game, game->player->view.tab_vectors, (angle = M_PI), 'z');
+		angle = M_PI;
 	else if (dir == 'W')
-		ft_rotate_vectors_view(game, game->player->view.tab_vectors, (angle = 3 / 2 * M_PI), 'z');
+		angle = 3 / 2 * M_PI;
 	else
 		angle = 0;
-	game->player->angle = angle;
+	game->player->angle_z = angle;
+	game->player->angle_x = 0;
 	game->player->live = 100;
 	game->player->walk_speed_max = 10;
 	return (game->player);

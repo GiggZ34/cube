@@ -6,7 +6,7 @@
 #    By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/24 18:59:35 by grivalan          #+#    #+#              #
-#    Updated: 2021/03/07 13:26:55 by grivalan         ###   ########lyon.fr    #
+#    Updated: 2021/03/07 22:24:54 by grivalan         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,7 @@ SRCS =		main.c\
 			srcs/load/screen/ft_screen.c\
 			srcs/load/file/ft_check_struct.c\
 			srcs/view/ft_init_tab_vector.c\
-			srcs/view/ft_rotate_vectors_view.c\
+			srcs/sprite/ft_rotate_vectors_collides.c\
 			srcs/view/ft_translation_vector.c\
 			srcs/sprite/init_player.c\
 			srcs/sprite/init_ennemy.c\

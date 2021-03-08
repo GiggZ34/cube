@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 11:56:01 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/07 15:49:17 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/07 22:52:18 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 # define MAX_SCREEN_WIDTH 2560
 # define MAX_SCREEN_HEIGHT 1400
 # define FOV 60.0
-# define FOV_COS -0.50
+# define FOV_COS -0.30
 # define FOV_DIST 50
 # define FOV_DIST_SQRT 5
 
@@ -108,7 +108,8 @@ typedef struct		s_player
 	int				run_speed_max;
 	double			vx;
 	double			vy;
-	double			angle;
+	double			angle_z;
+	double			angle_x;
 	int				live;
 	t_texture		*tile_sheet;
 }					t_player;
@@ -189,9 +190,9 @@ int					ft_check_struct(t_game *game);
 */
 
 int					ft_update_loop(t_game *game);
-int					ft_rotate_vectors_view(t_game *game, t_vector *tab, double angle, char dir);
+int					ft_rotate_vectors_collides(t_player *player, double angle);
 int					ft_translation_vector(t_game *game, double velocity, double angle);
-int					ft_edit_sprite_plane(t_sprite *sprite, t_dot pos_player);
+int					ft_edit_sprite_plane(t_sprite *sprite, t_vector player_normal);
 
 /*
 **	Functions error

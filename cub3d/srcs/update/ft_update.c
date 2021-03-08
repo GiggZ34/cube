@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 10:43:23 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/07 00:26:51 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/07 23:57:18 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	ft_search_sprites(t_sprite *sprite, t_list **begin, t_player *player)
 	vec = ft_create_vector(sprite->position, player->position);
 	dist = pow(player->position.x - sprite->position.x, 2) +
 								pow(player->position.y - sprite->position.y, 2);
-	if (ft_dot_product(player->view.view, vec) < FOV_COS && dist <= FOV_DIST)
+	if (ft_dot_product(player->collide.top, vec) < FOV_COS && dist <= FOV_DIST)
 	{
 		lst = ft_lstnew(sprite);
 		ft_lstadd_back(begin, lst);
@@ -43,7 +43,7 @@ int		ft_update_sprites(t_list *lst_sprites, t_player *player)
 	while (lst_sprites)
 	{
 		sprite = lst_sprites->content;
-		ft_edit_sprite_plane(sprite, player->position);
+		ft_edit_sprite_plane(sprite, player->view.view);
 		sprite->position.y -= 0.0;
 		ft_search_sprites(sprite, &(player->view.sprites_in_fov), player);
 		lst_sprites = lst_sprites->next;
@@ -56,13 +56,19 @@ int		ft_keypress(int keycode, t_game *game)
 	if (keycode == DESTROY)
 		return (mlx_destroy_window(game->mlx, game->window));
 	if (keycode == RIGHT)
-		ft_rotate_vectors_view(game, game->player->view.tab_vectors, -M_PI / 10, 'z');
+	{
+		game->player->angle_z += -M_PI / 10;
+		ft_rotate_vectors_collides(game->player, -M_PI / 10);
+	}
 	else if (keycode == LEFT)
-		ft_rotate_vectors_view(game, game->player->view.tab_vectors, M_PI / 10, 'z');
+	{
+		game->player->angle_z += M_PI / 10;
+		ft_rotate_vectors_collides(game->player, M_PI / 10);
+	}
 	if (keycode == UP)
-		ft_rotate_vectors_view(game, game->player->view.tab_vectors, -M_PI / 10, 'x');
+		game->player->angle_x += -M_PI / 10;
 	else if (keycode == DOWN)
-		ft_rotate_vectors_view(game, game->player->view.tab_vectors, M_PI / 10, 'x');
+		game->player->angle_x += M_PI / 10;
 	if (keycode == A)
 		ft_translation_vector(game, -0.5, 0);
 	else if (keycode == D)
@@ -71,6 +77,15 @@ int		ft_keypress(int keycode, t_game *game)
 		ft_translation_vector(game, -0.5, M_PI / 2);
 	else if (keycode == S)
 		ft_translation_vector(game, -0.5, -M_PI / 2);
+	if (game->player->angle_z < 0)
+		game->player->angle_z += 2 * M_PI;
+	else if (game->player->angle_z >= 2 * M_PI)
+		game->player->angle_z -= 2 * M_PI;
+	if (game->player->angle_x < -M_PI / 3)
+		game->player->angle_x = -M_PI / 3;
+	else if (game->player->angle_x >= M_PI / 2)
+		game->player->angle_x = M_PI / 2;
+
 	return (0);
 }
 int		ft_update(t_game *game)

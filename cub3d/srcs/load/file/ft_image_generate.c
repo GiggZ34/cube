@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_image_generate.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 15:08:29 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/07 17:54:51 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/07 18:22:45 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,11 +68,11 @@ int			ft_img_generate(void *mlx, t_file *file, char *dir, char *type)
 		if (!(img = mlx_xpm_file_to_image(mlx, dir, &dim[0], &dim[1])))
 			return (10);
 	}
-	else if (ext == 0)
-	{
-		if (!(img = mlx_png_file_to_image(mlx, dir, &dim[0], &dim[1])))
-			return (10);
-	}
+//	else if (ext == 0)
+//	{
+//		if (!(img = mlx_png_file_to_image(mlx, dir, &dim[0], &dim[1])))
+//			return (10);
+//	}
 	else
 		return (9);
 	if (ft_image_to_struct(file, img, dim, type) == -1)

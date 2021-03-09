@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 08:33:59 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/08 21:24:20 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/09 02:14:28 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_player	*ft_init_player(t_game *game, int x, int y, char dir)
 		return (0);
 	game->player->position.x = x + 0.5;
 	game->player->position.y = y + 0.5;
-	game->player->position.z = 1 - 0.4;
+	game->player->position.z = 1 - 0.5;
 	if (ft_init_tab_vector(game, game->player->position))
 		return (NULL);
 	if (dir == 'E')

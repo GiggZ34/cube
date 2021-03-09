@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 10:43:23 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/09 01:38:00 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/09 02:14:06 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,8 @@ int		ft_keypress(int keycode, t_game *game)
 		game->player->control.s = 1;
 	if (keycode == SHIFT)
 		game->player->control.run = 1;
+	else if (keycode == 65507)
+		game->player->position.z += 0.25;
 	return (0);
 }
 
@@ -132,6 +134,8 @@ int		ft_keyrelease(int keycode, t_game *game)
 		game->player->control.s = 0;
 	if (keycode == SHIFT)
 		game->player->control.run = 0;
+	else if (keycode == 65507)
+		game->player->position.z -= 0.25;
 	return (0);
 }
 

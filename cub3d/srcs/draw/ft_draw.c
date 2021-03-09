@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 08:26:00 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/08 20:51:13 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/09 02:17:33 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ int				ft_draw(t_game *game)
 		vec = game->player->view.tab_vectors[id];
 		if (game->player->angle_x != 0)
 			vec = ft_rotate_vector(vec, game->player->angle_x, 'x');
+		if (game->player->angle_y != 0)
+			vec = ft_rotate_vector(vec, game->player->angle_y, 'y');
 		if (game->player->angle_z != 0)
 			vec = ft_rotate_vector(vec, game->player->angle_z, 'z');
 		game->screen.color[id] = ft_pixel_color(game, vec);

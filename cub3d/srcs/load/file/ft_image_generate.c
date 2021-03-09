@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 15:08:29 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/07 18:22:45 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/09 02:04:10 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,19 +31,16 @@ static int	ft_search_extension(char *dir_img)
 static int	ft_image_to_struct(t_file *file, void *img, int *dim, char *type)
 {
 	t_texture	*texture;
-	int			*texture_bits;
 
 	if (!(texture = ft_calloc(sizeof(t_texture), 1)))
 		return (3);
 	texture->type = type;
 	texture->width = dim[0];
 	texture->height = dim[1];
-	if (!(texture_bits = (int*)mlx_get_data_addr(img,
+	if (!(texture->color = (int*)mlx_get_data_addr(img,
 	&(texture->bits_per_pixel), &(texture->size_line), &(texture->endian))))
 		return (3);
-	texture->size_line /= sizeof(*texture_bits);
-	if (!(texture->color = ft_nsplit(texture_bits, texture->size_line * dim[1], texture->size_line)))
-		return (3);
+	texture->size_line /= 4;
 	if (!ft_strncmp(type, "NO", 2))
 		file->texture_no = texture;
 	else if (!ft_strncmp(type, "SO", 2))

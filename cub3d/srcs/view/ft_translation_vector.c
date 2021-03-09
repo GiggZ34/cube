@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 17:54:10 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/09 01:27:33 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/09 02:21:02 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,11 @@ int			ft_translation_vector(t_game *game, double velocity, double angle)
 	double	y;
 	double	final_angle;
 	int		run;
-	printf("t : %d | b : %d | l : %d | r : %d\n", game->player->collide.top_bool, game->player->collide.bottom_bool, game->player->collide.left_bool, game->player->collide.right_bool);
+
 	run = game->player->control.run;
 	final_angle = game->player->angle_z + angle;
 	game->player->walk_volocity += (velocity * game->dt.dt);
+//	game->player->angle_y += M_PI / 4 * game->dt.dt;	Faire animation de marche
 	ft_limit_velocity(game, run);
 	if ((game->player->collide.bottom_bool == 1 && (final_angle < M_PI / 2 || final_angle > 3 / 4 * M_PI)) ||
 		(game->player->collide.top_bool == 1 && (final_angle > M_PI / 2 && final_angle < 3 / 4 * M_PI)))

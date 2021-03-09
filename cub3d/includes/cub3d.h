@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 11:56:01 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/08 22:30:25 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/09 02:15:49 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@
 typedef struct		s_texture
 {
 	char			*type;
-	int				**color;
+	int				*color;
 	int				width;
 	int				height;
 	int				bits_per_pixel;
@@ -132,8 +132,9 @@ typedef struct		s_player
 	double			run_speed_max;
 	double			vx;
 	double			vy;
-	double			angle_z;
 	double			angle_x;
+	double			angle_y;
+	double			angle_z;
 	int				live;
 	t_texture		*tile_sheet;
 }					t_player;

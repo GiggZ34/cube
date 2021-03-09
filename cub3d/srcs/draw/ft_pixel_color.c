@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 11:10:27 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/08 22:42:03 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/09 02:07:13 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int		ft_is_in_wall(t_texture *texture, t_dot inter, char dir)
 		x = texture->width * (inter.x - floor(inter.x));
 	else
 		x = texture->width * (inter.y - floor(inter.y));
-	return (texture->color[y][x]);
+	return (texture->color[y * texture->size_line + x]);
 }
 
 static double	ft_is_wall(t_game *game, t_plane *plane, t_vector v, t_dot *dot, char dir)
@@ -123,7 +123,7 @@ static int	ft_search_sprite_color(t_sprite *sprite, t_texture *texture, double x
 	y = 1 - y / sprite->height;
 	w = x * texture->width;
 	h = y * texture->height;
-	return (texture->color[h][w]);
+	return (texture->color[h * texture->size_line + w]);
 }
 
 static int	ft_search_sprites(t_game *game, t_vector vec, double *size, t_list *lst)

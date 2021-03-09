@@ -6,20 +6,52 @@
 /*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 17:54:10 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/07 22:27:07 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/09 01:27:33 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int		ft_translation_vector(t_game *game, double velocity, double angle)
+static void	ft_limit_velocity(t_game *game, int run)
 {
-	game->player->walk_volocity += velocity;
-	if (game->player->walk_volocity > game->player->walk_speed_max)
-		game->player->walk_volocity = game->player->walk_speed_max;
-	double y = sin(game->player->angle_z + angle) * velocity;
-	double x = cos(game->player->angle_z + angle) * velocity;
-	game->player->position.y += y;
-	game->player->position.x += x;
+	if (!run)
+	{
+		if (game->player->walk_volocity > game->player->walk_speed_max)
+			game->player->walk_volocity = game->player->walk_speed_max;
+		else if (game->player->walk_volocity < -(game->player->walk_speed_max))
+			game->player->walk_volocity = -(game->player->walk_speed_max);
+	}
+	else
+	{
+		if (game->player->walk_volocity > game->player->run_speed_max)
+			game->player->walk_volocity = game->player->run_speed_max;
+		else if (game->player->walk_volocity < -(game->player->run_speed_max))
+			game->player->walk_volocity = -(game->player->run_speed_max);
+	}
+}
+
+int			ft_translation_vector(t_game *game, double velocity, double angle)
+{
+	double	x;
+	double	y;
+	double	final_angle;
+	int		run;
+	printf("t : %d | b : %d | l : %d | r : %d\n", game->player->collide.top_bool, game->player->collide.bottom_bool, game->player->collide.left_bool, game->player->collide.right_bool);
+	run = game->player->control.run;
+	final_angle = game->player->angle_z + angle;
+	game->player->walk_volocity += (velocity * game->dt.dt);
+	ft_limit_velocity(game, run);
+	if ((game->player->collide.bottom_bool == 1 && (final_angle < M_PI / 2 || final_angle > 3 / 4 * M_PI)) ||
+		(game->player->collide.top_bool == 1 && (final_angle > M_PI / 2 && final_angle < 3 / 4 * M_PI)))
+		y = 0;
+	else
+		y = sin(final_angle) * game->player->walk_volocity;
+	if ((game->player->collide.left_bool == 1 && final_angle < M_PI) ||
+		(game->player->collide.right_bool == 1 && final_angle > M_PI))
+		x = 0;
+	else
+		x = cos(final_angle) * game->player->walk_volocity;
+	game->player->position.y += (y * game->dt.dt);
+	game->player->position.x += (x * game->dt.dt);
 	return (0);
 }

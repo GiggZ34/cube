@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_draw.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 08:26:00 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/08 17:07:24 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/08 20:51:13 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,6 @@ int				ft_draw(t_game *game)
 		game->screen.color[id] = ft_pixel_color(game, vec);
 	}
 	mlx_put_image_to_window(game->mlx, game->window, game->screen.ptr, 0, 0);
+	ft_print_fps(game, game->dt.dt_str);
 	return (0);
 }

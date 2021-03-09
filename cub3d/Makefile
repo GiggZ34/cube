@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+         #
+#    By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/24 18:59:35 by grivalan          #+#    #+#              #
-#    Updated: 2021/03/08 17:43:51 by grivalan         ###   ########lyon.fr    #
+#    Updated: 2021/03/08 20:52:53 by grivalan         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,6 +49,7 @@ SRCS =		main.c\
 			srcs/update/ft_update.c\
 			srcs/draw/ft_draw.c\
 			srcs/draw/ft_pixel_color.c\
+			srcs/draw/ft_print_fps.c\
 
 CC = gcc
 

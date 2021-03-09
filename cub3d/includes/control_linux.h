@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 23:29:01 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/07 00:15:07 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/08 21:29:35 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,3 +19,4 @@
 #define S 's'
 #define A 'a'
 #define D 'd'
+#define SHIFT 65505

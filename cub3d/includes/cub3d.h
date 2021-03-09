@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 11:56:01 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/08 19:05:45 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/08 22:30:25 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,9 @@
 # define MAX_SCREEN_WIDTH 2560
 # define MAX_SCREEN_HEIGHT 1400
 # define FRAME_RATE 50000
+# define DIST_COLLIDE 1.0
 # define ROTATE_SPEED M_PI
-# define SPEED_MAX 5
+# define SPEED_MAX 2
 # define FOV 60.0
 # define FOV_COS -0.30
 # define FOV_DIST 50
@@ -116,6 +117,7 @@ typedef struct		s_control
 	int				down;
 	int				right;
 	int				left;
+	int				run;
 }					t_control;
 
 typedef struct		s_player
@@ -125,9 +127,9 @@ typedef struct		s_player
 	t_collide		collide;
 	t_control		control;
 	double			walk_volocity;
-	int				walk_speed_max;
+	double			walk_speed_max;
 	double			run_volocity;
-	int				run_speed_max;
+	double			run_speed_max;
 	double			vx;
 	double			vy;
 	double			angle_z;
@@ -156,14 +158,21 @@ typedef struct		s_sprite
 	t_texture		*tile_sheet;
 }					t_sprite;
 
+typedef	struct		s_dt
+{
+	struct timeval	time;
+	unsigned long	time_start;
+	unsigned long	time_end;
+	double			dt;
+	char			*dt_str;
+}					t_dt;
+
+
 typedef struct		s_game
 {
 	void			*mlx;
 	void			*window;
-	struct timeval	time;
-	unsigned long	time_start;
-	unsigned long	time_end;
-	double			delta_time;
+	t_dt			dt;
 	t_file			*file;
 	t_screen		screen;
 	t_player		*player;
@@ -240,5 +249,6 @@ int					ft_mini_map(t_game *game);
 
 int					ft_draw(t_game *game);
 int					ft_pixel_color(t_game *game, t_vector v);
+int					ft_print_fps(t_game *game, char *fps);
 
 #endif

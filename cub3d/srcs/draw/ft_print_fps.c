@@ -1,22 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   control_mac.h                                      :+:      :+:    :+:   */
+/*   ft_print_fps.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/06 23:45:16 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/08 21:29:54 by grivalan         ###   ########lyon.fr   */
+/*   Created: 2021/03/08 20:43:22 by grivalan          #+#    #+#             */
+/*   Updated: 2021/03/08 20:53:51 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#define DESTROY 53
-#define UP 125
-#define DOWN 126
-#define RIGHT 123
-#define LEFT 124
-#define W 13
-#define S 1
-#define A 0
-#define D 2
-#define SHIFT
+#include "cub3d.h"
+
+int	ft_print_fps(t_game *game, char *fps)
+{
+    int     color;
+    int     x;
+
+    color = ft_color_generate(255, 0, 0, 0);
+    x = game->screen.size / 10;
+    if (fps)
+    {
+        mlx_string_put(game->mlx, game->window, x, 10, color, fps);
+        free(fps);
+        game->dt.dt_str = NULL;
+    }
+    return (0);
+}

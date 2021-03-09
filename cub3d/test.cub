@@ -6,7 +6,7 @@ C 0,0,0
 SO ./textures/R1.xpm
 
 
-		R 		201 201
+		R 		200 200
 NO ./textures/R1.xpm
 
 
@@ -19,7 +19,7 @@ WE ./textures/R1.xpm
 
 EA ./textures/R1.xpm
 
-S ./textures/s3.xpm
+S ./textures/R2.xpm
 F 211,205,210
 
         1111111111111111111111111

@@ -3,38 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_update.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 10:43:23 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/09 16:08:00 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/09 23:15:05 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-void	ft_check_collide_to_sprite(t_plane plane, t_collide collide, t_dot pos)
-{
-	if (ft_size_vec_plane(&plane, collide.top, pos) < DIST_COLLIDE)
-	{
-		collide.top_bool = 1;
-		return ;
-	}
-	if (ft_size_vec_plane(&plane, collide.bottom, pos) < DIST_COLLIDE)
-	{
-		collide.bottom_bool = 1;
-		return ;
-	}
-	if (ft_size_vec_plane(&plane, collide.left, pos) < DIST_COLLIDE)
-	{
-		collide.left_bool = 1;
-		return ;
-	}
-	if (ft_size_vec_plane(&plane, collide.right, pos) < DIST_COLLIDE)
-	{
-		collide.right_bool = 1;
-		return ;
-	}
-}
 
 void	ft_search_sprites(t_sprite *sprite, t_list **begin, t_player *player)
 {
@@ -45,7 +21,6 @@ void	ft_search_sprites(t_sprite *sprite, t_list **begin, t_player *player)
 	vec = ft_create_vector(sprite->position, player->position);
 	dist = pow(player->position.x - sprite->position.x, 2) +
 								pow(player->position.y - sprite->position.y, 2);
-	ft_check_collide_to_sprite(sprite->plane, player->collide, player->position);
 	if (ft_dot_product(player->collide.top, vec) < FOV_COS && dist <= FOV_DIST)
 	{
 		lst = ft_lstnew(sprite);
@@ -146,10 +121,14 @@ int		ft_update_player(t_game *game, t_player *player)
 
 	x = &(game->player->control.mouse_x_tmp);
 	y = &(game->player->control.mouse_y_tmp);
-	mlx_mouse_get_pos(game->window, x, y);
-	mlx_mouse_move(game->window, game->player->control.mouse_x, game->player->control.mouse_y);
-	mlx_mouse_get_pos(game->window, &(game->player->control.mouse_x), &(game->player->control.mouse_y));
-	mlx_mouse_move(game->window, game->player->control.mouse_x, game->player->control.mouse_y);
+	// mac : mlx_mouse_get_pos(game->window, x, y);
+	mlx_mouse_get_pos(game->mlx, game->window, x, y);
+	// mac : mlx_mouse_move(game->window, game->player->control.mouse_x, game->player->control.mouse_y);
+	mlx_mouse_move(game->mlx, game->window, game->player->control.mouse_x, game->player->control.mouse_y);
+	// mac : mlx_mouse_get_pos(game->window, &(game->player->control.mouse_x), &(game->player->control.mouse_y));
+	mlx_mouse_get_pos(game->mlx, game->window, &(game->player->control.mouse_x), &(game->player->control.mouse_y));
+	// mac : mlx_mouse_move(game->window, game->player->control.mouse_x, game->player->control.mouse_y);
+	mlx_mouse_move(game->mlx, game->window, game->player->control.mouse_x, game->player->control.mouse_y);
 	if (player->control.right || ft_abs(game->player->control.mouse_x) - ft_abs(*x) > MOUSE_SENS)
 	{
 		game->player->angle_z += -ROTATE_SPEED * game->dt.dt;
@@ -194,7 +173,8 @@ int		ft_update(t_game *game)
 
 int		ft_game_loop(t_game *game)
 {
-	mlx_mouse_get_pos(game->window, &(game->player->control.mouse_x), &(game->player->control.mouse_y));
+	// mac : mlx_mouse_get_pos(game->window, &(game->player->control.mouse_x), &(game->player->control.mouse_y));
+	mlx_mouse_get_pos(game->mlx, game->window, &(game->player->control.mouse_x), &(game->player->control.mouse_y));
 	mlx_hook(game->window, 2, 1L<<0, ft_keypress, game);
 	mlx_hook(game->window, 3, 1L<<1, ft_keyrelease, game);
 	mlx_loop_hook(game->mlx, &ft_update, game);

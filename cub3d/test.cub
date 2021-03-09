@@ -3,21 +3,21 @@ C 0,0,0
 
 
 
-SO ./textures/s5.xpm
+SO ./textures/R1.xpm
 
 
-		R 		300 300
-NO ./textures/s5.xpm
-
-
-
+		R 		201 201
+NO ./textures/R1.xpm
 
 
 
-WE ./textures/s5.xpm
 
 
-EA ./textures/s5.xpm
+
+WE ./textures/R1.xpm
+
+
+EA ./textures/R1.xpm
 
 S ./textures/s3.xpm
 F 211,205,210

@@ -3,21 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   ft_draw.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 08:26:00 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/09 02:17:33 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/09 17:39:12 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int				ft_draw(t_game *game)
+void	*ft_draw(void *g)
 {
+	t_game		*game;
 	int			id;
 	int			end;
 	t_vector	vec;
 
+	game = (t_game *)g;
 	end = game->screen.size * game->screen.height;
 	id = -1;
 	while (++id < end)

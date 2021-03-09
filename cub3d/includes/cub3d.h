@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 11:56:01 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/09 02:15:49 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/09 17:41:06 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,12 @@
 # define MIN_SCREEN_HEIGHT 100
 # define MAX_SCREEN_WIDTH 2560
 # define MAX_SCREEN_HEIGHT 1400
+# define NB_THREADS 1
 # define FRAME_RATE 50000
 # define DIST_COLLIDE 1.0
 # define ROTATE_SPEED M_PI
 # define SPEED_MAX 2
+# define MOUSE_SENS 2
 # define FOV 60.0
 # define FOV_COS -0.30
 # define FOV_DIST 50
@@ -118,6 +120,10 @@ typedef struct		s_control
 	int				right;
 	int				left;
 	int				run;
+	int				mouse_x_tmp;
+	int				mouse_y_tmp;
+	int				mouse_x;
+	int				mouse_y;
 }					t_control;
 
 typedef struct		s_player
@@ -174,6 +180,7 @@ typedef struct		s_game
 	void			*mlx;
 	void			*window;
 	t_dt			dt;
+	pthread_t		*thread[NB_THREADS];
 	t_file			*file;
 	t_screen		screen;
 	t_player		*player;
@@ -248,7 +255,7 @@ int					ft_mini_map(t_game *game);
 **	Functions draw
 */
 
-int					ft_draw(t_game *game);
+void				*ft_draw(void *g);
 int					ft_pixel_color(t_game *game, t_vector v);
 int					ft_print_fps(t_game *game, char *fps);
 

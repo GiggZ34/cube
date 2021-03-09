@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_translation_vector.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 17:54:10 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/09 02:21:02 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/09 16:37:06 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,24 +35,25 @@ int			ft_translation_vector(t_game *game, double velocity, double angle)
 	double	x;
 	double	y;
 	double	final_angle;
-	int		run;
+	double	addx;
+	double	addy;
 
-	run = game->player->control.run;
+	addy = 0.1;
+	addx = 0.1;
 	final_angle = game->player->angle_z + angle;
 	game->player->walk_volocity += (velocity * game->dt.dt);
-//	game->player->angle_y += M_PI / 4 * game->dt.dt;	Faire animation de marche
-	ft_limit_velocity(game, run);
-	if ((game->player->collide.bottom_bool == 1 && (final_angle < M_PI / 2 || final_angle > 3 / 4 * M_PI)) ||
-		(game->player->collide.top_bool == 1 && (final_angle > M_PI / 2 && final_angle < 3 / 4 * M_PI)))
-		y = 0;
-	else
-		y = sin(final_angle) * game->player->walk_volocity;
-	if ((game->player->collide.left_bool == 1 && final_angle < M_PI) ||
-		(game->player->collide.right_bool == 1 && final_angle > M_PI))
-		x = 0;
-	else
-		x = cos(final_angle) * game->player->walk_volocity;
-	game->player->position.y += (y * game->dt.dt);
-	game->player->position.x += (x * game->dt.dt);
+	ft_limit_velocity(game, game->player->control.run);
+	y = sin(final_angle) * game->player->walk_volocity;
+	x = cos(final_angle) * game->player->walk_volocity;
+	if (y < 0)
+		addy *= -1;
+	if (game->file->map[(int)(game->player->position.y +
+			(y * game->dt.dt) + addy)][(int)(game->player->position.x)] != '1')
+		game->player->position.y += (y * game->dt.dt);
+	if (x < 0)
+		addx *= -1;
+	if (game->file->map[(int)(game->player->position.y)]
+			[(int)(game->player->position.x + (x * game->dt.dt) + addx)] != '1')
+		game->player->position.x += (x * game->dt.dt);
 	return (0);
 }

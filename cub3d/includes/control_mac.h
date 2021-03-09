@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   control_mac.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 23:45:16 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/08 21:29:54 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/09 12:55:31 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,4 +19,5 @@
 #define S 1
 #define A 0
 #define D 2
-#define SHIFT
+#define SHIFT 257
+#define ALT 261

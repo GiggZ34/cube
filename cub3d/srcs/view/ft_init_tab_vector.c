@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 15:26:02 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/08 11:08:36 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/10 16:51:45 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int			ft_init_tab_vector(t_game *game, t_dot origin)
 	ft_bzero(&(game->player->view.view), sizeof(t_vector));
 	game->player->view.view.y = -1;
 	ft_init_vector_collides(game->player, game->player->view.view);
-	origin.y -= 0.01;
+	origin.y -= 0.005;
 	origin.x -= game->screen.w_vec * game->screen.size / 2;
 	origin.z -= game->screen.w_vec * game->screen.height / 2;
 	size = game->screen.size * game->screen.height;

@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 11:56:01 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/09 17:41:06 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/10 17:16:05 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,6 @@
 # include <stdio.h>
 # include <math.h>
 # define FAIL_EXIT -1
-# define MIN_SCREEN_WIDTH 100
-# define MIN_SCREEN_HEIGHT 100
-# define MAX_SCREEN_WIDTH 2560
-# define MAX_SCREEN_HEIGHT 1400
 # define NB_THREADS 1
 # define FRAME_RATE 50000
 # define DIST_COLLIDE 1.0

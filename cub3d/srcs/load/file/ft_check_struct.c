@@ -3,45 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   ft_check_struct.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 17:57:26 by grivalan          #+#    #+#             */
-/*   Updated: 2021/02/04 09:50:21 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/10 17:12:57 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static int	ft_check_resolution(double width, double height)
-{
-	if (width < MIN_SCREEN_WIDTH || width > MAX_SCREEN_WIDTH
-			|| height < MIN_SCREEN_HEIGHT || height > MAX_SCREEN_HEIGHT)
-		return (11);
-	return (0);
-}
-
 static int	ft_change_resolution(t_game *game)
 {
-	double ratio_x;
-	double ratio_y;
-	double ratio;
+	int	width_screen;
+	int	height_screen;
 
-	ratio_x = 0;
-	ratio_y = 0;
-	if (game->screen.width < MIN_SCREEN_WIDTH)
-		ratio_x = MIN_SCREEN_WIDTH / game->screen.width;
-	else if (game->screen.width > MAX_SCREEN_WIDTH)
-		ratio_x = MAX_SCREEN_WIDTH / game->screen.width;
-	if (game->screen.height < MIN_SCREEN_HEIGHT)
-		ratio_y = MIN_SCREEN_HEIGHT / game->screen.height;
-	else if (game->screen.height > MAX_SCREEN_HEIGHT)
-		ratio_y = MAX_SCREEN_HEIGHT / game->screen.height;
-	if (ratio_x == 0 && ratio_y == 0)
-		return (0);
-	ratio = ft_max(ratio_x, ratio_y);
-	game->screen.width *= ratio;
-	game->screen.height *= ratio;
-	return (ft_check_resolution(game->screen.width, game->screen.height));
+	if (mlx_get_screen_size(game->mlx, &width_screen, &height_screen) == -1)
+		return (3);
+	if (game->screen.width <= 0)
+		return (11);
+	else if (game->screen.width > width_screen)
+		game->screen.width = width_screen;
+	if (game->screen.height <= 0)
+		return (11);
+	else if (game->screen.height > height_screen)
+		game->screen.height = height_screen;
+	return (0);
 }
 
 int			ft_check_struct(t_game *game)

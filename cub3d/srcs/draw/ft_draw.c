@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_draw.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 08:26:00 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/11 17:33:59 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/11 21:39:58 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,10 @@ void	*ft_draw(void *g)
 				vec = ft_rotate_vector(vec, thread->game->player->angle_y, 'y');
 			if (thread->game->player->angle_z != 0)
 				vec = ft_rotate_vector(vec, thread->game->player->angle_z, 'z');
-			ft_drawing_scale(thread->game, id, ft_pixel_color(thread->game, vec));
+			if (thread->game->player->view.sprites_in_fov)
+				ft_drawing_scale(thread->game, id, ft_pixel_color(thread->game, vec, thread->game->player->view.sprites_in_fov->content));
+			else
+				ft_drawing_scale(thread->game, id, ft_pixel_color(thread->game, vec, NULL));
 			j += thread->game->screen.scale;
 		}
 		i += thread->game->screen.scale;

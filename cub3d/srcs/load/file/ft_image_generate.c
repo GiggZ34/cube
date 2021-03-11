@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 15:08:29 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/09 02:04:10 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/11 22:34:37 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ static int	ft_image_to_struct(t_file *file, void *img, int *dim, char *type)
 
 	if (!(texture = ft_calloc(sizeof(t_texture), 1)))
 		return (3);
+	texture->ptr = img;
 	texture->type = type;
 	texture->width = dim[0];
 	texture->height = dim[1];
@@ -74,6 +75,5 @@ int			ft_img_generate(void *mlx, t_file *file, char *dir, char *type)
 		return (9);
 	if (ft_image_to_struct(file, img, dim, type) == -1)
 		return (3);
-	free(img);
 	return (0);
 }

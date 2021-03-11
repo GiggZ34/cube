@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 11:56:01 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/11 16:01:03 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/11 23:06:39 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # include <math.h>
 # define FAIL_EXIT -1
 # define NB_THREADS 4
-# define FPS 30
+# define FPS 80
 # define FRAME_RATE 50000
 # define DIST_COLLIDE 1.0
 # define ROTATE_SPEED M_PI / 2
@@ -52,7 +52,6 @@ typedef struct		s_texture
 typedef struct		s_view
 {
 	t_vector		view;
-	t_list			*lst_sprites;
 	t_vector		*vector;
 	t_dot			extremity[2];
 	t_vector		*tab_vectors;
@@ -182,6 +181,8 @@ typedef struct		s_sky_ground
 {
 	t_plane			ground_plane;
 	t_texture		ground_texture;
+	t_plane			sky_plane;
+	t_texture		sky_texture;
 
 }					t_sky_ground;
 
@@ -278,7 +279,7 @@ int					ft_mini_map(t_game *game);
 */
 
 void				ft_draw_multi_threads(t_game *game);
-int					ft_pixel_color(t_game *game, t_vector v);
+int					ft_pixel_color(t_game *game, t_vector v, t_sprite *s);
 int					ft_print_fps(t_game *game, char *fps);
 
 #endif

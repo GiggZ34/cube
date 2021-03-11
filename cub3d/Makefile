@@ -6,7 +6,7 @@
 #    By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/24 18:59:35 by grivalan          #+#    #+#              #
-#    Updated: 2021/03/10 22:46:32 by grivalan         ###   ########lyon.fr    #
+#    Updated: 2021/03/11 21:05:48 by grivalan         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,6 @@ SRCS =		main.c\
 			srcs/view/ft_translation_vector.c\
 			srcs/sprite/init_player.c\
 			srcs/sprite/init_ennemy.c\
-			srcs/sprite/ft_ennemy_to_list.c\
 			srcs/sprite/ft_edit_sprite_plan.c\
 			srcs/clear/clear_file.c\
 			srcs/tools/ft_color_generate.c\
@@ -76,7 +75,7 @@ $(NAME):	$(OBJS)
 
 $(NAME2) :	$(OBJS)
 		$(MAKE) -C $(LIB)
-		$(CC) -o $(NAME) $(OBJS) -I $(INCLUDES) libft/libft.a -lmlx -lm -lbsd -lX11 -lXext
+		$(CC) -o $(NAME) $(OBJS) -I $(INCLUDES) libft/libft.a -lmlx -lm -lbsd -lX11 -lXext -lpthread
 
 all :		$(NAME)
 

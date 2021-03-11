@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 11:56:01 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/11 00:19:26 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/11 16:01:03 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,11 @@
 # include <stdio.h>
 # include <math.h>
 # define FAIL_EXIT -1
-# define NB_THREADS 1
+# define NB_THREADS 4
+# define FPS 30
 # define FRAME_RATE 50000
 # define DIST_COLLIDE 1.0
-# define ROTATE_SPEED M_PI
+# define ROTATE_SPEED M_PI / 2
 # define SPEED_MAX 10
 # define MOUSE_SENS 2
 # define FOV 60.0
@@ -38,6 +39,7 @@
 
 typedef struct		s_texture
 {
+	void			*ptr;
 	char			*type;
 	int				*color;
 	int				width;
@@ -152,6 +154,8 @@ typedef struct		s_sprite
 	t_vector		normal;
 	t_dot			frist_px;
 	t_vector		vec_write;
+	t_vector		sprite_to_player;
+	double			dist_to_player;
 	t_vector		first_col;
 	t_collide		collide;
 	double			vx;
@@ -174,13 +178,18 @@ typedef	struct		s_dt
 	char			*dt_str;
 }					t_dt;
 
+typedef struct		s_sky_ground
+{
+	t_plane			ground_plane;
+	t_texture		ground_texture;
+
+}					t_sky_ground;
 
 typedef struct		s_game
 {
 	void			*mlx;
 	void			*window;
 	t_dt			dt;
-	pthread_t		*thread[NB_THREADS];
 	t_file			*file;
 	t_screen		screen;
 	t_player		*player;
@@ -190,7 +199,18 @@ typedef struct		s_game
 	t_list			*lst_planes_bottom;
 	t_list			*lst_planes_right;
 	t_list			*lst_planes_left;
+	t_sky_ground	sky_ground;
 }					t_game;
+
+typedef struct		s_thread
+{
+	int				id;
+	t_game			*game;
+	int				start;
+	int				size;
+	pthread_t		thread;
+	t_screen		screen;
+}					t_thread;
 
 /*
 **	Functions tools
@@ -257,7 +277,7 @@ int					ft_mini_map(t_game *game);
 **	Functions draw
 */
 
-void				*ft_draw(void *g);
+void				ft_draw_multi_threads(t_game *game);
 int					ft_pixel_color(t_game *game, t_vector v);
 int					ft_print_fps(t_game *game, char *fps);
 

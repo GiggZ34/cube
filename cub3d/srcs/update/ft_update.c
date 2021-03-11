@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_update.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 10:43:23 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/10 22:45:13 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/11 15:03:19 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,14 +80,18 @@ int		ft_update(t_game *game)
 	ft_delta_time_generate(game);
 	ft_update_player(game, game->player);
 	ft_update_sprites(game->lst_sprites, game->player);
-	ft_draw(game);
+	mlx_sync(MLX_SYNC_WIN_CMD_COMPLETED, game->window);
+	mlx_sync(MLX_SYNC_IMAGE_WRITABLE, game->screen.ptr);
+	ft_draw_multi_threads(game);
+	mlx_sync(MLX_SYNC_WIN_FLUSH_CMD, game->window);
+	mlx_put_image_to_window(game->mlx, game->window, game->screen.ptr, 0, 0);
 	return (0);
 }
 
 int		ft_game_loop(t_game *game)
 {
-	//mlx_mouse_get_pos(game->window, &(game->player->control.mouse_x), &(game->player->control.mouse_y));
-	mlx_mouse_get_pos(game->mlx, game->window, &(game->player->control.mouse_x), &(game->player->control.mouse_y));
+	mlx_mouse_get_pos(game->window, &(game->player->control.mouse_x), &(game->player->control.mouse_y));
+//	mlx_mouse_get_pos(game->mlx, game->window, &(game->player->control.mouse_x), &(game->player->control.mouse_y));
 	mlx_hook(game->window, 2, 1L<<0, ft_keypress, game);
 	mlx_hook(game->window, 3, 1L<<1, ft_keyrelease, game);
 	mlx_loop_hook(game->mlx, &ft_update, game);

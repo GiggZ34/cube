@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_check_struct.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 17:57:26 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/10 17:12:57 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/11 00:52:33 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 

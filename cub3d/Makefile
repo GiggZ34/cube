@@ -6,7 +6,7 @@
 #    By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/24 18:59:35 by grivalan          #+#    #+#              #
-#    Updated: 2021/03/08 20:52:53 by grivalan         ###   ########lyon.fr    #
+#    Updated: 2021/03/10 22:46:32 by grivalan         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,6 +47,8 @@ SRCS =		main.c\
 			srcs/tools/ft_color_generate.c\
 			srcs/tools/ft_delta_time_generator.c\
 			srcs/update/ft_update.c\
+			srcs/update/ft_update_sprites.c\
+			srcs/update/ft_update_player.c\
 			srcs/draw/ft_draw.c\
 			srcs/draw/ft_pixel_color.c\
 			srcs/draw/ft_print_fps.c\

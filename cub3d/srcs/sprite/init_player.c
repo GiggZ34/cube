@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_player.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 08:33:59 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/10 16:17:46 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/10 23:00:39 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ t_player	*ft_init_player(t_game *game, int x, int y, char dir)
 	game->player->angle_z = angle;
 	game->player->angle_x = 0;
 	game->player->live = 100;
-	game->player->walk_speed_max = 1.2;
-	game->player->run_speed_max = 2.5;
+	game->player->walk_speed_max = 1.5;
+	game->player->run_speed_max = 3;
 	return (game->player);
 }

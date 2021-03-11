@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 11:56:01 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/10 17:16:05 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/11 00:19:26 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 # define FRAME_RATE 50000
 # define DIST_COLLIDE 1.0
 # define ROTATE_SPEED M_PI
-# define SPEED_MAX 2
+# define SPEED_MAX 10
 # define MOUSE_SENS 2
 # define FOV 60.0
 # define FOV_COS -0.30
@@ -98,6 +98,7 @@ typedef struct		s_screen
 	int				width;
 	int				height;
 	double			w_vec;
+	int				scale;
 	void			*ptr;
 	int				*color;
 	int				size;
@@ -116,6 +117,7 @@ typedef struct		s_control
 	int				right;
 	int				left;
 	int				run;
+	int				squat;
 	int				mouse_x_tmp;
 	int				mouse_y_tmp;
 	int				mouse_x;
@@ -128,10 +130,12 @@ typedef struct		s_player
 	t_view			view;
 	t_collide		collide;
 	t_control		control;
-	double			walk_volocity;
+	double			walk_speed;
+	double			trans_speed;
 	double			walk_speed_max;
-	double			run_volocity;
 	double			run_speed_max;
+	double			dir_walk;
+	double			dir_trans;
 	double			vx;
 	double			vy;
 	double			angle_x;
@@ -231,8 +235,10 @@ int					ft_check_struct(t_game *game);
 
 int					ft_game_loop(t_game *game);
 int					ft_rotate_vectors_collides(t_player *player, double angle);
-int					ft_translation_vector(t_game *game, double velocity, double angle);
+int					ft_player_move(t_game *game, double v, double *speed, double angle);
 int					ft_edit_sprite_plane(t_sprite *sprite, t_vector player_normal);
+int					ft_update_sprites(t_list *lst_sprites, t_player *player);
+int					ft_update_player(t_game *game, t_player *player);
 
 /*
 **	Functions error

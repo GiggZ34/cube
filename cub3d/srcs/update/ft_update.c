@@ -3,53 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_update.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 10:43:23 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/10 13:08:27 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/10 22:45:13 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-void	ft_search_sprites(t_sprite *sprite, t_list **begin, t_player *player)
-{
-	t_vector	vec;
-	t_list		*lst;
-	int			dist;
-
-	vec = ft_create_vector(sprite->position, player->position);
-	dist = pow(player->position.x - sprite->position.x, 2) +
-								pow(player->position.y - sprite->position.y, 2);
-	if (ft_dot_product(player->collide.top, vec) < FOV_COS && dist <= FOV_DIST)
-	{
-		lst = ft_lstnew(sprite);
-		ft_lstadd_back(begin, lst);
-	}
-}
-
-void	ft_play(void *s)
-{
-	if (s)
-		return ;
-	return ;
-}
-
-int		ft_update_sprites(t_list *lst_sprites, t_player *player)
-{
-	t_sprite	*sprite;
-
-	ft_lstclear(&(player->view.sprites_in_fov), &ft_play, 0);
-	while (lst_sprites)
-	{
-		sprite = lst_sprites->content;
-		ft_edit_sprite_plane(sprite, player->view.view);
-		sprite->position.y -= 0.0;
-		ft_search_sprites(sprite, &(player->view.sprites_in_fov), player);
-		lst_sprites = lst_sprites->next;
-	}
-	return (0);
-}
 
 int		ft_trash_game(t_game *game)
 {
@@ -82,10 +43,10 @@ int		ft_keypress(int keycode, t_game *game)
 		game->player->control.w = 1;
 	else if (keycode == S)
 		game->player->control.s = 1;
+	else if (keycode == ALT)
+		game->player->control.squat = 1;
 	if (keycode == SHIFT)
 		game->player->control.run = 1;
-	else if (keycode == ALT)
-		game->player->position.z += 0.25;
 	return (0);
 }
 
@@ -110,55 +71,7 @@ int		ft_keyrelease(int keycode, t_game *game)
 	if (keycode == SHIFT)
 		game->player->control.run = 0;
 	else if (keycode == ALT)
-		game->player->position.z -= 0.25;
-	return (0);
-}
-
-int		ft_update_player(t_game *game, t_player *player)
-{
-	int	*x;
-	int *y;
-
-	x = &(game->player->control.mouse_x_tmp);
-	y = &(game->player->control.mouse_y_tmp);
-	mlx_mouse_get_pos(game->window, x, y);
-	//mlx_mouse_get_pos(game->mlx, game->window, x, y);
-	mlx_mouse_move(game->window, game->player->control.mouse_x, game->player->control.mouse_y);
-	//mlx_mouse_move(game->mlx, game->window, game->player->control.mouse_x, game->player->control.mouse_y);
-	mlx_mouse_get_pos(game->window, &(game->player->control.mouse_x), &(game->player->control.mouse_y));
-	//mlx_mouse_get_pos(game->mlx, game->window, &(game->player->control.mouse_x), &(game->player->control.mouse_y));
-	mlx_mouse_move(game->window, game->player->control.mouse_x, game->player->control.mouse_y);
-	//mlx_mouse_move(game->mlx, game->window, game->player->control.mouse_x, game->player->control.mouse_y);
-	if (player->control.right || ft_abs(game->player->control.mouse_x) - ft_abs(*x) > MOUSE_SENS)
-	{
-		game->player->angle_z += -ROTATE_SPEED * game->dt.dt;
-		ft_rotate_vectors_collides(game->player, -ROTATE_SPEED * game->dt.dt);
-	}
-	else if (player->control.left || ft_abs(*x) - ft_abs(game->player->control.mouse_x) > MOUSE_SENS)
-	{
-		game->player->angle_z += ROTATE_SPEED * game->dt.dt;
-		ft_rotate_vectors_collides(game->player, ROTATE_SPEED * game->dt.dt);
-	}
-	if (player->control.up || *y - game->player->control.mouse_y > MOUSE_SENS)
-		game->player->angle_x += -ROTATE_SPEED * game->dt.dt;
-	else if (player->control.down || game->player->control.mouse_y - *y > MOUSE_SENS)
-		game->player->angle_x += ROTATE_SPEED * game->dt.dt;
-	if (player->control.a)
-		ft_translation_vector(game, -SPEED_MAX, 0);
-	else if (player->control.d)
-		ft_translation_vector(game, SPEED_MAX, 0);
-	if (player->control.w)
-		ft_translation_vector(game, -SPEED_MAX, M_PI / 2);
-	else if (player->control.s)
-		ft_translation_vector(game, -SPEED_MAX, -M_PI / 2);
-	if (game->player->angle_z < 0)
-		game->player->angle_z += 2 * M_PI;
-	else if (game->player->angle_z >= 2 * M_PI)
-		game->player->angle_z -= 2 * M_PI;
-	if (game->player->angle_x < -M_PI / 3)
-		game->player->angle_x = -M_PI / 3;
-	else if (game->player->angle_x >= M_PI / 2)
-		game->player->angle_x = M_PI / 2;
+		game->player->control.squat = 0;
 	return (0);
 }
 
@@ -173,8 +86,8 @@ int		ft_update(t_game *game)
 
 int		ft_game_loop(t_game *game)
 {
-	mlx_mouse_get_pos(game->window, &(game->player->control.mouse_x), &(game->player->control.mouse_y));
-	//mlx_mouse_get_pos(game->mlx, game->window, &(game->player->control.mouse_x), &(game->player->control.mouse_y));
+	//mlx_mouse_get_pos(game->window, &(game->player->control.mouse_x), &(game->player->control.mouse_y));
+	mlx_mouse_get_pos(game->mlx, game->window, &(game->player->control.mouse_x), &(game->player->control.mouse_y));
 	mlx_hook(game->window, 2, 1L<<0, ft_keypress, game);
 	mlx_hook(game->window, 3, 1L<<1, ft_keyrelease, game);
 	mlx_loop_hook(game->mlx, &ft_update, game);

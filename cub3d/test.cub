@@ -3,23 +3,23 @@ C 0,0,0
 
 
 
-SO ./textures/s5.xpm
+SO ./textures/wall-1.xpm
 
 
-		R 		2560 1400
-NO ./textures/s5.xpm
-
-
-
+		R 		600 600
+NO ./textures/wall-4.xpm
 
 
 
-WE ./textures/s5.xpm
 
 
-EA ./textures/s5.xpm
 
-S ./textures/s3.xpm
+WE ./textures/wall-2.xpm
+
+
+EA ./textures/wall-3.xpm
+
+S ./textures/sprite-1.xpm
 F 211,205,210
 
         1111111111111111111111111

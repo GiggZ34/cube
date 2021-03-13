@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_ennemy.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/17 13:26:07 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/11 23:24:39 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/12 17:51:05 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 

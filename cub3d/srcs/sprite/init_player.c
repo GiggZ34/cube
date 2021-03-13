@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_player.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 08:33:59 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/11 21:52:53 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/12 19:49:21 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ t_player	*ft_init_player(t_game *game, int x, int y, char dir)
 		angle = 3 / 2 * M_PI;
 	else
 		angle = 0;
+
 	game->player->angle_z = angle;
 	game->player->angle_x = 0;
 	game->player->live = 100;

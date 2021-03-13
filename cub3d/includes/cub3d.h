@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 11:56:01 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/11 23:06:39 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/13 16:04:17 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,13 @@
 # include <math.h>
 # define FAIL_EXIT -1
 # define NB_THREADS 4
+# define UNVISIBLE_COLOR -16777216
 # define FPS 80
 # define FRAME_RATE 50000
 # define DIST_COLLIDE 1.0
-# define ROTATE_SPEED M_PI / 2
+# define ROTATE_SPEED_X M_PI / 2
+# define ROTATE_SPEED_Z M_PI * 3 / 4
 # define SPEED_MAX 10
-# define MOUSE_SENS 2
 # define FOV 60.0
 # define FOV_COS -0.30
 # define FOV_DIST 50
@@ -105,6 +106,7 @@ typedef struct		s_screen
 	int				size;
 	int				endian;
 	int				bit;
+	int				*color_objs;
 }					t_screen;
 
 typedef struct		s_control
@@ -125,12 +127,22 @@ typedef struct		s_control
 	int				mouse_y;
 }					t_control;
 
+typedef struct		s_obj
+{
+	t_texture		obj_texture;
+	int				width;
+	int				height;
+	double			ratio;
+	t_dot			position;
+}					t_obj;
+
 typedef struct		s_player
 {
 	t_dot			position;
 	t_view			view;
 	t_collide		collide;
 	t_control		control;
+	double			dist_screen;
 	double			walk_speed;
 	double			trans_speed;
 	double			walk_speed_max;
@@ -143,7 +155,7 @@ typedef struct		s_player
 	double			angle_y;
 	double			angle_z;
 	int				live;
-	t_texture		*tile_sheet;
+	t_obj			guns;
 }					t_player;
 
 typedef struct		s_sprite
@@ -201,6 +213,8 @@ typedef struct		s_game
 	t_list			*lst_planes_right;
 	t_list			*lst_planes_left;
 	t_sky_ground	sky_ground;
+
+	t_texture		test;
 }					t_game;
 
 typedef struct		s_thread
@@ -260,6 +274,8 @@ int					ft_player_move(t_game *game, double v, double *speed, double angle);
 int					ft_edit_sprite_plane(t_sprite *sprite, t_vector player_normal);
 int					ft_update_sprites(t_list *lst_sprites, t_player *player);
 int					ft_update_player(t_game *game, t_player *player);
+void				ft_move_player(t_game *game, t_player *player);
+void				ft_rotate_player(t_game *game, t_player *player, double x, double y);
 
 /*
 **	Functions error

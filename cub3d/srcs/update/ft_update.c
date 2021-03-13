@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_update.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 10:43:23 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/11 23:59:42 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/12 19:41:24 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,6 @@ int		ft_update(t_game *game)
 	mlx_sync(MLX_SYNC_WIN_CMD_COMPLETED, game->window);
 	mlx_sync(MLX_SYNC_IMAGE_WRITABLE, game->screen.ptr);
 	ft_draw_multi_threads(game);
-	mlx_sync(MLX_SYNC_WIN_FLUSH_CMD, game->window);
-	mlx_put_image_to_window(game->mlx, game->window, game->screen.ptr, 0, 0);
 	return (0);
 }
 

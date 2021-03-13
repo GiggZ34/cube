@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+         #
+#    By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/24 18:59:35 by grivalan          #+#    #+#              #
-#    Updated: 2021/03/11 21:05:48 by grivalan         ###   ########lyon.fr    #
+#    Updated: 2021/03/13 16:05:56 by grivalan         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,6 +48,8 @@ SRCS =		main.c\
 			srcs/update/ft_update.c\
 			srcs/update/ft_update_sprites.c\
 			srcs/update/ft_update_player.c\
+			srcs/update/ft_rotate_player.c\
+			srcs/update/ft_move_player.c\
 			srcs/draw/ft_draw.c\
 			srcs/draw/ft_pixel_color.c\
 			srcs/draw/ft_print_fps.c\

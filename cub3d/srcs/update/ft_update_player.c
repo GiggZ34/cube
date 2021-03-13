@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_update_player.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/10 22:44:47 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/11 23:58:44 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/13 16:02:03 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,37 +24,7 @@ static void	ft_define_angle_move(t_player *player)
 		player->dir_trans = 0;
 }
 
-static void ft_rotate_player(t_game *game, t_player *player, double x, double y)
-{
-    if (player->control.right || ft_abs(player->control.mouse_x) - ft_abs(x) > MOUSE_SENS)
-	{
-		game->player->angle_z += -ROTATE_SPEED * game->dt.dt;
-		ft_rotate_vectors_collides(player, -ROTATE_SPEED * game->dt.dt);
-	}
-	else if (player->control.left || ft_abs(x) - ft_abs(game->player->control.mouse_x) > MOUSE_SENS)
-	{
-		game->player->angle_z += ROTATE_SPEED * game->dt.dt;
-		ft_rotate_vectors_collides(player, ROTATE_SPEED * game->dt.dt);
-	}
-    if (player->control.up || y - player->control.mouse_y > MOUSE_SENS)
-		game->player->angle_x += -ROTATE_SPEED * game->dt.dt;
-	else if (player->control.down || player->control.mouse_y - y > MOUSE_SENS)
-		game->player->angle_x += ROTATE_SPEED * game->dt.dt;
-}
-
-static void ft_define_move_player(t_game *game, t_player *player)
-{
-	if (player->control.a || player->control.d)
-		ft_player_move(game, SPEED_MAX, &player->walk_speed, player->dir_trans);
-	else
-		ft_player_move(game, -SPEED_MAX, &player->walk_speed, player->dir_trans);
-	if (player->control.w || player->control.s)
-		ft_player_move(game, SPEED_MAX, &player->trans_speed, player->dir_walk);
-	else
-		ft_player_move(game, -SPEED_MAX, &player->trans_speed, player->dir_walk);
-}
-
-static void ft_define_angle_player(t_game *game)
+static void	ft_define_angle_player(t_game *game)
 {
 	if (game->player->angle_z < 0)
 		game->player->angle_z += 2 * M_PI;
@@ -75,15 +45,19 @@ int		ft_update_player(t_game *game, t_player *player)
 	y = &(game->player->control.mouse_y_tmp);
 	mlx_mouse_get_pos(game->window, x, y);
 //	mlx_mouse_get_pos(game->mlx, game->window, x, y);
-	mlx_mouse_move(game->window, game->player->control.mouse_x, game->player->control.mouse_y);
+	mlx_mouse_move(game->window, game->player->control.mouse_x,
+												game->player->control.mouse_y);
 //	mlx_mouse_move(game->mlx, game->window, game->player->control.mouse_x, game->player->control.mouse_y);
-	mlx_mouse_get_pos(game->window, &(game->player->control.mouse_x), &(game->player->control.mouse_y));
+	mlx_mouse_get_pos(game->window, &(game->player->control.mouse_x),
+											&(game->player->control.mouse_y));
 //	mlx_mouse_get_pos(game->mlx, game->window, &(game->player->control.mouse_x), &(game->player->control.mouse_y));
-	mlx_mouse_move(game->window, game->player->control.mouse_x, game->player->control.mouse_y);
+	mlx_mouse_move(game->window, game->player->control.mouse_x,
+											game->player->control.mouse_y);
 //	mlx_mouse_move(game->mlx, game->window, game->player->control.mouse_x, game->player->control.mouse_y);
 	ft_define_angle_move(player);
-    ft_rotate_player(game, player, *x, *y);
-    ft_define_move_player(game, player);
-    ft_define_angle_player(game);
+	ft_rotate_player(game, player, *x - game->player->control.mouse_x,
+										*y - game->player->control.mouse_y);
+	ft_move_player(game, player);
+	ft_define_angle_player(game);
 	return (0);
 }

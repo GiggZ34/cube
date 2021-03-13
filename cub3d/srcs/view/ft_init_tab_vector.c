@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_init_tab_vector.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 15:26:02 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/11 20:17:38 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/12 19:55:45 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ int			ft_init_tab_vector(t_game *game, t_dot origin)
 	ft_init_vector_collides(game->player, game->player->view.view);
 	opp = game->screen.size / 2;
 	hypo = opp / 0.5;
-	origin.y -= game->screen.w_vec * sqrt(pow(hypo, 2) - pow(opp, 2));
+	game->player->dist_screen = sqrt(pow(hypo, 2) - pow(opp, 2));
+	origin.y -= game->screen.w_vec * game->player->dist_screen;
 	origin.x -= game->screen.w_vec * game->screen.size / 2;
 	origin.z -= game->screen.w_vec * game->screen.height / 2;
 	size = game->screen.size * game->screen.height;

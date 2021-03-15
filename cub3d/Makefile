@@ -6,13 +6,13 @@
 #    By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/24 18:59:35 by grivalan          #+#    #+#              #
-#    Updated: 2021/03/13 16:05:56 by grivalan         ###   ########lyon.fr    #
+#    Updated: 2021/03/15 11:15:01 by grivalan         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
 UNAME := $(shell uname)
 
-NAME =		Cub3D
+NAME =		cub3d
 
 NAME2	=	Cub3Dlinux
 
@@ -36,6 +36,7 @@ SRCS =		main.c\
 			srcs/load/file/ft_image_generate.c\
 			srcs/load/screen/ft_screen.c\
 			srcs/load/file/ft_check_struct.c\
+			srcs/load/objects/load_objects.c\
 			srcs/view/ft_init_tab_vector.c\
 			srcs/sprite/ft_rotate_vectors_collides.c\
 			srcs/view/ft_translation_vector.c\

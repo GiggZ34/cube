@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 11:56:01 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/13 16:04:17 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/15 14:40:25 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@
 # define FAIL_EXIT -1
 # define NB_THREADS 4
 # define UNVISIBLE_COLOR -16777216
+# define NB_IMG_ANIM_GUNS 4
+# define NB_ANIM_GUNS 3
 # define FPS 80
 # define FRAME_RATE 50000
 # define DIST_COLLIDE 1.0
@@ -37,6 +39,20 @@
 # define FOV_COS -0.30
 # define FOV_DIST 50
 # define FOV_DIST_SQRT 5
+
+typedef enum		e_states
+{
+	rest,
+	reload,
+	shoot
+}					t_states;
+
+typedef enum		e_player_anim
+{
+	anim_rest = 1,
+	anim_reload = 4,
+	anim_shoot = 2
+}					t_player_anim;
 
 typedef struct		s_texture
 {
@@ -138,10 +154,12 @@ typedef struct		s_obj
 
 typedef struct		s_player
 {
+	t_states		states;
 	t_dot			position;
 	t_view			view;
 	t_collide		collide;
 	t_control		control;
+	t_screen		*gun[NB_ANIM_GUNS];
 	double			dist_screen;
 	double			walk_speed;
 	double			trans_speed;
@@ -263,6 +281,7 @@ int					ft_init_tab_vector(t_game *game, t_dot origin);
 int					ft_init_ennemy(t_game *game, int x, int y);
 t_player			*ft_init_player(t_game *game, int x, int y, char dir);
 int					ft_check_struct(t_game *game);
+int					ft_load_tilesheet_obj(t_game *game, char *path);
 
 /*
 **	Function update

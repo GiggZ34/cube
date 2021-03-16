@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 08:26:00 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/15 13:20:10 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/16 15:23:47 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,14 +57,17 @@ void	*ft_draw(void *g)
 		while (j < thread->game->screen.height)
 		{
 			id = j * thread->game->screen.size + i;
-			vec = thread->game->player->view.tab_vectors[id];
-			vec = ft_rotate_vector_current(thread->game, vec);
-			if (thread->game->player->view.sprites_in_fov)
-				ft_drawing_scale(thread->game, id, ft_pixel_color(thread->game,
-					vec, thread->game->player->view.sprites_in_fov->content));
-			else
-				ft_drawing_scale(thread->game, id,
+			if (thread->screen->color[id] == UNVISIBLE_COLOR)
+			{
+				vec = thread->game->player->view.tab_vectors[id];
+				vec = ft_rotate_vector_current(thread->game, vec);
+				if (thread->game->player->view.sprites_in_fov)
+					ft_drawing_scale(thread->game, id, ft_pixel_color(thread->game,
+						vec, thread->game->player->view.sprites_in_fov->content));
+				else
+					ft_drawing_scale(thread->game, id,
 									ft_pixel_color(thread->game, vec, NULL));
+			}
 			j += thread->game->screen.scale;
 		}
 		i += thread->game->screen.scale;
@@ -72,7 +75,7 @@ void	*ft_draw(void *g)
 	return (0);
 }
 
-void	ft_draw_multi_threads(t_game *game)
+void	ft_draw_multi_threads(t_game *game, t_screen *gun)
 {
 	int			i;
 	int			size_px;
@@ -85,6 +88,7 @@ void	ft_draw_multi_threads(t_game *game)
 		thread[i].game = game;
 		thread[i].start = size_px * i;
 		thread[i].size = size_px;
+		thread[i].screen = gun;
 		if (pthread_create(&thread[i].thread, NULL, ft_draw, (&thread[i])))
 			exit(1);
 	}
@@ -96,6 +100,6 @@ void	ft_draw_multi_threads(t_game *game)
 		pthread_detach(thread[i].thread);
 	mlx_sync(MLX_SYNC_WIN_FLUSH_CMD, game->window);
 	mlx_put_image_to_window(game->mlx, game->window, game->screen.ptr, 0, 0);
-//	mlx_put_image_to_window(game->mlx, game->window, game->test.ptr, 0, 0);
+	mlx_put_image_to_window(game->mlx, game->window, game->player->arm->ptr, 0, 0);
 	ft_print_fps(game, game->dt.dt_str);
 }

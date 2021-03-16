@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 10:43:23 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/12 19:41:24 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/16 15:25:34 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ int		ft_keypress(int keycode, t_game *game)
 		game->player->control.squat = 1;
 	if (keycode == SHIFT)
 		game->player->control.run = 1;
+	if (keycode == SHOOT && !game->player->control.reload)
+		game->player->control.shoot = 1;
 	return (0);
 }
 
@@ -82,7 +84,7 @@ int		ft_update(t_game *game)
 	ft_update_sprites(game->lst_sprites, game->player);
 	mlx_sync(MLX_SYNC_WIN_CMD_COMPLETED, game->window);
 	mlx_sync(MLX_SYNC_IMAGE_WRITABLE, game->screen.ptr);
-	ft_draw_multi_threads(game);
+	ft_draw_multi_threads(game, game->player->arm);
 	return (0);
 }
 

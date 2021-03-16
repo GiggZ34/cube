@@ -6,48 +6,64 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 15:21:03 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/15 14:17:14 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/16 16:32:38 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void	ft_screen_unvisible(t_screen s)
+static void	ft_screen_unvisible(t_game *game, t_screen s)
 {
 	int i;
 
 	i = -1;
-	while (++i < s.height * s.size)
+	while (++i < game->screen.height * game->screen.size)
 		s.color[i] = UNVISIBLE_COLOR;
 }
 
-static void	ft_generate_texture(t_game *game, t_screen s, int state, int nb_img)
+static void	ft_generate_texture(t_game *game, t_screen s, int state, int num_img)
 {
-	int i;
+	double	h_color;
+	double	w_color;
+	int		w;
+	int		h;
 
-	i = game->player->guns.position.y * s.size + game->player->guns.position.x;
-	while (i < s.size * s.height)
+	w = game->player->guns.position.x;
+	h = game->player->guns.position.y;
+	h_color = game->player->guns.height * state;
+	w_color = game->player->guns.width * num_img;
+	while (h * s.size + w < s.height * s.size)
 	{
-
+		s.color[h * s.size + w] = game->player->guns.obj_texture.color[(int)h_color * game->player->guns.obj_texture.size_line + (int)w_color];
+		w_color += game->player->guns.ratio;
+		w++;
+		if ((int)w_color >= game->player->guns.width * (num_img + 1))
+		{
+			w_color = game->player->guns.width * num_img;
+			h_color += game->player->guns.ratio;
+			w = game->player->guns.position.x;
+			h++;
+		}
+		printf("%d | %d\n", (int)h_color * game->player->guns.obj_texture.size_line + (int)w_color, game->player->guns.width * game->player->guns.height);
 	}
-
 }
 
-int			ft_init_screen(t_game *game, t_screen *img, int nb_img, int state)
+int			ft_init_screen(t_game *game, t_screen *img, int num_img, int state)
 {
 	int	i;
 
 	i = -1;
-	while (++i < nb_img)
+	while (++i < num_img)
 	{
 		if (!(img[i].ptr = mlx_new_image(game->mlx,
 									game->screen.width, game->screen.height)))
 			return (game->file->error_code = 3);
+		img[i].height = game->screen.height;
 		if (!(img[i].color = (int*)mlx_get_data_addr(img[i].ptr,
 				&img[i].bit, &img[i].size, &img[i].endian)))
 			return (game->file->error_code = 3);
 		img[i].size /= 4;
-		ft_screen_unvisible(img[i]);
+		ft_screen_unvisible(game, img[i]);
 		ft_generate_texture(game, img[i], state, i);
 	}
 	return (0);
@@ -66,3 +82,4 @@ int			ft_screen(t_game *game)
 	game->screen.scale = 1;
 	return (0);
 }
+

@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 11:56:01 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/15 14:40:25 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/16 15:40:08 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,6 +141,8 @@ typedef struct		s_control
 	int				mouse_y_tmp;
 	int				mouse_x;
 	int				mouse_y;
+	int				shoot;
+	int				reload;
 }					t_control;
 
 typedef struct		s_obj
@@ -154,7 +156,10 @@ typedef struct		s_obj
 
 typedef struct		s_player
 {
-	t_states		states;
+	int				state;
+	double			anim_frame;
+	int				ammunition;
+	t_screen		*arm;
 	t_dot			position;
 	t_view			view;
 	t_collide		collide;
@@ -242,7 +247,7 @@ typedef struct		s_thread
 	int				start;
 	int				size;
 	pthread_t		thread;
-	t_screen		screen;
+	t_screen		*screen;
 }					t_thread;
 
 /*
@@ -251,6 +256,7 @@ typedef struct		s_thread
 
 int					ft_color_generate(int red, int green, int blue, int alpha);
 void				ft_delta_time_generate(t_game *game);
+t_player_anim		ft_define_nb_anim(int state);
 
 /*
 **	Functions free
@@ -277,6 +283,7 @@ void				ft_asort_planes(t_list *lst);
 int					ft_lst_planes_to_tab(t_game *game);
 int					ft_img_generate(void *mlx, t_file *file, char *dir, char *type);
 int					ft_screen(t_game *game);
+int					ft_init_screen(t_game *game, t_screen *img, int nb_img, int state);
 int					ft_init_tab_vector(t_game *game, t_dot origin);
 int					ft_init_ennemy(t_game *game, int x, int y);
 t_player			*ft_init_player(t_game *game, int x, int y, char dir);
@@ -313,7 +320,7 @@ int					ft_mini_map(t_game *game);
 **	Functions draw
 */
 
-void				ft_draw_multi_threads(t_game *game);
+void				ft_draw_multi_threads(t_game *game, t_screen *gun);
 int					ft_pixel_color(t_game *game, t_vector v, t_sprite *s);
 int					ft_print_fps(t_game *game, char *fps);
 

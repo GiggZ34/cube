@@ -6,11 +6,46 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/10 22:44:47 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/13 16:02:03 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/16 15:30:42 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+static void ft_shoot(t_game *game, t_player *player)
+{
+	int	nb_anim;
+
+	if (player->control.shoot && player->state != shoot)
+	{
+		player->state = shoot;
+		player->anim_frame = 0;
+		player->ammunition--;
+	}
+	else
+		player->anim_frame += game->dt.dt * 5;
+	nb_anim = ft_define_nb_anim(player->state);
+	if ((int)player->anim_frame >= nb_anim && player->control.shoot)
+	{
+		player->anim_frame = 0;
+		player->control.shoot = 0;
+		player->state = rest;
+		if (player->ammunition == 0)
+		{
+			player->control.reload = 1;
+			player->state = reload;
+			player->ammunition = 2;
+		}
+	}
+	else if ((int)player->anim_frame >= nb_anim)
+	{
+		player->anim_frame = 0;
+		player->control.reload = 0;
+		if (player->state != rest)
+			player->state = rest;
+	}
+	player->arm = &player->gun[player->state][(int)player->anim_frame];
+}
 
 static void	ft_define_angle_move(t_player *player)
 {
@@ -59,5 +94,6 @@ int		ft_update_player(t_game *game, t_player *player)
 										*y - game->player->control.mouse_y);
 	ft_move_player(game, player);
 	ft_define_angle_player(game);
+	ft_shoot(game, player);
 	return (0);
 }

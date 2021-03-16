@@ -6,7 +6,7 @@
 #    By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/24 18:59:35 by grivalan          #+#    #+#              #
-#    Updated: 2021/03/15 11:15:01 by grivalan         ###   ########lyon.fr    #
+#    Updated: 2021/03/16 15:53:55 by grivalan         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,6 +46,7 @@ SRCS =		main.c\
 			srcs/clear/clear_file.c\
 			srcs/tools/ft_color_generate.c\
 			srcs/tools/ft_delta_time_generator.c\
+			srcs/tools/ft_define_nb_anim.c\
 			srcs/update/ft_update.c\
 			srcs/update/ft_update_sprites.c\
 			srcs/update/ft_update_player.c\
@@ -60,7 +61,7 @@ CC = gcc
 ifeq ($(UNAME), Linux)
 CFLAGS =	-Wall -Wextra -Werror -Ofast -D LINUX
 else
-CFLAGS =	-Wall -Wextra -Werror -Ofast -g
+CFLAGS =	-Wall -Wextra -Werror -Ofast
 endif
 
 INCLUDES =	includes
@@ -74,7 +75,7 @@ $(NAME):	$(OBJS)
 		$(MAKE) -C $(LIB)
 		$(MAKE) -C $(MLX)
 		cp mlx/libmlx.dylib .
-		$(CC) -g3 -fsanitize=address -o $(NAME) $(OBJS) -I $(INCLUDES) libft/libft.a -Lmlx -lmlx -lm
+		$(CC) -o $(NAME) $(OBJS) -I $(INCLUDES) libft/libft.a -Lmlx -lmlx -lm
 
 $(NAME2) :	$(OBJS)
 		$(MAKE) -C $(LIB)

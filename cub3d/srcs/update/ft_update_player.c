@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_update_player.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/10 22:44:47 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/17 01:45:14 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/17 14:36:48 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,12 @@ static void ft_shoot(t_game *game, t_player *player)
 		player->state = shoot;
 		player->anim_frame = 0;
 		player->ammunition--;
+	}
+	else if (player->control.reload == 1 && player->state != reload)
+	{
+		player->state = reload;
+		player->anim_frame = 0;
+		player->ammunition = barel_fusil;
 	}
 	else
 		player->anim_frame += game->dt.dt * 8;

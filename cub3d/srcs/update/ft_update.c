@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_update.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 10:43:23 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/17 01:46:13 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/17 14:33:42 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,17 @@ int		ft_keyrelease(int keycode, t_game *game)
 	return (0);
 }
 
+int		ft_mouse_press(int button, int x, int y, t_game *game)
+{
+	if (button == 1 && !game->player->control.reload)
+		game->player->control.shoot = 1;
+	else if (button == 2)
+		game->player->control.reload = 1;
+	x = 0;
+	y = 0;
+	return (0);
+}
+
 int		ft_update(t_game *game)
 {
 	ft_delta_time_generate(game);
@@ -126,6 +137,7 @@ int		ft_game_loop(t_game *game)
 //	mlx_mouse_hide(game->mlx, game->window);
 	mlx_mouse_get_pos(game->window, &(game->player->control.mouse_x), &(game->player->control.mouse_y));
 //	mlx_mouse_get_pos(game->mlx, game->window, &(game->player->control.mouse_x), &(game->player->control.mouse_y));
+	mlx_mouse_hook(game->window, ft_mouse_press, game);
 	mlx_hook(game->window, 2, 1L<<0, ft_keypress, game);
 	mlx_hook(game->window, 3, 1L<<1, ft_keyrelease, game);
 	mlx_loop_hook(game->mlx, &ft_update, game);

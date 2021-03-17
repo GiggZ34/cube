@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 17:11:43 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/13 16:19:46 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/17 14:07:48 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	ft_delta_time_generate(t_game *game)
 													+ game->dt.time.tv_usec;
 	fps = round(1 / game->dt.dt);
 	game->dt.dt_str = ft_itoa(fps);
-	if (fps < 4)
+	if (fps < 10 && game->screen.scale < 4)
 		game->screen.scale++;
 	else if (fps > FPS && game->screen.scale > 1)
 		game->screen.scale--;

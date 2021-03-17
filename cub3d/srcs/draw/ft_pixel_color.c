@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pixel_color.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 11:10:27 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/16 18:16:25 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/17 14:58:22 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static int		ft_search_color_x(t_game *game, t_vector vec, double *size)
 	int		i;
 	int		step;
 
-	if (vec.x == 0 || game->player->position.x < 0 || game->player->position.x >= game->file->width_map)
+	if (vec.x == 0 || game->player->position.x <= 0 || game->player->position.x > game->file->width_map - 1)
 		return (-1);
 	tab = game->tab_planes.left;
 	step = -1;
@@ -70,7 +70,7 @@ static int		ft_search_color_x(t_game *game, t_vector vec, double *size)
 		step = 1;
 	}
 	i = floor(game->player->position.x) + step;
-	while (!(lst = tab[i]))
+	while (i >= 0 && i < game->file->width_map && !(lst = tab[i]))
 		i += step;
 	while (lst)
 	{
@@ -94,7 +94,7 @@ static int		ft_search_color_y(t_game *game, t_vector vec, double *size)
 	int		step;
 
 	step = 0;
-	if (vec.y == 0 || game->player->position.y < 0 || game->player->position.y >= game->file->height_map)
+	if (vec.y == 0 || game->player->position.y <= 0 || game->player->position.y > game->file->height_map - 1)
 		return (-1);
 	tab = game->tab_planes.top;
 	step = -1;
@@ -104,7 +104,7 @@ static int		ft_search_color_y(t_game *game, t_vector vec, double *size)
 		step = 1;
 	}
 	i = floor(game->player->position.y + step);
-	while (!(lst = tab[i]))
+	while (i >= 0 && i < game->file->height_map && !(lst = tab[i]))
 		i += step;
 	while (lst)
 	{

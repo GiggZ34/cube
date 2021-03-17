@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_load.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 14:19:46 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/17 01:40:36 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/17 10:39:12 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static int	ft_load_textures_sky(t_game *game)
 	game->sky_ground.sky_plane.a = 0;
 	game->sky_ground.sky_plane.b = 0;
 	game->sky_ground.sky_plane.c = 1;
-	game->sky_ground.sky_plane.d = 1;
+	game->sky_ground.sky_plane.d = -1;
 	return (0);
 }
 

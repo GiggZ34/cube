@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 11:56:01 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/16 21:34:09 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/17 14:30:21 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@
 # define FPS 80
 # define FRAME_RATE 50000
 # define DIST_COLLIDE 1.0
-# define ROTATE_SPEED_X M_PI / 2
-# define ROTATE_SPEED_Z M_PI * 3 / 4
+# define ROTATE_SPEED_X M_PI / 4
+# define ROTATE_SPEED_Z M_PI / 4
 # define SPEED_MAX 10
 # define FOV 60.0
 # define FOV_COS -0.30
@@ -42,7 +42,8 @@
 
 typedef enum		e_arms
 {
-	barel_fusil = 1
+	barel_fusil = 1,
+	damages_fusil = 20
 }					t_arms;
 
 typedef enum		e_states

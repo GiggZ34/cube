@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   control_linux.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 23:29:01 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/16 15:00:09 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/16 18:38:50 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,4 +21,4 @@
 #define D 'd'
 #define SHIFT 65505
 #define ALT 65507
-#define SHOOT 82
+#define SHOOT 65438

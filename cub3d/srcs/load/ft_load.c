@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_load.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 14:19:46 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/16 09:58:04 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/17 01:40:36 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static int	ft_load_textures_ground(t_game *game)
 {
 	if (!(game->sky_ground.ground_texture.ptr = mlx_xpm_file_to_image(
 									game->mlx,
-									"./textures/ceil-3.xpm",
+									"./textures/ground-6.xpm",
 									&(game->sky_ground.ground_texture.width),
 									&(game->sky_ground.ground_texture.height))))
 		return (3);
@@ -38,7 +38,7 @@ static int	ft_load_textures_sky(t_game *game)
 {
 	if (!(game->sky_ground.sky_texture.ptr = mlx_xpm_file_to_image(
 								game->mlx,
-								"./textures/ground-3.xpm",
+								"./textures/ceil-3.xpm",
 								&(game->sky_ground.sky_texture.width),
 								&(game->sky_ground.sky_texture.height))))
 		return (3);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_rotate_player.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/13 16:00:49 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/13 16:16:41 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/17 01:43:07 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ void			ft_rotate_player(t_game *g, t_player *p, double x, double y)
 		ft_rotate_vectors_collides(p,
 									ROTATE_SPEED_Z * ratio_z * g->dt.dt);
 	}
-	if (p->control.up || y < 0)
-		p->angle_x += ROTATE_SPEED_X * ratio_x * g->dt.dt;
-	else if (p->control.down || y > 0)
+	if (p->control.up || y > 0)
 		p->angle_x += -ROTATE_SPEED_X * ratio_x * g->dt.dt;
+	else if (p->control.down || y < 0)
+		p->angle_x += ROTATE_SPEED_X * ratio_x * g->dt.dt;
 }

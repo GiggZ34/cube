@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_screen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 15:21:03 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/16 16:32:38 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/16 20:03:04 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,16 +35,15 @@ static void	ft_generate_texture(t_game *game, t_screen s, int state, int num_img
 	while (h * s.size + w < s.height * s.size)
 	{
 		s.color[h * s.size + w] = game->player->guns.obj_texture.color[(int)h_color * game->player->guns.obj_texture.size_line + (int)w_color];
-		w_color += game->player->guns.ratio;
+		w_color += game->player->guns.ratio_size;
 		w++;
 		if ((int)w_color >= game->player->guns.width * (num_img + 1))
 		{
 			w_color = game->player->guns.width * num_img;
-			h_color += game->player->guns.ratio;
+			h_color += game->player->guns.ratio_size;
 			w = game->player->guns.position.x;
 			h++;
 		}
-		printf("%d | %d\n", (int)h_color * game->player->guns.obj_texture.size_line + (int)w_color, game->player->guns.width * game->player->guns.height);
 	}
 }
 

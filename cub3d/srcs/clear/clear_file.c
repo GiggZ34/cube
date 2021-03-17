@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 15:01:48 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/09 02:06:28 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/16 22:35:07 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ int			ft_clear_file(t_file *file, int fd, int code_error)
 {
 	char	*s;
 
-	s = 0;
 	while (get_next_line(fd, &s) == 1)
 		if (s)
 			free(s);

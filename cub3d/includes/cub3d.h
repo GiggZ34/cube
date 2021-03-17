@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 11:56:01 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/16 15:40:08 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/16 21:34:09 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 # define FAIL_EXIT -1
 # define NB_THREADS 4
 # define UNVISIBLE_COLOR -16777216
-# define NB_IMG_ANIM_GUNS 4
+# define NB_IMG_ANIM_GUNS 7
 # define NB_ANIM_GUNS 3
 # define FPS 80
 # define FRAME_RATE 50000
@@ -40,6 +40,11 @@
 # define FOV_DIST 50
 # define FOV_DIST_SQRT 5
 
+typedef enum		e_arms
+{
+	barel_fusil = 1
+}					t_arms;
+
 typedef enum		e_states
 {
 	rest,
@@ -50,7 +55,7 @@ typedef enum		e_states
 typedef enum		e_player_anim
 {
 	anim_rest = 1,
-	anim_reload = 4,
+	anim_reload = 7,
 	anim_shoot = 2
 }					t_player_anim;
 
@@ -150,7 +155,8 @@ typedef struct		s_obj
 	t_texture		obj_texture;
 	int				width;
 	int				height;
-	double			ratio;
+	double			ratio_pos;
+	double			ratio_size;
 	t_dot			position;
 }					t_obj;
 

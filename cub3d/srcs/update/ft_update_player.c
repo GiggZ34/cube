@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_update_player.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/10 22:44:47 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/16 15:30:42 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/17 01:45:14 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void ft_shoot(t_game *game, t_player *player)
 		player->ammunition--;
 	}
 	else
-		player->anim_frame += game->dt.dt * 5;
+		player->anim_frame += game->dt.dt * 8;
 	nb_anim = ft_define_nb_anim(player->state);
 	if ((int)player->anim_frame >= nb_anim && player->control.shoot)
 	{
@@ -34,7 +34,7 @@ static void ft_shoot(t_game *game, t_player *player)
 		{
 			player->control.reload = 1;
 			player->state = reload;
-			player->ammunition = 2;
+			player->ammunition = barel_fusil;
 		}
 	}
 	else if ((int)player->anim_frame >= nb_anim)

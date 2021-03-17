@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 11:41:36 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/08 18:52:28 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/16 17:54:12 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int				main(int ac, char **av)
 		free(game.window);
 		free(game.mlx);
 	}
-//	else
+	else
 //		ft_error_file(game.file, 8, "");
 
 	return (0);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pixel_color.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 11:10:27 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/13 14:34:50 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/16 18:16:25 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,7 +155,7 @@ static int	ft_search_sprites(t_game *game, t_vector vec, double *size, t_list *l
 				dir.x = sprite->frist_px.x - inter.x;
 				dir.y = sprite->frist_px.y - inter.y;
 				if (dir.x * sprite->vec_write.x >= 0 && dir.y * sprite->vec_write.y >= 0
-				&& (color = ft_search_sprite_color(sprite, sprite->tile_sheet, sqrt(dist), 1 - inter.z)) >= 0)
+				&& (color = ft_search_sprite_color(sprite, sprite->tile_sheet, sqrt(dist), 1 - inter.z)) != UNVISIBLE_COLOR)
 				{
 					*size = tmp_size;
 					return (color);

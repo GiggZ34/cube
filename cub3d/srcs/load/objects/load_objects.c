@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   load_objects.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 11:02:45 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/16 16:27:15 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/16 20:21:22 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static double	ft_ratio_dim_obj(t_game *game, t_player *player)
+static void	ft_ratio_dim_obj(t_game *game, t_player *player)
 {
 	double	ratio_height;
 	double	ratio_width;
@@ -23,7 +23,10 @@ static double	ft_ratio_dim_obj(t_game *game, t_player *player)
 	width = game->screen.width;
 	ratio_height = (double)height / (double)player->guns.height;
 	ratio_width = (double)width / (double)player->guns.width;
-	return (ft_min(ratio_height, ratio_width));
+	game->player->guns.ratio_pos = ft_min(ratio_height, ratio_width);
+	ratio_height = (double)player->guns.height / (double)height;
+	ratio_width = (double)player->guns.width / (double)width;
+	game->player->guns.ratio_size = ft_max(ratio_height, ratio_width);
 }
 
 static void	ft_define_data_tilesheet(t_game *game, t_player *player)
@@ -31,9 +34,9 @@ static void	ft_define_data_tilesheet(t_game *game, t_player *player)
 	player->guns.obj_texture.size_line /= 4;
 	player->guns.width = player->guns.obj_texture.width / NB_IMG_ANIM_GUNS;
 	player->guns.height = player->guns.obj_texture.height / NB_ANIM_GUNS;
-	player->guns.ratio = ft_ratio_dim_obj(game, player);
-	player->guns.position.x = game->screen.width - player->guns.width * player->guns.ratio;
-	player->guns.position.y = game->screen.height - player->guns.height * player->guns.ratio;
+	ft_ratio_dim_obj(game, player);
+	player->guns.position.x = game->screen.width / 2 - (player->guns.width * player->guns.ratio_pos) / 2;
+	player->guns.position.y = game->screen.height - (player->guns.height * player->guns.ratio_pos);
 }
 
 static void	ft_create_screen(t_game *game, t_player *player, int state)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lst_planes_to_tab.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 08:57:40 by grivalan          #+#    #+#             */
-/*   Updated: 2021/02/05 15:49:34 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/18 13:23:28 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static t_list		**ft_planes_top_to_tab(t_game *game)
 	t_plane	*plane;
 	int		i;
 
-	size = game->file->height_map;
+	size = game->file.height_map;
 	if (!(tab = ft_calloc(sizeof(t_plane*), size + 1)))
 		return (NULL);
 	i = -1;
@@ -44,7 +44,7 @@ static t_list		**ft_planes_bottom_to_tab(t_game *game)
 	t_plane	*plane;
 	int		i;
 
-	size = game->file->height_map;
+	size = game->file.height_map;
 	if (!(tab = ft_calloc(sizeof(t_plane*), size + 1)))
 		return (NULL);
 	i = -1;
@@ -68,7 +68,7 @@ static t_list		**ft_planes_right_to_tab(t_game *game)
 	t_plane	*plane;
 	int		i;
 
-	size = game->file->width_map;
+	size = game->file.width_map;
 	if (!(tab = ft_calloc(sizeof(t_plane*), size + 1)))
 		return (NULL);
 	i = -1;
@@ -92,7 +92,7 @@ static t_list		**ft_planes_left_to_tab(t_game *game)
 	t_plane	*plane;
 	int		i;
 
-	size = game->file->width_map;
+	size = game->file.width_map;
 	if (!(tab = ft_calloc(sizeof(t_plane*), size + 1)))
 		return (NULL);
 	i = -1;

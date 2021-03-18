@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 10:43:23 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/17 14:33:42 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/18 14:04:34 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,41 +14,41 @@
 
 static void	ft_delete_textures(t_game *game)
 {
-	if (game->file->texture_ea)
+	if (game->file.texture_ea)
 	{
-		if (mlx_destroy_image(game->mlx, game->file->texture_ea->ptr))
-			printf("Texture east destruction failed\n");
-		free(game->file->texture_ea);
+		if (mlx_destroy_image(game->mlx, game->file.texture_ea->ptr))
+			write(1, "Error\nTexture east destruction failed\n", 38);
+		free(game->file.texture_ea);
 	}
-	if (game->file->texture_no)
+	if (game->file.texture_no)
 	{
-		if (mlx_destroy_image(game->mlx, game->file->texture_no->ptr))
-			printf("Texture north destruction failed\n");
-		free(game->file->texture_no);
+		if (mlx_destroy_image(game->mlx, game->file.texture_no->ptr))
+			write(1, "Error\nTexture north destruction failed\n", 39);
+		free(game->file.texture_no);
 	}
-	if (game->file->texture_s)
+	if (game->file.texture_s)
 	{
-		if (mlx_destroy_image(game->mlx, game->file->texture_s->ptr))
-			printf("Texture sprite destruction failed\n");
-		free(game->file->texture_s);
+		if (mlx_destroy_image(game->mlx, game->file.texture_s->ptr))
+			write(1, "Error\nTexture sprite destruction failed\n", 40);
+		free(game->file.texture_s);
 	}
-	if (game->file->texture_so)
+	if (game->file.texture_so)
 	{
-		if (mlx_destroy_image(game->mlx, game->file->texture_so->ptr))
-			printf("Texture south destruction failed\n");
-		free(game->file->texture_so);
+		if (mlx_destroy_image(game->mlx, game->file.texture_so->ptr))
+			write(1, "Error\nTexture south destruction failed\n", 39);
+		free(game->file.texture_so);
 	}
-	if (game->file->texture_we)
+	if (game->file.texture_we)
 	{
-		if (mlx_destroy_image(game->mlx, game->file->texture_we->ptr))
-			printf("Texture west destruction failed\n");
-		free(game->file->texture_we);
+		if (mlx_destroy_image(game->mlx, game->file.texture_we->ptr))
+			write(1, "Error\nTexture west destruction failed\n", 38);
+		free(game->file.texture_we);
 	}
 }
 
 int		ft_trash_game(t_game *game)
 {
-	ft_clear_file(game->file, 3, 0);
+	ft_clear_file(&game->file, 3, 0);
 	ft_delete_textures(game);
 	if (mlx_destroy_window(game->mlx, game->window))
 			printf("Windows destruction failed\n");
@@ -133,11 +133,11 @@ int		ft_update(t_game *game)
 
 int		ft_game_loop(t_game *game)
 {
-	mlx_mouse_hide();
-//	mlx_mouse_hide(game->mlx, game->window);
+	mlx_mouse_hide(game->mlx, game->window);
 	mlx_mouse_get_pos(game->window, &(game->player->control.mouse_x), &(game->player->control.mouse_y));
 //	mlx_mouse_get_pos(game->mlx, game->window, &(game->player->control.mouse_x), &(game->player->control.mouse_y));
 	mlx_mouse_hook(game->window, ft_mouse_press, game);
+	mlx_hook(game->window, 17, 1L<<17, &ft_trash_game, game);
 	mlx_hook(game->window, 2, 1L<<0, ft_keypress, game);
 	mlx_hook(game->window, 3, 1L<<1, ft_keyrelease, game);
 	mlx_loop_hook(game->mlx, &ft_update, game);

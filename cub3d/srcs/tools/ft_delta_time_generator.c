@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 17:11:43 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/17 14:07:48 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/18 13:26:24 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,5 @@ void	ft_delta_time_generate(t_game *game)
 	else if (fps > FPS && game->screen.scale > 1)
 		game->screen.scale--;
 	if (!game->dt.dt_str)
-		game->file->error_code = 3;
+		game->file.error_code = 3;
 }

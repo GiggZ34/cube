@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_check_struct.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 17:57:26 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/11 00:52:33 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/18 13:24:35 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int			ft_check_struct(t_game *game)
 {
 	if (game->screen.width < 640 || game->screen.width > 2560
 			|| game->screen.height < 480 || game->screen.height > 1400)
-		if ((game->file->error_code = ft_change_resolution(game)) != 0)
-			return (ft_error_file(game->file, game->file->error_code, ""));
+		if ((game->file.error_code = ft_change_resolution(game)) != 0)
+			return (ft_error_file(&game->file, game->file.error_code, ""));
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 11:10:27 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/17 14:58:22 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/18 13:28:54 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static double	ft_is_wall(t_game *game, t_plane *plane, t_vector v, t_dot *dot, c
 	int		y;
 	int		x;
 
-	map = game->file->map;
+	map = game->file.map;
 	pos = game->player->position;
 	size = ft_size_vec_plane(plane, v, pos);
 	*dot = ft_intersect_plane_dot(pos, v, size);
@@ -45,7 +45,7 @@ static double	ft_is_wall(t_game *game, t_plane *plane, t_vector v, t_dot *dot, c
 		x--;
 	if (dir == 'y' && v.y < 0)
 		y--;
-	if (x >= 0 && y >= 0 && y < game->file->height_map
+	if (x >= 0 && y >= 0 && y < game->file.height_map
 						&& x < (int)ft_strlen(map[y]) && map[y][x] == '1')
 		return (size);
 	return (-1);
@@ -60,7 +60,7 @@ static int		ft_search_color_x(t_game *game, t_vector vec, double *size)
 	int		i;
 	int		step;
 
-	if (vec.x == 0 || game->player->position.x <= 0 || game->player->position.x > game->file->width_map - 1)
+	if (vec.x == 0 || game->player->position.x <= 0 || game->player->position.x > game->file.width_map - 1)
 		return (-1);
 	tab = game->tab_planes.left;
 	step = -1;
@@ -70,7 +70,7 @@ static int		ft_search_color_x(t_game *game, t_vector vec, double *size)
 		step = 1;
 	}
 	i = floor(game->player->position.x) + step;
-	while (i >= 0 && i < game->file->width_map && !(lst = tab[i]))
+	while (i >= 0 && i < game->file.width_map && !(lst = tab[i]))
 		i += step;
 	while (lst)
 	{
@@ -94,7 +94,7 @@ static int		ft_search_color_y(t_game *game, t_vector vec, double *size)
 	int		step;
 
 	step = 0;
-	if (vec.y == 0 || game->player->position.y <= 0 || game->player->position.y > game->file->height_map - 1)
+	if (vec.y == 0 || game->player->position.y <= 0 || game->player->position.y > game->file.height_map - 1)
 		return (-1);
 	tab = game->tab_planes.top;
 	step = -1;
@@ -104,7 +104,7 @@ static int		ft_search_color_y(t_game *game, t_vector vec, double *size)
 		step = 1;
 	}
 	i = floor(game->player->position.y + step);
-	while (i >= 0 && i < game->file->height_map && !(lst = tab[i]))
+	while (i >= 0 && i < game->file.height_map && !(lst = tab[i]))
 		i += step;
 	while (lst)
 	{

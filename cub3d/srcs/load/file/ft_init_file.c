@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_init_file.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 13:21:48 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/02 14:46:38 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/18 13:09:50 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,8 @@ static int		regex_file(const char *s)
 
 static void		ft_init_t_file(t_game *game)
 {
-	ft_bzero(game->file, sizeof(t_file));
-	game->file->ground_color = -1;
-	game->file->sky_color = -1;
+	game->file.ground_color = -1;
+	game->file.sky_color = -1;
 	game->screen.width = -1;
 	game->screen.height = -1;
 }

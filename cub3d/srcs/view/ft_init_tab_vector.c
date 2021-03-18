@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 15:26:02 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/12 19:55:45 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/18 13:25:02 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int			ft_init_tab_vector(t_game *game, t_dot origin)
 	origin.z -= game->screen.w_vec * game->screen.height / 2;
 	size = game->screen.size * game->screen.height;
 	if (!(game->player->view.tab_vectors = ft_calloc(sizeof(t_vector), size)))
-		return (game->file->error_code = 3);
+		return (game->file.error_code = 3);
 	id = -1;
 	while (++id < game->screen.height)
 	{

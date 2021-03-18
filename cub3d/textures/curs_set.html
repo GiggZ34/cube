@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<!-- saved from url=(0067)https://pubs.opengroup.org/onlinepubs/7908799/xcurses/curs_set.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!-- Copyright 1997 The Open Group, All Rights Reserved -->
+
+<title>curs_set</title>
+</head><body bgcolor="white">
+<center>
+<font size="2">
+The Single UNIX ® Specification, Version 2<br>
+Copyright © 1997 The Open Group
+
+</font></center><hr size="2" noshade="">
+<h4><a name="tag_000_000_246">&nbsp;</a>NAME</h4><blockquote>
+curs_set - set the cursor mode
+</blockquote><h4><a name="tag_000_000_247">&nbsp;</a>SYNOPSIS</h4><blockquote>
+<pre><code>
+
+#include &lt;<a href="https://pubs.opengroup.org/onlinepubs/7908799/xcurses/curses.h.html">curses.h</a>&gt;
+
+int curs_set(int <i>visibility</i>);
+</code>
+</pre>
+</blockquote><h4><a name="tag_000_000_248">&nbsp;</a>DESCRIPTION</h4><blockquote>
+The
+<i>curs_set()</i>
+function sets the appearance of the cursor based on the value of
+<i>visibility</i>:
+<p><table bordercolor="#000000" border="1" align="center"><tbody><tr valign="top"><th align="center"><b>Value of <i>visibility</i></b>
+</th><th align="center"><b>Appearance of Cursor</b>
+</th></tr><tr valign="top"><td align="center">0
+</td><td align="left">Invisible
+</td></tr><tr valign="top"><td align="center">1
+</td><td align="left">Terminal-specific normal mode
+</td></tr><tr valign="top"><td align="center">2
+</td><td align="left">Terminal-specific high visibility mode
+</td></tr></tbody></table>
+</p><p>
+The terminal does not necessarily support all the above values.
+</p></blockquote><h4><a name="tag_000_000_249">&nbsp;</a>RETURN VALUE</h4><blockquote>
+If the terminal supports the cursor mode specified by
+<i>visibility</i>,
+then
+<i>curs_set()</i>
+returns the previous cursor state.  Otherwise, the function returns ERR.
+</blockquote><h4><a name="tag_000_000_250">&nbsp;</a>ERRORS</h4><blockquote>
+No errors are defined.
+</blockquote><h4><a name="tag_000_000_251">&nbsp;</a>SEE ALSO</h4><blockquote>
+<i><a href="https://pubs.opengroup.org/onlinepubs/7908799/xcurses/curses.h.html">&lt;curses.h&gt;</a></i>.
+</blockquote><hr size="2" noshade="">
+<center><font size="2">
+UNIX ® is a registered Trademark of The Open Group.<br>
+Copyright © 1997 The Open Group
+<br> [ <a href="https://pubs.opengroup.org/onlinepubs/7908799/index.html">Main Index</a> | <a href="https://pubs.opengroup.org/onlinepubs/7908799/xshix.html">XSH</a> | <a href="https://pubs.opengroup.org/onlinepubs/7908799/xcuix.html">XCU</a> | <a href="https://pubs.opengroup.org/onlinepubs/7908799/xbdix.html">XBD</a> | <a href="https://pubs.opengroup.org/onlinepubs/7908799/cursesix.html">XCURSES</a> | <a href="https://pubs.opengroup.org/onlinepubs/7908799/xnsix.html">XNS</a> ]
+
+</font></center><hr size="2" noshade="">
+
+<div id="gtx-trans" style="position: absolute; left: 535px; top: 538.125px;"><div class="gtx-trans-icon"></div></div></body></html>

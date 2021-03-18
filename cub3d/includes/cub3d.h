@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 11:56:01 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/17 14:30:21 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/18 17:34:39 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include <pthread.h>
 # include <stdio.h>
 # include <math.h>
+# include <curses.h>
 # define FAIL_EXIT -1
 # define NB_THREADS 4
 # define UNVISIBLE_COLOR -16777216
@@ -42,7 +43,7 @@
 
 typedef enum		e_arms
 {
-	barel_fusil = 1,
+	barel_fusil = 6,
 	damages_fusil = 20
 }					t_arms;
 
@@ -233,7 +234,7 @@ typedef struct		s_game
 	void			*mlx;
 	void			*window;
 	t_dt			dt;
-	t_file			*file;
+	t_file			file;
 	t_screen		screen;
 	t_player		*player;
 	t_list			*lst_sprites;
@@ -271,6 +272,7 @@ t_player_anim		ft_define_nb_anim(int state);
 
 void				ft_free_array(char **array);
 int					ft_clear_file(t_file *file, int fd, int error_code);
+int					ft_trash_game(t_game *game);
 
 /*
 **	Functions load

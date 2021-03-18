@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 17:54:10 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/17 15:02:24 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/18 13:25:38 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,12 @@ int			ft_player_move(t_game *game, double v, double *speed, double angle)
 	x = cos(game->player->angle_z + angle) * (*speed);
 	if (y < 0)
 		addy *= -1;
-	if (game->file->map[(int)(game->player->position.y +
+	if (game->file.map[(int)(game->player->position.y +
 			(y * game->dt.dt) + addy)][(int)(game->player->position.x)] != '1')
 		game->player->position.y += (y * game->dt.dt);
 	if (x < 0)
 		addx *= -1;
-	if (game->file->map[(int)(game->player->position.y)]
+	if (game->file.map[(int)(game->player->position.y)]
 			[(int)(game->player->position.x + (x * game->dt.dt) + addx)] != '1')
 		game->player->position.x += (x * game->dt.dt);
 	return (0);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_create_plane.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 12:45:25 by grivalan          #+#    #+#             */
-/*   Updated: 2021/02/05 16:13:18 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/18 13:22:43 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,25 +25,25 @@ static t_plane	*ft_init_plane(t_game *game, int x, int y, char dir)
 	{
 		plane->a = 1;
 		plane->d = -x;
-		plane->add = game->file->texture_we;
+		plane->add = game->file.texture_we;
 	}
 	else if (dir == 'R')
 	{
 		plane->a = -1;
 		plane->d = x;
-		plane->add = game->file->texture_ea;
+		plane->add = game->file.texture_ea;
 	}
 	else if (dir == 'T')
 	{
 		plane->b = 1;
 		plane->d = -y;
-		plane->add = game->file->texture_no;
+		plane->add = game->file.texture_no;
 	}
 	else if (dir == 'B')
 	{
 		plane->b = -1;
 		plane->d = y;
-		plane->add = game->file->texture_so;
+		plane->add = game->file.texture_so;
 	}
 	return (plane);
 }

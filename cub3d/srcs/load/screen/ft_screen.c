@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_screen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 15:21:03 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/16 20:03:04 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/18 13:24:03 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,11 @@ int			ft_init_screen(t_game *game, t_screen *img, int num_img, int state)
 	{
 		if (!(img[i].ptr = mlx_new_image(game->mlx,
 									game->screen.width, game->screen.height)))
-			return (game->file->error_code = 3);
+			return (game->file.error_code = 3);
 		img[i].height = game->screen.height;
 		if (!(img[i].color = (int*)mlx_get_data_addr(img[i].ptr,
 				&img[i].bit, &img[i].size, &img[i].endian)))
-			return (game->file->error_code = 3);
+			return (game->file.error_code = 3);
 		img[i].size /= 4;
 		ft_screen_unvisible(game, img[i]);
 		ft_generate_texture(game, img[i], state, i);
@@ -72,10 +72,10 @@ int			ft_screen(t_game *game)
 {
 	if (!(game->screen.ptr = mlx_new_image(game->mlx,
 									game->screen.width, game->screen.height)))
-		return (game->file->error_code = 3);
+		return (game->file.error_code = 3);
 	if (!(game->screen.color = (int*)mlx_get_data_addr(game->screen.ptr,
 				&game->screen.bit, &game->screen.size, &game->screen.endian)))
-		return (game->file->error_code = 3);
+		return (game->file.error_code = 3);
 	game->screen.w_vec = (1 / FOV) / game->screen.size;
 	game->screen.size /= 4;
 	game->screen.scale = 1;

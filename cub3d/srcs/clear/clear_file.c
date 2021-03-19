@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clear_file.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 15:01:48 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/18 13:11:20 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/19 00:19:04 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int			ft_clear_file(t_file *file, int fd, int code_error)
 {
 	char	*s;
 
+	s = NULL;
 	while (get_next_line(fd, &s) == 1)
 		if (s)
 			free(s);

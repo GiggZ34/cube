@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_draw.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 08:26:00 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/17 10:19:57 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/18 23:58:35 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	*ft_draw(void *g)
 		}
 		i += thread->game->screen.scale;
 	}
-	pthread_exit(thread->thread);
+	pthread_exit(&thread->thread);
 	return (0);
 }
 
@@ -96,7 +96,7 @@ void	ft_draw_multi_threads(t_game *game, t_screen *gun)
 	i = -1;
 	while (++i < NB_THREADS)
 		pthread_join(thread[i].thread, NULL);
-	mlx_sync(MLX_SYNC_WIN_FLUSH_CMD, game->window);
+//	mlx_sync(MLX_SYNC_WIN_FLUSH_CMD, game->window);
 	mlx_put_image_to_window(game->mlx, game->window, game->screen.ptr, 0, 0);
 	mlx_put_image_to_window(game->mlx, game->window, game->player->arm->ptr, 0, 0);
 	ft_print_fps(game, game->dt.dt_str);

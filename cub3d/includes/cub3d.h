@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 11:56:01 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/18 17:34:39 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/18 23:59:35 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@
 # include <pthread.h>
 # include <stdio.h>
 # include <math.h>
-# include <curses.h>
 # define FAIL_EXIT -1
 # define NB_THREADS 4
 # define UNVISIBLE_COLOR -16777216

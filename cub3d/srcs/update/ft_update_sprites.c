@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_update_sprites.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/10 22:42:23 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/11 09:21:08 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/19 00:25:01 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ static void	ft_search_sprites(t_sprite *s, t_list **begin, t_player *player)
 		lst = ft_lstnew(s);
 		ft_lstadd_back(begin, lst);
 	}
-	ft_sort_lst_sprite(begin);
 }
 
 static void ft_play(void *s)
@@ -68,6 +67,7 @@ int			ft_update_sprites(t_list *lst_sprites, t_player *player)
 		ft_edit_sprite_plane(sprite, player->view.view);
 		sprite->position.y -= 0.0;
 		ft_search_sprites(sprite, &(player->view.sprites_in_fov), player);
+		ft_sort_lst_sprite(&(player->view.sprites_in_fov));
 		lst_sprites = lst_sprites->next;
 	}
 	return (0);

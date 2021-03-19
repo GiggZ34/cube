@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 15:59:11 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/04 09:26:27 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/19 01:04:22 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,7 @@ void	ft_lstclear(t_list **lst, void (*del)(void*), int del_content)
 		while (*lst)
 		{
 			tmp = (*lst)->next;
-			if (del_content == 1)
-				ft_lstdelone((*lst), (*del));
+			ft_lstdelone((*lst), (*del), del_content);
 			(*lst) = tmp;
 			tmp = 0;
 		}

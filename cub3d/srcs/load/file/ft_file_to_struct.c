@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 11:03:58 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/11 00:51:19 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/19 00:53:17 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ static int		ft_one_parameter(void *mlx, t_file *file, char **array)
 		file->error_code = ft_img_generate(mlx, file, array[1], "S");
 	else
 		return (5);
+	free(link);
 	return (file->error_code);
 }
 

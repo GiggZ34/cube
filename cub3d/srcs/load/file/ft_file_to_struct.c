@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_file_to_struct.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 11:03:58 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/19 00:53:17 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/20 20:00:06 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,21 @@
 
 static int		ft_three_parameter(t_file *file, char **array)
 {
-	int len;
+	int	len;
+	int	r;
+	int	g;
+	int	b;
 
+	r = ft_atoi(array[1]);
+	g = ft_atoi(array[2]);
+	b = ft_atoi(array[3]);
+	if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255)
+		return (5);
 	len = ft_strlen(*array);
 	if (!ft_strncmp(*array, "F", len))
-	{
-		file->ground_color = ft_color_generate(ft_atoi(array[1]),
-									ft_atoi(array[2]), ft_atoi(array[3]), 0);
-	}
+		file->ground_color = ft_color_generate(r, g, b, 0);
 	else if (!ft_strncmp(*array, "C", len))
-	{
-		file->sky_color = ft_color_generate(ft_atoi(array[1]),
-									ft_atoi(array[2]), ft_atoi(array[3]), 0);
-	}
+		file->sky_color = ft_color_generate(r, g, b, 0);
 	else
 		return (5);
 	return (0);
@@ -34,13 +36,22 @@ static int		ft_three_parameter(t_file *file, char **array)
 
 static int		ft_two_parameter(t_game *game, char **array)
 {
-	int len;
+	int			len;
+	long long	size;
 
 	len = ft_strlen(*array);
 	if (!ft_strncmp(*array, "R", len))
 	{
-		game->screen.width = ft_atoi(array[1]);
-		game->screen.height = ft_atoi(array[2]);
+		size = ft_atoi(array[1]);
+		if (size <= INT_MAX && size > 0)
+			game->screen.width = size;
+		else
+			return (5);
+		size = ft_atoi(array[2]);
+		if (size <= INT_MAX && size > 0)
+			game->screen.height = size;
+		else
+			return (5);
 	}
 	else
 		return (5);

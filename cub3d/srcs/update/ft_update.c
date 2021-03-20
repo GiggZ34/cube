@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_update.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 10:43:23 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/19 00:59:09 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/20 17:25:29 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,16 @@ static void	ft_delete_textures(t_game *game)
 			printf("Error\nTexture west destruction failed\n");
 		free(game->file.texture_we);
 	}
+	if (game->sky_ground.ground_texture.ptr)
+	{
+		if (mlx_destroy_image(game->mlx, game->sky_ground.ground_texture.ptr))
+			printf("Error\nTexture ground destruction failed\n");
+	}
+	if (game->sky_ground.sky_texture.ptr)
+	{
+		if (mlx_destroy_image(game->mlx, game->sky_ground.sky_texture.ptr))
+			printf("Error\nTexture sky destruction failed\n");
+	}
 }
 
 void	delete(void *content)
@@ -52,10 +62,31 @@ void	delete(void *content)
 	content = NULL;
 }
 
+int		ft_free_hud(t_game *g, t_player *p)
+{
+	int	i;
+	int	j;
+	int	nb_frame;
+
+	if (p->gun[0])
+	{
+		i = -1;
+		while (++i < NB_ANIM_GUNS)
+		{
+			nb_frame = ft_define_nb_anim(i);
+			j = -1;
+			while (++j < nb_frame)
+				mlx_destroy_image(g->mlx, p->gun[i][j].ptr);
+		}
+	}
+	return (0);
+}
+
 int		ft_trash_game(t_game *game)
 {
 	ft_clear_file(&game->file, 3, 0);
 	ft_delete_textures(game);
+	ft_free_hud(game, game->player);
 	if (game->lst_sprites)
 		ft_lstclear(&game->lst_sprites, &delete, 1);
 	if (game->lst_planes_bottom)
@@ -78,17 +109,22 @@ int		ft_trash_game(t_game *game)
 		free(game->tab_planes.right);
 	if (game->screen.ptr)
 		mlx_destroy_image(game->mlx, game->screen.ptr);
+	if (game->dt.dt_str)
+		free(game->dt.dt_str);
 	if (game->player->guns.obj_texture.ptr)
 		mlx_destroy_image(game->mlx, game->player->guns.obj_texture.ptr);
-	if (game->player->arm->ptr)
-		mlx_destroy_image(game->mlx, game->player->arm->ptr);
 	if (game->player->view.tab_vectors)
 		free(game->player->view.tab_vectors);
 	if (game->player)
 		free(game->player);
-	if (mlx_destroy_window(game->mlx, game->window))
+	if (game->window)
+	{
+		mlx_clear_window(game->mlx, game->window);
+		if (mlx_destroy_window(game->mlx, game->window))
 			printf("Windows destruction failed\n");
-	free(game->mlx);
+	}
+
+	while(1);
 	exit(0);
 }
 
@@ -162,8 +198,8 @@ int		ft_update(t_game *game)
 	ft_delta_time_generate(game);
 	ft_update_player(game, game->player);
 	ft_update_sprites(game->lst_sprites, game->player);
-//	mlx_sync(MLX_SYNC_WIN_CMD_COMPLETED, game->window);
-//	mlx_sync(MLX_SYNC_IMAGE_WRITABLE, game->screen.ptr);
+	mlx_sync(MLX_SYNC_WIN_CMD_COMPLETED, game->window);
+	mlx_sync(MLX_SYNC_IMAGE_WRITABLE, game->screen.ptr);
 	ft_draw_multi_threads(game, game->player->arm);
 	return (0);
 }
@@ -171,8 +207,8 @@ int		ft_update(t_game *game)
 int		ft_game_loop(t_game *game)
 {
 	mlx_mouse_hide(game->mlx, game->window);
-//	mlx_mouse_get_pos(game->window, &(game->player->control.mouse_x), &(game->player->control.mouse_y));
-	mlx_mouse_get_pos(game->mlx, game->window, &(game->player->control.mouse_x), &(game->player->control.mouse_y));
+	mlx_mouse_get_pos(game->window, &(game->player->control.mouse_x), &(game->player->control.mouse_y));
+//	mlx_mouse_get_pos(game->mlx, game->window, &(game->player->control.mouse_x), &(game->player->control.mouse_y));
 	mlx_mouse_hook(game->window, ft_mouse_press, game);
 	mlx_hook(game->window, 17, 1L<<17, &ft_trash_game, game);
 	mlx_hook(game->window, 2, 1L<<0, ft_keypress, game);

@@ -6,7 +6,7 @@ C 0,0,0
 SO ./textures/wall-7.xpm
 
 
-		R 		10000 10000
+		R 		6 1000
 NO ./textures/wall-6.xpm
 
 

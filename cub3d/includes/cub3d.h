@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 11:56:01 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/18 23:59:35 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/20 17:26:03 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -243,8 +243,6 @@ typedef struct		s_game
 	t_list			*lst_planes_right;
 	t_list			*lst_planes_left;
 	t_sky_ground	sky_ground;
-
-	t_texture		test;
 }					t_game;
 
 typedef struct		s_thread

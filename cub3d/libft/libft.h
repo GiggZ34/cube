@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/23 11:24:29 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/19 01:04:10 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/20 19:46:05 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <fcntl.h>
 # include <stdio.h>
 # include <math.h>
+# include <limits.h>
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 1024
 # endif

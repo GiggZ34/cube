@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 12:45:25 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/18 13:22:43 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/21 16:42:05 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,15 @@ static t_plane	*ft_init_plane(t_game *game, int x, int y, char dir)
 	return (plane);
 }
 
-static int		ft_plane_to_list(t_list **lst, t_plane *plane)
+static int		ft_plane_to_list(t_game *game, t_list **lst, t_plane *plane)
 {
 	t_list	*new_lst;
 
 	if (!(new_lst = ft_lstnew(plane)))
-		return (3);
+	{
+		free(plane);
+		return (ft_trash_game(game, allocation_fail, -1));
+	}
 	ft_lstadd_back(lst, new_lst);
 	return (0);
 }
@@ -65,12 +68,8 @@ int				ft_create_plane(t_game *game, t_list **lst, int *pos, char dir)
 	if (!(plane = ft_search_plane(*lst, pos[0], pos[1], dir)))
 	{
 		if (!(plane = ft_init_plane(game, pos[0], pos[1], dir)))
-			return (3);
-		if (ft_plane_to_list(lst, plane))
-		{
-			free(plane);
-			return (3);
-		}
+			return (ft_trash_game(game, allocation_fail, -1));
+		ft_plane_to_list(game, lst, plane);
 		ft_sort_planes(*lst);
 	}
 	return (0);

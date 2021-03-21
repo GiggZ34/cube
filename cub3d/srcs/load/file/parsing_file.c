@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 22:51:43 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/20 19:17:29 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/21 17:07:36 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,11 @@ static char			**ft_generate_map(t_file *file, char *line)
 	int		i;
 
 	if (!line)
-		return (file->map);
+		return (NULL);
 	if (file->width_map < (int)ft_strlen(line))
 		file->width_map = ft_strlen(line);
 	if (!(str = calloc(sizeof(char **), ft_count_array(file->map) + 2)))
-		return (0);
+		return (NULL);
 	i = 0;
 	if (file->map)
 	{
@@ -47,7 +47,7 @@ static char			**ft_generate_map(t_file *file, char *line)
 		free(file->map);
 	}
 	str[i] = line;
-	str[i + 1] = 0;
+	str[i + 1] = NULL;
 	return (str);
 }
 
@@ -57,25 +57,25 @@ int				ft_parsing_file(t_game *game, int fd, t_file *file)
 	int		rest;
 
 	rest = 1;
-	while (file->error_code == 0 && rest == 1)
+	while (rest)
 	{
 		if ((rest = get_next_line(fd, &line)) == -1)
-			ft_error_file(file, 1, "in function ft_parsing_file");
-		if (file->error_code == 0 && line)
+			return (ft_trash_game(game, cash_gnl, fd));
+		if (line)
 		{
 			if (!ft_check_file(game, file) && line[0])
 			{
-				ft_file_to_struct(game, file, line);
+				ft_file_to_struct(game, line, fd);
 				free(line);
 			}
 			else if (ft_check_file(game, file) && (file->map || line[0]))
 			{
 				if (!(file->map = ft_generate_map(file, line)))
-					ft_error_file(file, 3, "in function ft_parsing_file");
+					return (ft_trash_game(game, allocation_fail, fd));
 			}
 			else
 				free(line);
 		}
 	}
-	return (file->error_code);
+	return (0);
 }

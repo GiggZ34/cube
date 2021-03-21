@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_map_cpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/31 12:19:30 by grivalan          #+#    #+#             */
-/*   Updated: 2021/01/31 12:20:20 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/21 15:45:34 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,10 @@ char			**ft_map_cpy(char **map, int height)
 	new_map[height] = NULL;
 	i = -1;
 	while (map[++i])
-		new_map[i] = ft_strdup(map[i]);
+		if (!(new_map[i] = ft_strdup(map[i])))
+		{
+			ft_free_array(new_map);
+			return (NULL);
+		}
 	return (new_map);
 }

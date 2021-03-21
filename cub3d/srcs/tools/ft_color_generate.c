@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_color_generate.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 11:10:50 by grivalan          #+#    #+#             */
-/*   Updated: 2021/01/15 11:51:17 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/21 16:40:17 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 

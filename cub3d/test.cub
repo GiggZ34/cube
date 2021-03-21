@@ -6,7 +6,7 @@ C 0,0,0
 SO ./textures/wall-7.xpm
 
 
-		R 		600 600
+		R 		51100 50110
 NO ./textures/wall-6.xpm
 
 
@@ -20,7 +20,7 @@ WE ./textures/wall-7.xpm
 EA ./textures/wall-6.xpm
 
 S ./textures/sprite-1.xpm
-F 211,205,256
+F 211,205,200
 
         1111111111111111111111111
         1000000000110000000000001

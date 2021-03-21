@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 11:10:27 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/18 13:28:54 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/21 16:47:24 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static double	ft_is_wall(t_game *game, t_plane *plane, t_vector v, t_dot *dot, c
 	int		x;
 
 	map = game->file.map;
-	pos = game->player->position;
+	pos = game->player.position;
 	size = ft_size_vec_plane(plane, v, pos);
 	*dot = ft_intersect_plane_dot(pos, v, size);
 	if ((*dot).z < 0 || (*dot).z > 1)
@@ -60,7 +60,7 @@ static int		ft_search_color_x(t_game *game, t_vector vec, double *size)
 	int		i;
 	int		step;
 
-	if (vec.x == 0 || game->player->position.x <= 0 || game->player->position.x > game->file.width_map - 1)
+	if (vec.x == 0 || game->player.position.x <= 0 || game->player.position.x > game->file.width_map - 1)
 		return (-1);
 	tab = game->tab_planes.left;
 	step = -1;
@@ -69,7 +69,7 @@ static int		ft_search_color_x(t_game *game, t_vector vec, double *size)
 		tab = game->tab_planes.right;
 		step = 1;
 	}
-	i = floor(game->player->position.x) + step;
+	i = floor(game->player.position.x) + step;
 	while (i >= 0 && i < game->file.width_map && !(lst = tab[i]))
 		i += step;
 	while (lst)
@@ -94,7 +94,7 @@ static int		ft_search_color_y(t_game *game, t_vector vec, double *size)
 	int		step;
 
 	step = 0;
-	if (vec.y == 0 || game->player->position.y <= 0 || game->player->position.y > game->file.height_map - 1)
+	if (vec.y == 0 || game->player.position.y <= 0 || game->player.position.y > game->file.height_map - 1)
 		return (-1);
 	tab = game->tab_planes.top;
 	step = -1;
@@ -103,7 +103,7 @@ static int		ft_search_color_y(t_game *game, t_vector vec, double *size)
 		tab = game->tab_planes.bottom;
 		step = 1;
 	}
-	i = floor(game->player->position.y + step);
+	i = floor(game->player.position.y + step);
 	while (i >= 0 && i < game->file.height_map && !(lst = tab[i]))
 		i += step;
 	while (lst)
@@ -144,8 +144,8 @@ static int	ft_search_sprites(t_game *game, t_vector vec, double *size, t_list *l
 	while (lst)
 	{
 		sprite = lst->content;
-		tmp_size = ft_size_vec_plane(&sprite->plane, vec, game->player->position);
-		inter = ft_intersect_plane_dot(game->player->position, vec, tmp_size);
+		tmp_size = ft_size_vec_plane(&sprite->plane, vec, game->player.position);
+		inter = ft_intersect_plane_dot(game->player.position, vec, tmp_size);
 		if (inter.z > 1 - sprite->height && inter.z < 1)
 		{
 			dist = pow(sprite->frist_px.x - inter.x, 2) + pow(sprite->frist_px.y - inter.y, 2);
@@ -176,8 +176,8 @@ int			ft_sky_color(t_game *game, t_vector vec)
 	int		y;
 
 	t = game->sky_ground.sky_texture;
-	size = ft_abs(ft_size_vec_plane(&game->sky_ground.sky_plane, vec, game->player->position));
-	inter = ft_intersect_plane_dot(game->player->position, vec, size);
+	size = ft_abs(ft_size_vec_plane(&game->sky_ground.sky_plane, vec, game->player.position));
+	inter = ft_intersect_plane_dot(game->player.position, vec, size);
 	y = t.height * (inter.y - floor(inter.y));
 	x = t.width * (inter.x - floor(inter.x));
 	return (t.color[y * t.size_line + x]);
@@ -193,8 +193,8 @@ int			ft_ground_color(t_game *game, t_vector vec)
 	int		y;
 
 	t = game->sky_ground.ground_texture;
-	size = ft_abs(ft_size_vec_plane(&game->sky_ground.ground_plane, vec, game->player->position));
-	inter = ft_intersect_plane_dot(game->player->position, vec, size);
+	size = ft_abs(ft_size_vec_plane(&game->sky_ground.ground_plane, vec, game->player.position));
+	inter = ft_intersect_plane_dot(game->player.position, vec, size);
 	y = t.height * (inter.y - floor(inter.y));
 	x = t.width * (inter.x - floor(inter.x));
 	return (t.color[y * t.size_line + x]);
@@ -216,7 +216,7 @@ int			ft_pixel_color(t_game *game, t_vector vec, t_sprite *s)
 	color_x = ft_search_color_x(game, vec, &size_x);
 	color_y = ft_search_color_y(game, vec, &size_y);
 	if (s && (size_x == -1 || s->dist_to_player <= pow(size_x, 2)) && (size_y == -1 || s->dist_to_player <= pow(size_y, 2)))
-		color_sprite = ft_search_sprites(game, vec, &size_s, game->player->view.sprites_in_fov);
+		color_sprite = ft_search_sprites(game, vec, &size_s, game->player.view.sprites_in_fov);
 	if (color_sprite < 0 && color_x < 0 && color_y < 0)
 	{
 		if (vec.z > 0)

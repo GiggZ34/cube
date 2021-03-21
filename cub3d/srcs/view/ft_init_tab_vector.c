@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 15:26:02 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/18 13:25:02 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/21 15:39:20 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,13 @@ static void	ft_vector_to_tab(t_game *game, t_dot dot, int id)
 	int			i;
 	t_dot		pos;
 
-	pos = game->player->position;
+	pos = game->player.position;
 	id *= game->screen.size;
 	i = -1;
 	while (++i < game->screen.size)
 	{
 		dot.x += game->screen.w_vec;
-		game->player->view.tab_vectors[id + i] = ft_create_vector(pos, dot);
+		game->player.view.tab_vectors[id + i] = ft_create_vector(pos, dot);
 	}
 }
 
@@ -44,18 +44,18 @@ int			ft_init_tab_vector(t_game *game, t_dot origin)
 	double		hypo;
 
 	ft_screen(game);
-	ft_bzero(&(game->player->view.view), sizeof(t_vector));
-	game->player->view.view.y = -1;
-	ft_init_vector_collides(game->player, game->player->view.view);
+	ft_bzero(&(game->player.view.view), sizeof(t_vector));
+	game->player.view.view.y = -1;
+	ft_init_vector_collides(&game->player, game->player.view.view);
 	opp = game->screen.size / 2;
 	hypo = opp / 0.5;
-	game->player->dist_screen = sqrt(pow(hypo, 2) - pow(opp, 2));
-	origin.y -= game->screen.w_vec * game->player->dist_screen;
+	game->player.dist_screen = sqrt(pow(hypo, 2) - pow(opp, 2));
+	origin.y -= game->screen.w_vec * game->player.dist_screen;
 	origin.x -= game->screen.w_vec * game->screen.size / 2;
 	origin.z -= game->screen.w_vec * game->screen.height / 2;
 	size = game->screen.size * game->screen.height;
-	if (!(game->player->view.tab_vectors = ft_calloc(sizeof(t_vector), size)))
-		return (game->file.error_code = 3);
+	if (!(game->player.view.tab_vectors = ft_calloc(sizeof(t_vector), size)))
+		return (ft_trash_game(game, allocation_fail, -1));
 	id = -1;
 	while (++id < game->screen.height)
 	{

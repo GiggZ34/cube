@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 17:54:10 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/18 13:25:38 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/21 16:45:05 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,15 @@
 
 static void	ft_limit_speed(t_game *game, int run, double *speed)
 {
-	if (!run || game->player->control.squat)
+	if (!run || game->player.control.squat)
 	{
-		if ((*speed) > game->player->walk_speed_max)
-			(*speed) = game->player->walk_speed_max;
+		if ((*speed) > game->player.walk_speed_max)
+			(*speed) = game->player.walk_speed_max;
 	}
 	else
 	{
-		if ((*speed) > game->player->run_speed_max)
-			(*speed) = game->player->run_speed_max;
+		if ((*speed) > game->player.run_speed_max)
+			(*speed) = game->player.run_speed_max;
 	}
 }
 
@@ -38,18 +38,18 @@ int			ft_player_move(t_game *game, double v, double *speed, double angle)
 	(*speed) += (v * game->dt.dt);
 	if (*speed < 0)
 		*speed = 0;
-	ft_limit_speed(game, game->player->control.run, speed);
-	y = sin(game->player->angle_z + angle) * (*speed);
-	x = cos(game->player->angle_z + angle) * (*speed);
+	ft_limit_speed(game, game->player.control.run, speed);
+	y = sin(game->player.angle_z + angle) * (*speed);
+	x = cos(game->player.angle_z + angle) * (*speed);
 	if (y < 0)
 		addy *= -1;
-	if (game->file.map[(int)(game->player->position.y +
-			(y * game->dt.dt) + addy)][(int)(game->player->position.x)] != '1')
-		game->player->position.y += (y * game->dt.dt);
+	if (game->file.map[(int)(game->player.position.y +
+			(y * game->dt.dt) + addy)][(int)(game->player.position.x)] != '1')
+		game->player.position.y += (y * game->dt.dt);
 	if (x < 0)
 		addx *= -1;
-	if (game->file.map[(int)(game->player->position.y)]
-			[(int)(game->player->position.x + (x * game->dt.dt) + addx)] != '1')
-		game->player->position.x += (x * game->dt.dt);
+	if (game->file.map[(int)(game->player.position.y)]
+			[(int)(game->player.position.x + (x * game->dt.dt) + addx)] != '1')
+		game->player.position.x += (x * game->dt.dt);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/13 16:00:49 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/18 12:32:53 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/21 17:35:19 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,14 @@ void			ft_rotate_player(t_game *g, t_player *p, double x, double y)
 	double	ratio_x;
 	double	ratio_z;
 
-	ratio_z = ft_define_ratio(x);
-	ratio_x = ft_define_ratio(y);
+	if (p->control.right || p->control.left)
+		ratio_z = 2;
+	else
+		ratio_z = ft_define_ratio(x);
+	if (p->control.up || p->control.down)
+		ratio_x = 2;
+	else
+		ratio_x = ft_define_ratio(y);
 	if (p->control.right || x < 0)
 	{
 		p->angle_z += -ROTATE_SPEED_Z * ratio_z * g->dt.dt;

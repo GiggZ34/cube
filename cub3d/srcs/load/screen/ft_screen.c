@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 15:21:03 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/18 13:24:03 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/21 17:38:04 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,20 +28,20 @@ static void	ft_generate_texture(t_game *game, t_screen s, int state, int num_img
 	int		w;
 	int		h;
 
-	w = game->player->guns.position.x;
-	h = game->player->guns.position.y;
-	h_color = game->player->guns.height * state;
-	w_color = game->player->guns.width * num_img;
+	w = game->player.guns.position.x;
+	h = game->player.guns.position.y;
+	h_color = game->player.guns.height * state;
+	w_color = game->player.guns.width * num_img;
 	while (h * s.size + w < s.height * s.size)
 	{
-		s.color[h * s.size + w] = game->player->guns.obj_texture.color[(int)h_color * game->player->guns.obj_texture.size_line + (int)w_color];
-		w_color += game->player->guns.ratio_size;
+		s.color[h * s.size + w] = game->player.guns.obj_texture.color[(int)h_color * game->player.guns.obj_texture.size_line + (int)w_color];
+		w_color += game->player.guns.ratio_size;
 		w++;
-		if ((int)w_color >= game->player->guns.width * (num_img + 1))
+		if ((int)w_color >= game->player.guns.width * (num_img + 1))
 		{
-			w_color = game->player->guns.width * num_img;
-			h_color += game->player->guns.ratio_size;
-			w = game->player->guns.position.x;
+			w_color = game->player.guns.width * num_img;
+			h_color += game->player.guns.ratio_size;
+			w = game->player.guns.position.x;
 			h++;
 		}
 	}
@@ -56,11 +56,11 @@ int			ft_init_screen(t_game *game, t_screen *img, int num_img, int state)
 	{
 		if (!(img[i].ptr = mlx_new_image(game->mlx,
 									game->screen.width, game->screen.height)))
-			return (game->file.error_code = 3);
+			return (ft_trash_game(game, load_texture_fail, -1));
 		img[i].height = game->screen.height;
 		if (!(img[i].color = (int*)mlx_get_data_addr(img[i].ptr,
 				&img[i].bit, &img[i].size, &img[i].endian)))
-			return (game->file.error_code = 3);
+			return (ft_trash_game(game, color_generation_fail, -1));
 		img[i].size /= 4;
 		ft_screen_unvisible(game, img[i]);
 		ft_generate_texture(game, img[i], state, i);
@@ -72,12 +72,12 @@ int			ft_screen(t_game *game)
 {
 	if (!(game->screen.ptr = mlx_new_image(game->mlx,
 									game->screen.width, game->screen.height)))
-		return (game->file.error_code = 3);
+		return (ft_trash_game(game, load_texture_fail, -1));
 	if (!(game->screen.color = (int*)mlx_get_data_addr(game->screen.ptr,
 				&game->screen.bit, &game->screen.size, &game->screen.endian)))
-		return (game->file.error_code = 3);
-	game->screen.w_vec = (1 / FOV) / game->screen.size;
+		return (ft_trash_game(game, color_generation_fail, -1));
 	game->screen.size /= 4;
+	game->screen.w_vec = FOV / game->screen.size;
 	game->screen.scale = 1;
 	return (0);
 }

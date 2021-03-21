@@ -6,7 +6,7 @@
 #    By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/24 18:59:35 by grivalan          #+#    #+#              #
-#    Updated: 2021/03/18 13:51:02 by grivalan         ###   ########lyon.fr    #
+#    Updated: 2021/03/21 15:09:31 by grivalan         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,6 @@ SRCS =		main.c\
 			srcs/load/planes/ft_lst_planes_to_tab.c\
 			srcs/load/file/ft_image_generate.c\
 			srcs/load/screen/ft_screen.c\
-			srcs/load/file/ft_check_struct.c\
 			srcs/load/objects/load_objects.c\
 			srcs/view/ft_init_tab_vector.c\
 			srcs/sprite/ft_rotate_vectors_collides.c\

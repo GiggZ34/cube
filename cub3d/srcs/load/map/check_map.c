@@ -6,13 +6,13 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 21:58:04 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/15 13:17:20 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/21 16:40:57 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static int		ft_start_pos(t_file *file, int *row, int *col)
+static int		ft_start_pos(t_game *game, int *row, int *col)
 {
 	int nb_pos;
 	int i;
@@ -20,11 +20,11 @@ static int		ft_start_pos(t_file *file, int *row, int *col)
 
 	nb_pos = 0;
 	i = -1;
-	while (file->map[++i])
+	while (game->file.map[++i])
 	{
 		j = -1;
-		while (file->map[i][++j])
-			if (ft_in_array(file->map[i][j], "NSEW") != -1)
+		while (game->file.map[i][++j])
+			if (ft_in_array(game->file.map[i][j], "NSEW") != -1)
 			{
 				nb_pos++;
 				*row = i;
@@ -32,10 +32,10 @@ static int		ft_start_pos(t_file *file, int *row, int *col)
 			}
 	}
 	if (nb_pos > 1)
-		ft_error_file(file, 4, file->map[*row]);
-	else if (nb_pos == 0)
-		ft_error_file(file, 4, "No position");
-	return (file->error_code);
+		return (ft_trash_game(game, no_player_position, -1));
+	else if (!nb_pos)
+		return (ft_trash_game(game, multiple_player_position, -1));
+	return (0);
 }
 
 void			del(void *content)
@@ -48,19 +48,17 @@ int				ft_check_map(t_game *game, t_file *file)
 	char		**map_check;
 	int			pos[2];
 
-	file->height_map = ft_count_array(file->map);
+	game->file.height_map = ft_count_array(file->map);
 	pos[0] = 0;
 	pos[1] = 0;
-	if (!(map_check = ft_map_cpy(file->map, file->height_map)))
-		return (-3);
-	if (ft_start_pos(file, &pos[0], &pos[1]) == 0)
+	if (!(map_check = ft_map_cpy(game->file.map, game->file.height_map)))
+		return (ft_trash_game(game, allocation_fail, -1));
+	if (ft_start_pos(game, &pos[0], &pos[1]) == 0)
 	{
 		ft_scan_map(game, map_check, pos[0], pos[1]);
 		ft_free_array(map_check);
-		if (!(game->player = ft_init_player(game, pos[1], pos[0], file->map[pos[0]][pos[1]])))
-			return (file->error_code = 3);
-		if ((file->error_code = ft_lst_planes_to_tab(game)))
-			return (file->error_code);
+		ft_init_player(game, pos[1], pos[0], file->map[pos[0]][pos[1]]);
+		ft_lst_planes_to_tab(game);
 	}
-	return (file->error_code);
+	return (0);
 }

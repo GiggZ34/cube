@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 11:56:01 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/21 02:16:50 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/21 16:40:08 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,22 @@
 typedef enum		e_error_code
 {
 	succes,
-	allocation_fail
+	mlx_creation_fail,
+	win_creation_fail,
+	load_texture_fail,
+	color_generation_fail,
+	crash_mlx_function,
+	open_file_fail,
+	cash_gnl,
+	image_not_exist,
+	invalid_image,
+	unknow_instruction,
+	incorrect_color_code,
+	incorrect_resolution_size,
+	allocation_fail,
+	no_player_position,
+	multiple_player_position,
+	put_image_fail
 
 }					t_error_code;
 
@@ -242,7 +257,7 @@ typedef struct		s_game
 	t_dt			dt;
 	t_file			file;
 	t_screen		screen;
-	t_player		*player;
+	t_player		player;
 	t_list			*lst_sprites;
 	t_tab_plane		tab_planes;
 	t_list			*lst_planes_top;
@@ -285,7 +300,7 @@ int					ft_trash_game(t_game *game, t_error_code code, int fd);
 int					ft_load(char *r_f, t_game *game);
 int					ft_init_file(t_file *file, t_game *game, char *dir_file);
 int					ft_parsing_file(t_game *game, int fd, t_file *file);
-int					ft_file_to_struct(t_game *game, t_file *file, char *line);
+int					ft_file_to_struct(t_game *game, char *line, int fd);
 char				**ft_map_cpy(char **map, int height);
 int					ft_check_map(t_game *game, t_file *file);
 void				ft_scan_map(t_game *game, char **map, int i, int j);
@@ -294,13 +309,12 @@ t_plane				*ft_search_plane(t_list *lst, int x, int y, char dir);
 void				ft_sort_planes(t_list *lst);
 void				ft_asort_planes(t_list *lst);
 int					ft_lst_planes_to_tab(t_game *game);
-int					ft_img_generate(void *mlx, t_file *file, char *dir, char *type);
+int					ft_img_generate(t_game *game, char *dir, char *type);
 int					ft_screen(t_game *game);
 int					ft_init_screen(t_game *game, t_screen *img, int nb_img, int state);
 int					ft_init_tab_vector(t_game *game, t_dot origin);
 int					ft_init_ennemy(t_game *game, int x, int y);
-t_player			*ft_init_player(t_game *game, int x, int y, char dir);
-int					ft_check_struct(t_game *game);
+int					ft_init_player(t_game *game, int x, int y, char dir);
 int					ft_load_tilesheet_obj(t_game *game, char *path);
 
 /*

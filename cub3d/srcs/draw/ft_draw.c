@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_draw.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 08:26:00 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/21 01:50:10 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/21 16:45:42 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,12 @@ void	ft_drawing_scale(t_game *game, int id, int color)
 
 t_vector	ft_rotate_vector_current(t_game *game, t_vector vec)
 {
-	if (game->player->angle_x != 0)
-		vec = ft_rotate_vector(vec, game->player->angle_x, 'x');
-	if (game->player->angle_y != 0)
-		vec = ft_rotate_vector(vec, game->player->angle_y, 'y');
-	if (game->player->angle_z != 0)
-		vec = ft_rotate_vector(vec, game->player->angle_z, 'z');
+	if (game->player.angle_x != 0)
+		vec = ft_rotate_vector(vec, game->player.angle_x, 'x');
+	if (game->player.angle_y != 0)
+		vec = ft_rotate_vector(vec, game->player.angle_y, 'y');
+	if (game->player.angle_z != 0)
+		vec = ft_rotate_vector(vec, game->player.angle_z, 'z');
 	return (vec);
 }
 
@@ -59,11 +59,11 @@ void	*ft_draw(void *g)
 			id = j * thread->game->screen.size + i;
 			if (thread->screen->color[id] == UNVISIBLE_COLOR)
 			{
-				vec = thread->game->player->view.tab_vectors[id];
+				vec = thread->game->player.view.tab_vectors[id];
 				vec = ft_rotate_vector_current(thread->game, vec);
-				if (thread->game->player->view.sprites_in_fov)
+				if (thread->game->player.view.sprites_in_fov)
 					ft_drawing_scale(thread->game, id, ft_pixel_color(thread->game,
-						vec, thread->game->player->view.sprites_in_fov->content));
+						vec, thread->game->player.view.sprites_in_fov->content));
 				else
 					ft_drawing_scale(thread->game, id,
 									ft_pixel_color(thread->game, vec, NULL));
@@ -96,8 +96,10 @@ void	ft_draw_multi_threads(t_game *game, t_screen *gun)
 	i = -1;
 	while (++i < NB_THREADS)
 		pthread_join(thread[i].thread, NULL);
-//	mlx_sync(MLX_SYNC_WIN_FLUSH_CMD, game->window);
-	mlx_put_image_to_window(game->mlx, game->window, game->screen.ptr, 0, 0);
-	mlx_put_image_to_window(game->mlx, game->window, game->player->arm->ptr, 0, 0);
+	mlx_sync(MLX_SYNC_WIN_FLUSH_CMD, game->window);
+	if (mlx_put_image_to_window(game->mlx, game->window, game->screen.ptr, 0, 0))
+		ft_trash_game(game, put_image_fail, -1);
+	if (mlx_put_image_to_window(game->mlx, game->window, game->player.arm->ptr, 0, 0))
+		ft_trash_game(game, put_image_fail, -1);
 	ft_print_fps(game, game->dt.dt_str);
 }

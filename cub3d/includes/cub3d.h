@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 11:56:01 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/20 17:26:03 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/21 02:16:50 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,13 @@
 # define FOV_COS -0.30
 # define FOV_DIST 50
 # define FOV_DIST_SQRT 5
+
+typedef enum		e_error_code
+{
+	succes,
+	allocation_fail
+
+}					t_error_code;
 
 typedef enum		e_arms
 {
@@ -269,7 +276,7 @@ t_player_anim		ft_define_nb_anim(int state);
 
 void				ft_free_array(char **array);
 int					ft_clear_file(t_file *file, int fd, int error_code);
-int					ft_trash_game(t_game *game);
+int					ft_trash_game(t_game *game, t_error_code code, int fd);
 
 /*
 **	Functions load

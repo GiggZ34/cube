@@ -3,22 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   ft_init_file.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 13:21:48 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/18 13:09:50 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/21 02:23:39 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static int		regex_file(const char *s)
+static int		regex_file(t_game *game, const char *s)
 {
 	size_t len;
 
 	if ((len = ft_strlen(s)) > 4 && s[len - 4] == '.' && s[len - 3] == 'c'
 				&& s[len - 2] == 'u' && s[len - 1] == 'b')
-		return (1);
+		return (ft_trash_game(game, allocation_fail, 1));
 	return (0);
 }
 
@@ -36,10 +36,9 @@ int				ft_init_file(t_file *file, t_game *game, char *dir_file)
 	int		fd;
 
 	ft_init_t_file(game);
-	if (!regex_file(dir_file))
-		return (ft_clear_file(file, -1, ft_error_file(file, 7, dir_file)));
-	if ((fd = open(dir_file, O_RDONLY)) == -1)
-		return (ft_clear_file(file, fd, ft_error_file(file, 6, "")));
+	regex_file(game, dir_file);
+	if ((fd = open(dir_file, O_RDONLY)) < 0)
+		return (ft_trash_game(game, allocation_fail, 1));
 	if ((error = ft_parsing_file(game, fd, file)) != 0)
 		return (ft_clear_file(file, fd, error));
 	if ((error = ft_check_struct(game)) != 0)

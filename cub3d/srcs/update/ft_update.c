@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_update.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 10:43:23 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/20 17:25:29 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/21 02:17:48 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,23 +82,17 @@ int		ft_free_hud(t_game *g, t_player *p)
 	return (0);
 }
 
-int		ft_trash_game(t_game *game)
+int		ft_trash_game(t_game *game, t_error_code code, int fd)
 {
-	ft_clear_file(&game->file, 3, 0);
+	ft_clear_file(&game->file, fd, code);
 	ft_delete_textures(game);
 	ft_free_hud(game, game->player);
-	if (game->lst_sprites)
-		ft_lstclear(&game->lst_sprites, &delete, 1);
-	if (game->lst_planes_bottom)
-		ft_lstclear(&game->lst_planes_bottom, &delete, 1);
-	if (game->lst_planes_top)
-		ft_lstclear(&game->lst_planes_top, &delete, 1);
-	if (game->lst_planes_left)
-		ft_lstclear(&game->lst_planes_left, &delete, 1);
-	if (game->lst_planes_right)
-		ft_lstclear(&game->lst_planes_right, &delete, 1);
-	if (game->player->view.sprites_in_fov)
-		ft_lstclear(&game->player->view.sprites_in_fov, &delete, 0);
+	ft_lstclear(&game->lst_sprites, &delete, 1);
+	ft_lstclear(&game->lst_planes_bottom, &delete, 1);
+	ft_lstclear(&game->lst_planes_top, &delete, 1);
+	ft_lstclear(&game->lst_planes_left, &delete, 1);
+	ft_lstclear(&game->lst_planes_right, &delete, 1);
+	ft_lstclear(&game->player->view.sprites_in_fov, &delete, 0);
 	if (game->tab_planes.bottom)
 		free(game->tab_planes.bottom);
 	if (game->tab_planes.top)
@@ -123,9 +117,8 @@ int		ft_trash_game(t_game *game)
 		if (mlx_destroy_window(game->mlx, game->window))
 			printf("Windows destruction failed\n");
 	}
-
-	while(1);
-	exit(0);
+//	while(1);
+	exit(code);
 }
 
 int		ft_keypress(int keycode, t_game *game)
@@ -198,8 +191,8 @@ int		ft_update(t_game *game)
 	ft_delta_time_generate(game);
 	ft_update_player(game, game->player);
 	ft_update_sprites(game->lst_sprites, game->player);
-	mlx_sync(MLX_SYNC_WIN_CMD_COMPLETED, game->window);
-	mlx_sync(MLX_SYNC_IMAGE_WRITABLE, game->screen.ptr);
+//	mlx_sync(MLX_SYNC_WIN_CMD_COMPLETED, game->window);
+//	mlx_sync(MLX_SYNC_IMAGE_WRITABLE, game->screen.ptr);
 	ft_draw_multi_threads(game, game->player->arm);
 	return (0);
 }
@@ -207,8 +200,8 @@ int		ft_update(t_game *game)
 int		ft_game_loop(t_game *game)
 {
 	mlx_mouse_hide(game->mlx, game->window);
-	mlx_mouse_get_pos(game->window, &(game->player->control.mouse_x), &(game->player->control.mouse_y));
-//	mlx_mouse_get_pos(game->mlx, game->window, &(game->player->control.mouse_x), &(game->player->control.mouse_y));
+//	mlx_mouse_get_pos(game->window, &(game->player->control.mouse_x), &(game->player->control.mouse_y));
+	mlx_mouse_get_pos(game->mlx, game->window, &(game->player->control.mouse_x), &(game->player->control.mouse_y));
 	mlx_mouse_hook(game->window, ft_mouse_press, game);
 	mlx_hook(game->window, 17, 1L<<17, &ft_trash_game, game);
 	mlx_hook(game->window, 2, 1L<<0, ft_keypress, game);

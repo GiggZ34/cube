@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 08:26:00 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/21 16:45:42 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/22 16:16:46 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,12 +68,13 @@ void	*ft_draw(void *g)
 					ft_drawing_scale(thread->game, id,
 									ft_pixel_color(thread->game, vec, NULL));
 			}
+			else
+				ft_drawing_scale(thread->game, id, thread->screen->color[id]);
 			j += thread->game->screen.scale;
 		}
 		i += thread->game->screen.scale;
 	}
 	pthread_exit(&thread->thread);
-	return (0);
 }
 
 void	ft_draw_multi_threads(t_game *game, t_screen *gun)
@@ -99,7 +100,6 @@ void	ft_draw_multi_threads(t_game *game, t_screen *gun)
 	mlx_sync(MLX_SYNC_WIN_FLUSH_CMD, game->window);
 	if (mlx_put_image_to_window(game->mlx, game->window, game->screen.ptr, 0, 0))
 		ft_trash_game(game, put_image_fail, -1);
-	if (mlx_put_image_to_window(game->mlx, game->window, game->player.arm->ptr, 0, 0))
-		ft_trash_game(game, put_image_fail, -1);
+	ft_image_save(game);
 	ft_print_fps(game, game->dt.dt_str);
 }

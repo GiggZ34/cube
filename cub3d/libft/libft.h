@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/23 11:24:29 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/20 19:46:05 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/22 17:24:45 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ int				ft_atoi(const char *str);
 char			*ft_itoa(long n);
 char			*ft_itoa_base(unsigned long nbr, char *base);
 char			*ft_dechex(unsigned long dec);
+int				ft_decbin(char **bin, long long dec);
 
 /*
 ** Function List

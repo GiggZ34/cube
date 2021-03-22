@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+         #
+#    By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/24 18:59:35 by grivalan          #+#    #+#              #
-#    Updated: 2021/03/07 14:20:04 by grivalan         ###   ########lyon.fr    #
+#    Updated: 2021/03/22 16:45:50 by grivalan         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -89,7 +89,8 @@ SRCS		=	ft_calloc.c\
 				ft_norm_vector_calculate.c\
 				ft_dot_product.c\
 				ft_normalize_vector.c\
-				ft_vec_norm_define.c
+				ft_vec_norm_define.c\
+				ft_decbin.c\
 
 INCLUDES	=	libft.h
 

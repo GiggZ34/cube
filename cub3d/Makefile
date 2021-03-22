@@ -6,7 +6,7 @@
 #    By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/24 18:59:35 by grivalan          #+#    #+#              #
-#    Updated: 2021/03/21 15:09:31 by grivalan         ###   ########lyon.fr    #
+#    Updated: 2021/03/22 13:25:09 by grivalan         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,6 +54,7 @@ SRCS =		main.c\
 			srcs/draw/ft_draw.c\
 			srcs/draw/ft_pixel_color.c\
 			srcs/draw/ft_print_fps.c\
+			srcs/image_save/image_save.c\
 
 CC = gcc
 

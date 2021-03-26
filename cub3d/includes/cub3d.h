@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 11:56:01 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/22 13:01:20 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/25 16:08:33 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,15 @@
 # define UNVISIBLE_COLOR -16777216
 # define NB_IMG_ANIM_GUNS 7
 # define NB_ANIM_GUNS 3
-# define FPS 80
+# define FPS_MAX 80
+# define FPS_MIN 50
 # define FRAME_RATE 50000
 # define DIST_COLLIDE 1.0
 # define ROTATE_SPEED_X M_PI / 4
 # define ROTATE_SPEED_Z M_PI / 4
 # define SPEED_MAX 10
 # define FOV 60.0
-# define FOV_COS -0.30
+# define FOV_COS -0.75
 # define FOV_DIST 50
 # define FOV_DIST_SQRT 5
 
@@ -72,7 +73,9 @@ typedef enum		e_states
 {
 	rest,
 	reload,
-	shoot
+	shoot,
+	escape,
+	search
 }					t_states;
 
 typedef enum		e_player_anim
@@ -81,6 +84,19 @@ typedef enum		e_player_anim
 	anim_reload = 7,
 	anim_shoot = 2
 }					t_player_anim;
+
+typedef enum		e_data_sprite
+{
+	time_search = 10
+}					t_data_sprite;
+
+typedef struct		s_color
+{
+	double			size;
+	int				color;
+	char			collide;
+}					t_color;
+
 
 typedef struct		s_save_img
 {
@@ -247,8 +263,9 @@ typedef struct		s_sprite
 	double			height;
 	double			ratio;
 	double			angle;
+	double			time_search;
 	int				live;
-	int				state;
+	t_states		state;
 	t_texture		*tile_sheet;
 }					t_sprite;
 
@@ -259,6 +276,7 @@ typedef	struct		s_dt
 	unsigned long	time_end;
 	double			dt;
 	char			*dt_str;
+	char			*scale_str;
 }					t_dt;
 
 typedef struct		s_sky_ground
@@ -343,9 +361,10 @@ int					ft_load_tilesheet_obj(t_game *game, char *path);
 
 int					ft_game_loop(t_game *game);
 int					ft_rotate_vectors_collides(t_player *player, double angle);
-int					ft_player_move(t_game *game, double v, double *speed, double angle);
+int					ft_translation_vector(t_game *game, double v, double *speed, double angle);
 int					ft_edit_sprite_plane(t_sprite *sprite, t_vector player_normal);
-int					ft_update_sprites(t_list *lst_sprites, t_player *player);
+int					ft_update_sprites(/*t_game *game, */t_list *lst_sprites, t_player *player);
+void				ft_sort_lst_sprite(t_list **begin);
 int					ft_update_player(t_game *game, t_player *player);
 void				ft_move_player(t_game *game, t_player *player);
 void				ft_rotate_player(t_game *game, t_player *player, double x, double y);
@@ -370,6 +389,6 @@ int					ft_mini_map(t_game *game);
 int					ft_image_save(t_game *game);
 void				ft_draw_multi_threads(t_game *game, t_screen *gun);
 int					ft_pixel_color(t_game *game, t_vector v, t_sprite *s);
-int					ft_print_fps(t_game *game, char *fps);
+int					ft_print_fps(t_game *game, char *fps, char *scale);
 
 #endif

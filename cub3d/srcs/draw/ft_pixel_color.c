@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pixel_color.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 11:10:27 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/21 16:47:24 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/25 16:28:38 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static int		ft_is_in_wall(t_texture *texture, t_dot inter, char dir)
 	return (texture->color[y * texture->size_line + x]);
 }
 
-static double	ft_is_wall(t_game *game, t_plane *plane, t_vector v, t_dot *dot, char dir)
+static double	ft_is_wall(t_game *game, t_plane *plane, t_vector v, t_dot *dot)
 {
 	t_dot	pos;
 	char	**map;
@@ -41,9 +41,9 @@ static double	ft_is_wall(t_game *game, t_plane *plane, t_vector v, t_dot *dot, c
 		return (-1);
 	y = plane->b != 0 ? ft_abs(plane->d) : floor(ft_abs((*dot).y));
 	x = plane->a != 0 ? ft_abs(plane->d) : floor(ft_abs((*dot).x));
-	if (dir == 'x' && v.x < 0)
+	if (plane->a != 0 && v.x < 0)
 		x--;
-	if (dir == 'y' && v.y < 0)
+	if (plane->b != 0 && v.y < 0)
 		y--;
 	if (x >= 0 && y >= 0 && y < game->file.height_map
 						&& x < (int)ft_strlen(map[y]) && map[y][x] == '1')
@@ -61,7 +61,7 @@ static int		ft_search_color_x(t_game *game, t_vector vec, double *size)
 	int		step;
 
 	if (vec.x == 0 || game->player.position.x <= 0 || game->player.position.x > game->file.width_map - 1)
-		return (-1);
+		return (UNVISIBLE_COLOR);
 	tab = game->tab_planes.left;
 	step = -1;
 	if (vec.x > 0)
@@ -75,16 +75,16 @@ static int		ft_search_color_x(t_game *game, t_vector vec, double *size)
 	while (lst)
 	{
 		plane = lst->content;
-		if ((*size = ft_is_wall(game, plane, vec, &inter, 'x')) != -1)
+		if ((*size = ft_is_wall(game, plane, vec, &inter)) != -1)
 			return (ft_is_in_wall(plane->add, inter, 'x'));
-		if (inter.z < 0 || inter.z > 1)
-			return (-1);
+		if (inter.z < 0 || inter.z > 1 || inter.x < 0 || inter.x >= game->file.width_map || inter.y < 0 || inter.y >= game->file.height_map)
+			return (UNVISIBLE_COLOR);
 		lst = lst->next;
 	}
-	return (-1);
+	return (UNVISIBLE_COLOR);
 }
 
-static int		ft_search_color_y(t_game *game, t_vector vec, double *size)
+static int		ft_search_color_y(t_game *game, t_vector vec, double *size, t_color x)
 {
 	t_list	*lst;
 	t_plane	*plane;
@@ -95,7 +95,7 @@ static int		ft_search_color_y(t_game *game, t_vector vec, double *size)
 
 	step = 0;
 	if (vec.y == 0 || game->player.position.y <= 0 || game->player.position.y > game->file.height_map - 1)
-		return (-1);
+		return (UNVISIBLE_COLOR);
 	tab = game->tab_planes.top;
 	step = -1;
 	if (vec.y > 0)
@@ -106,16 +106,16 @@ static int		ft_search_color_y(t_game *game, t_vector vec, double *size)
 	i = floor(game->player.position.y + step);
 	while (i >= 0 && i < game->file.height_map && !(lst = tab[i]))
 		i += step;
-	while (lst)
+	while (lst && (x.color == UNVISIBLE_COLOR || *size < x.size))
 	{
 		plane = lst->content;
-		if ((*size = ft_is_wall(game, plane, vec, &inter, 'y')) != -1)
+		if ((*size = ft_is_wall(game, plane, vec, &inter)) != -1)
 			return (ft_is_in_wall(plane->add, inter, 'y'));
-		if (inter.z < 0 || inter.z > 1)
-			return (-1);
+		if (inter.z < 0 || inter.z > 1 || inter.x < 0 || inter.x >= game->file.width_map || inter.y < 0 || inter.y >= game->file.height_map)
+			return (UNVISIBLE_COLOR);
 		lst = lst->next;
 	}
-	return (-1);
+	return (UNVISIBLE_COLOR);
 }
 
 static int	ft_search_sprite_color(t_sprite *sprite, t_texture *texture, double x, double y)
@@ -135,36 +135,33 @@ static int	ft_search_sprites(t_game *game, t_vector vec, double *size, t_list *l
 	t_dot		inter;
 	t_sprite	*sprite;
 	t_vector	dir;
-	double		tmp_size;
 	int			color;
 	double		dist;
 
 	*size = -1;
-	color = -1;
+	color = UNVISIBLE_COLOR;
 	while (lst)
 	{
 		sprite = lst->content;
-		tmp_size = ft_size_vec_plane(&sprite->plane, vec, game->player.position);
-		inter = ft_intersect_plane_dot(game->player.position, vec, tmp_size);
+		*size = ft_size_vec_plane(&sprite->plane, vec, game->player.position);
+		inter = ft_intersect_plane_dot(game->player.position, vec, *size);
 		if (inter.z > 1 - sprite->height && inter.z < 1)
 		{
 			dist = pow(sprite->frist_px.x - inter.x, 2) + pow(sprite->frist_px.y - inter.y, 2);
-			if (((*size < 0 && tmp_size > 0) || (*size > tmp_size && tmp_size > 0))
-				&& (dist <= pow(sprite->width, 2)))
+			if (dist <= sprite->width * sprite->width)
 			{
 				dir.x = sprite->frist_px.x - inter.x;
 				dir.y = sprite->frist_px.y - inter.y;
 				if (dir.x * sprite->vec_write.x >= 0 && dir.y * sprite->vec_write.y >= 0
 				&& (color = ft_search_sprite_color(sprite, sprite->tile_sheet, sqrt(dist), 1 - inter.z)) != UNVISIBLE_COLOR)
-				{
-					*size = tmp_size;
 					return (color);
-				}
 			}
 		}
+		else
+			return (UNVISIBLE_COLOR);
 		lst = lst->next;
 	}
-	return (-1);
+	return (UNVISIBLE_COLOR);
 }
 
 int			ft_sky_color(t_game *game, t_vector vec)
@@ -201,42 +198,40 @@ int			ft_ground_color(t_game *game, t_vector vec)
 
 }
 
-int			ft_pixel_color(t_game *game, t_vector vec, t_sprite *s)
+int			ft_pixel_color(t_game *game, t_vector vec, t_sprite *sprite)
 {
-	double	size_x;
-	double	size_y;
-	double	size_s;
-	int		color_x;
-	int		color_y;
-	int		color_sprite = -1;
+	t_color	x;
+	t_color	y;
+	t_color	s;
 
-	size_x = -1;
-	size_y = -1;
-	size_s = -1;
-	color_x = ft_search_color_x(game, vec, &size_x);
-	color_y = ft_search_color_y(game, vec, &size_y);
-	if (s && (size_x == -1 || s->dist_to_player <= pow(size_x, 2)) && (size_y == -1 || s->dist_to_player <= pow(size_y, 2)))
-		color_sprite = ft_search_sprites(game, vec, &size_s, game->player.view.sprites_in_fov);
-	if (color_sprite < 0 && color_x < 0 && color_y < 0)
+	x = (t_color){-1, UNVISIBLE_COLOR, '\0'};
+	y = (t_color){-1, UNVISIBLE_COLOR, '\0'};
+	s = (t_color){-1, UNVISIBLE_COLOR, '\0'};
+
+	x.color = ft_search_color_x(game, vec, &x.size);
+	y.color = ft_search_color_y(game, vec, &y.size, x);
+	if (sprite && (x.size == -1 || sprite->dist_to_player <= pow(x.size, 2)) && (y.size == -1 || sprite->dist_to_player <= pow(y.size, 2)))
+		s.color = ft_search_sprites(game, vec, &s.size, game->player.view.sprites_in_fov);
+	if (s.color < 0 && x.color < 0 && y.color < 0)
 	{
 		if (vec.z > 0)
-			return (ft_ground_color(game, vec));
+			return (game->file.ground_color);//ft_ground_color(game, vec));
 		else
-			return (ft_sky_color(game, vec));
+			return (game->file.sky_color);//ft_sky_color(game, vec));
 	}
-	else if (color_sprite >= 0 && color_x < 0 && color_y < 0)
-		return (color_sprite);
-	else if (color_y >= 0 && color_x < 0 && color_sprite < 0)
-		return (color_y);
-	else if (color_x >= 0 && color_y < 0 && color_sprite < 0)
-		return (color_x);
+	else if (s.color >= 0 && x.color < 0 && y.color < 0)
+		return (s.color);
+	else if (y.color >= 0 && x.color < 0 && s.color < 0)
+		return (y.color);
+	else if (x.color >= 0 && y.color < 0 && s.color < 0)
+		return (x.color);
 	else
 	{
-		if (color_sprite >= 0 && size_s > 0 && (size_s < size_x || size_x < 0) && (size_s < size_y || size_y < 0))
-			return (color_sprite);
-		else if (size_x > 0 && (size_x < size_y || size_y < 0))
-			return (color_x);
+		if (s.color >= 0 && s.size > 0 && (s.size < x.size || x.size < 0) && (s.size < y.size || y.size < 0))
+			return (s.color);
+		else if (x.size > 0 && (x.size < y.size || y.size < 0))
+			return (x.color);
 		else
-			return (color_y);
+			return (y.color);
 	}
 }

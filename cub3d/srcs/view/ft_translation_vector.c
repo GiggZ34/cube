@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_translation_vector.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 17:54:10 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/21 16:45:05 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/23 11:30:38 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void	ft_limit_speed(t_game *game, int run, double *speed)
 	}
 }
 
-int			ft_player_move(t_game *game, double v, double *speed, double angle)
+int			ft_translation_vector(t_game *game, double v, double *speed, double angle)
 {
 	double	x;
 	double	y;

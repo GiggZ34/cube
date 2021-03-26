@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_move_player.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/13 16:01:28 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/13 16:02:32 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/23 11:30:33 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,13 @@
 void	ft_move_player(t_game *game, t_player *player)
 {
 	if (player->control.a || player->control.d)
-		ft_player_move(game, SPEED_MAX, &player->walk_speed, player->dir_trans);
+		ft_translation_vector(game, SPEED_MAX, &player->walk_speed, player->dir_trans);
 	else
-		ft_player_move(game, -SPEED_MAX,
+		ft_translation_vector(game, -SPEED_MAX,
 									&player->walk_speed, player->dir_trans);
 	if (player->control.w || player->control.s)
-		ft_player_move(game, SPEED_MAX, &player->trans_speed, player->dir_walk);
+		ft_translation_vector(game, SPEED_MAX, &player->trans_speed, player->dir_walk);
 	else
-		ft_player_move(game, -SPEED_MAX,
+		ft_translation_vector(game, -SPEED_MAX,
 									&player->trans_speed, player->dir_walk);
 }

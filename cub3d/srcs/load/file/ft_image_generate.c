@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 15:08:29 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/21 17:03:50 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/26 19:45:46 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,14 @@ static int	ft_image_to_struct(t_game *game, void *img, int *dim, char *type)
 	t_texture	*texture;
 
 	if (!(texture = ft_calloc(sizeof(t_texture), 1)))
-		return (ft_trash_game(game, allocation_fail, -1));
+		return (ft_trash_game(game, allocation_fail, -1, "Function ft_image_to_struct | line 35\n"));
 	texture->ptr = img;
 	texture->type = type;
 	texture->width = dim[0];
 	texture->height = dim[1];
 	if (!(texture->color = (int*)mlx_get_data_addr(img,
 	&(texture->bits_per_pixel), &(texture->size_line), &(texture->endian))))
-		return (ft_trash_game(game, color_generation_fail, -1));
+		return (ft_trash_game(game, color_generation_fail, -1, "Function ft_image_to_struct | line 41\n"));
 	texture->size_line /= 4;
 	if (!ft_strncmp(type, "NO", 2))
 		game->file.texture_no = texture;
@@ -64,7 +64,7 @@ int			ft_img_generate(t_game *game, char *dir, char *type)
 	if ((ext = ft_search_extension(dir)) == 1)
 	{
 		if (!(img = mlx_xpm_file_to_image(game->mlx, dir, &dim[0], &dim[1])))
-			return (ft_trash_game(game, crash_mlx_function, -1));
+			return (ft_trash_game(game, crash_mlx_function, -1, "Function ft_img_generate | line 66\n"));
 	}
 //	else if (ext == 0)
 //	{
@@ -72,7 +72,7 @@ int			ft_img_generate(t_game *game, char *dir, char *type)
 //			return (ft_trash_game(game, crash_mlx_function, -1));
 //	}
 	else
-		return (ft_trash_game(game, image_not_exist, -1));
+		return (ft_trash_game(game, image_not_exist, -1, "Extension invalid\n"));
 	ft_image_to_struct(game, img, dim, type);
 	return (0);
 }

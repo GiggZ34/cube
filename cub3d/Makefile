@@ -6,7 +6,7 @@
 #    By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/24 18:59:35 by grivalan          #+#    #+#              #
-#    Updated: 2021/03/22 13:25:09 by grivalan         ###   ########lyon.fr    #
+#    Updated: 2021/03/27 14:37:52 by grivalan         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,6 +51,7 @@ SRCS =		main.c\
 			srcs/update/ft_update_player.c\
 			srcs/update/ft_rotate_player.c\
 			srcs/update/ft_move_player.c\
+			srcs/update/ft_update_planes.c\
 			srcs/draw/ft_draw.c\
 			srcs/draw/ft_pixel_color.c\
 			srcs/draw/ft_print_fps.c\
@@ -61,7 +62,7 @@ CC = gcc
 ifeq ($(UNAME), Linux)
 CFLAGS =	-Wall -Wextra -Werror -Ofast -D LINUX
 else
-CFLAGS =	-Wall -Wextra -Werror -Ofast
+CFLAGS =	-Wall -Wextra -Werror -Ofast -flto -march=native -ffast-math
 endif
 
 INCLUDES =	includes

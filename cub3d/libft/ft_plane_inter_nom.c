@@ -1,30 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_plane_inter_nom.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/28 11:41:36 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/26 16:42:24 by grivalan         ###   ########lyon.fr   */
+/*   Created: 2021/03/27 13:54:57 by grivalan          #+#    #+#             */
+/*   Updated: 2021/03/27 13:56:28 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "libft.h"
 
-int				main(int ac, char **av)
+double		ft_plane_inter_nom(t_plane *p, t_dot pos)
 {
-	t_game	game;
-
-	if (ac == 2 || (ac == 3 && !ft_strncmp(av[2], "--save", 6)))
-	{
-		ft_load(av[1], &game);
-		ft_game_loop(&game);
-	}
-	else
-	{
-		printf("Error\ninvalid argument\n");
-		return (arguments_error);
-	}
-	return (succes);
+	p->nom_size = -(p->a * pos.x + p->b * pos.y + p->c * pos.z + p->d);
+	return (p->nom_size);
 }

@@ -6,7 +6,7 @@
 #    By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/24 18:59:35 by grivalan          #+#    #+#              #
-#    Updated: 2021/03/22 16:45:50 by grivalan         ###   ########lyon.fr    #
+#    Updated: 2021/03/27 14:55:19 by grivalan         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -91,6 +91,7 @@ SRCS		=	ft_calloc.c\
 				ft_normalize_vector.c\
 				ft_vec_norm_define.c\
 				ft_decbin.c\
+				ft_plane_inter_nom.c\
 
 INCLUDES	=	libft.h
 
@@ -102,7 +103,7 @@ CC			=	gcc
 
 RM			=	rm -f
 
-CFLAGS		=	-Wall -Werror -Wextra -Ofast
+CFLAGS		=	-Wall -Werror -Wextra -Ofast -flto -march=native -ffast-math
 
 %.o: %.c libft.h
 			$(CC) $(CFLAGS) -c $< -o $(<:.c=.o)

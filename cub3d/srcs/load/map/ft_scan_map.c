@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 12:30:41 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/21 15:55:32 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/26 19:47:25 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,7 @@ void		ft_scan_map(t_game *game, char **map, int i, int j)
 	if (((i == ft_count_array(map) || j == (int)ft_strlen(map[i])
 			|| i == 0 || j == 0) && map[i][j] != '1')
 			|| ft_in_array(map[i][j], "012cNSEW") == -1)
-		ft_error_file(&game->file, 2,
-			ft_search_error(&game->file.map[i], j, i));
+		ft_trash_game(game, map_not_close, game->file.fd, ft_search_error(&game->file.map[i], j, i));
 	else if (ft_in_array(map[i][j], "02NSEW") != -1)
 	{
 		map[i][j] = 'c';

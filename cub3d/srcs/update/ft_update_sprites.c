@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_update_sprites.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/10 22:42:23 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/23 15:06:00 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/27 15:35:47 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ static void	ft_search_sprites(t_sprite *s, t_list **begin, t_player *player)
 	if (ft_dot_product(player->collide.top, s->sprite_to_player) < FOV_COS)
 	{
 		lst = ft_lstnew(s);
+		ft_plane_inter_nom(&s->plane, player->position);
 		ft_lstadd_back(begin, lst);
 	}
 }

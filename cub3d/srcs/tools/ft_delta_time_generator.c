@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_delta_time_generator.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 17:11:43 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/25 16:33:41 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/26 19:48:25 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,12 @@ void	ft_delta_time_generate(t_game *game)
 	game->dt.time_start = 1000000 * game->dt.time.tv_sec
 													+ game->dt.time.tv_usec;
 	fps = round(1 / game->dt.dt);
-	if (fps < FPS_MIN && game->screen.scale < 3)
+	if (fps < FPS_MIN && game->screen.scale < SCALE_MAX)
 		game->screen.scale++;
 	else if (fps > FPS_MAX && game->screen.scale > 1)
-		game->screen.scale--;
+			game->screen.scale--;
 	game->dt.dt_str = ft_itoa(fps);
 	game->dt.scale_str = ft_itoa(game->screen.scale);
 	if (!game->dt.dt_str)
-		ft_trash_game(game, allocation_fail, -1);
+		ft_trash_game(game, allocation_fail, game->file.fd, "\n");
 }

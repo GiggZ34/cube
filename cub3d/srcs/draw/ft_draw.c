@@ -3,26 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   ft_draw.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 08:26:00 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/25 16:05:37 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/27 15:44:38 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	ft_drawing_scale(t_game *game, int id, int color)
+void	ft_drawing_scale(t_game *game, int x, int y, int color)
 {
 	int	i;
 	int	j;
+	int id;
 	int	pos;
 
 	i = -1;
-	while (++i < game->screen.scale)
+	id = y * game->screen.size + x;
+	while (++i < game->screen.scale && y + i < game->screen.height)
 	{
 		j = -1;
-		while (++j < game->screen.scale)
+		while (++j < game->screen.scale && x + i < game->screen.size)
 		{
 			pos = id + i * game->screen.size + j;
 			game->screen.color[pos] = color;
@@ -62,14 +64,14 @@ void	*ft_draw(void *g)
 				vec = thread->game->player.view.tab_vectors[id];
 				vec = ft_rotate_vector_current(thread->game, vec);
 				if (thread->game->player.view.sprites_in_fov)
-					ft_drawing_scale(thread->game, id, ft_pixel_color(thread->game,
+					ft_drawing_scale(thread->game, i, j, ft_pixel_color(thread->game,
 						vec, thread->game->player.view.sprites_in_fov->content));
 				else
-					ft_drawing_scale(thread->game, id,
+					ft_drawing_scale(thread->game, i, j,
 									ft_pixel_color(thread->game, vec, NULL));
 			}
 			else
-				ft_drawing_scale(thread->game, id, thread->screen->color[id]);
+				ft_drawing_scale(thread->game, i, j, thread->screen->color[id]);
 			j += thread->game->screen.scale;
 		}
 		i += thread->game->screen.scale;
@@ -92,14 +94,14 @@ void	ft_draw_multi_threads(t_game *game, t_screen *gun)
 		thread[i].size = size_px;
 		thread[i].screen = gun;
 		if (pthread_create(&thread[i].thread, NULL, ft_draw, (&thread[i])))
-			exit(1);
+			ft_trash_game(game, allocation_fail, game->file.fd, "\n");
 	}
 	i = -1;
 	while (++i < NB_THREADS)
 		pthread_join(thread[i].thread, NULL);
-//	mlx_sync(MLX_SYNC_WIN_FLUSH_CMD, game->window);
+	mlx_sync(MLX_SYNC_WIN_FLUSH_CMD, game->window);
 	if (mlx_put_image_to_window(game->mlx, game->window, game->screen.ptr, 0, 0))
-		ft_trash_game(game, put_image_fail, -1);
+		ft_trash_game(game, put_image_fail, -1, "ft_draw | line 103\n");
 //	ft_image_save(game);
 	ft_print_fps(game, game->dt.dt_str, game->dt.scale_str);
 }

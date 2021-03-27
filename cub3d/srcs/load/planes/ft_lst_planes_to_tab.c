@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 08:57:40 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/21 16:43:53 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/26 19:51:27 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,12 +111,12 @@ static t_list		**ft_planes_left_to_tab(t_game *game)
 int					ft_lst_planes_to_tab(t_game *game)
 {
 	if (!(game->tab_planes.left = ft_planes_left_to_tab(game)))
-		return (ft_trash_game(game, allocation_fail, -1));
+		return (ft_trash_game(game, allocation_fail, -1, "\n"));
 	if (!(game->tab_planes.right = ft_planes_right_to_tab(game)))
-		return (ft_trash_game(game, allocation_fail, -1));
+		return (ft_trash_game(game, allocation_fail, -1, "\n"));
 	if (!(game->tab_planes.top = ft_planes_top_to_tab(game)))
-		return (ft_trash_game(game, allocation_fail, -1));
+		return (ft_trash_game(game, allocation_fail, -1, "\n"));
 	if (!(game->tab_planes.bottom = ft_planes_bottom_to_tab(game)))
-		return (ft_trash_game(game, allocation_fail, -1));
+		return (ft_trash_game(game, allocation_fail, -1, "\n"));
 	return (0);
 }

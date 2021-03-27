@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/23 11:24:29 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/22 17:24:45 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/27 14:39:42 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ typedef struct	s_plane
 	double		c;
 	double		d;
 	void		*add;
+	double		nom_size;
 }				t_plane;
 
 
@@ -76,7 +77,8 @@ t_vector		ft_normalize_vector(t_vector vec);
 t_vector		ft_vec_norm_define(t_vector vec, double size);
 t_vector		ft_rotate_vector(t_vector vec, double angle, char axis);
 double			ft_dot_product(t_vector vec1, t_vector vec2);
-double			ft_size_vec_plane(t_plane *plane, t_vector vec, t_dot orign);
+double			ft_plane_inter_nom(t_plane *p, t_dot pos);
+double			ft_size_vec_plane(t_plane *plane, t_vector vec);
 t_dot			ft_intersect_plane_dot(t_dot origin, t_vector vec, double t);
 double			ft_norm_vector_calculate(t_vector v);
 double			ft_deg_to_rad(double degree);

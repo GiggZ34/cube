@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pixel_color.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 11:10:27 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/25 16:28:38 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/27 15:55:47 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static double	ft_is_wall(t_game *game, t_plane *plane, t_vector v, t_dot *dot)
 
 	map = game->file.map;
 	pos = game->player.position;
-	size = ft_size_vec_plane(plane, v, pos);
+	size = ft_size_vec_plane(plane, v);
 	*dot = ft_intersect_plane_dot(pos, v, size);
 	if ((*dot).z < 0 || (*dot).z > 1)
 		return (-1);
@@ -143,7 +143,7 @@ static int	ft_search_sprites(t_game *game, t_vector vec, double *size, t_list *l
 	while (lst)
 	{
 		sprite = lst->content;
-		*size = ft_size_vec_plane(&sprite->plane, vec, game->player.position);
+		*size = ft_size_vec_plane(&sprite->plane, vec);
 		inter = ft_intersect_plane_dot(game->player.position, vec, *size);
 		if (inter.z > 1 - sprite->height && inter.z < 1)
 		{
@@ -173,7 +173,7 @@ int			ft_sky_color(t_game *game, t_vector vec)
 	int		y;
 
 	t = game->sky_ground.sky_texture;
-	size = ft_abs(ft_size_vec_plane(&game->sky_ground.sky_plane, vec, game->player.position));
+	size = ft_abs(ft_size_vec_plane(&game->sky_ground.sky_plane, vec));
 	inter = ft_intersect_plane_dot(game->player.position, vec, size);
 	y = t.height * (inter.y - floor(inter.y));
 	x = t.width * (inter.x - floor(inter.x));
@@ -190,7 +190,7 @@ int			ft_ground_color(t_game *game, t_vector vec)
 	int		y;
 
 	t = game->sky_ground.ground_texture;
-	size = ft_abs(ft_size_vec_plane(&game->sky_ground.ground_plane, vec, game->player.position));
+	size = ft_abs(ft_size_vec_plane(&game->sky_ground.ground_plane, vec));
 	inter = ft_intersect_plane_dot(game->player.position, vec, size);
 	y = t.height * (inter.y - floor(inter.y));
 	x = t.width * (inter.x - floor(inter.x));
@@ -210,14 +210,14 @@ int			ft_pixel_color(t_game *game, t_vector vec, t_sprite *sprite)
 
 	x.color = ft_search_color_x(game, vec, &x.size);
 	y.color = ft_search_color_y(game, vec, &y.size, x);
-	if (sprite && (x.size == -1 || sprite->dist_to_player <= pow(x.size, 2)) && (y.size == -1 || sprite->dist_to_player <= pow(y.size, 2)))
+	if (sprite && (x.size == -1 || sprite->dist_to_player <= x.size * x.size) && (y.size == -1 || sprite->dist_to_player <= y.size * y.size))
 		s.color = ft_search_sprites(game, vec, &s.size, game->player.view.sprites_in_fov);
 	if (s.color < 0 && x.color < 0 && y.color < 0)
 	{
 		if (vec.z > 0)
-			return (game->file.ground_color);//ft_ground_color(game, vec));
+			return (ft_ground_color(game, vec));
 		else
-			return (game->file.sky_color);//ft_sky_color(game, vec));
+			return (ft_sky_color(game, vec));
 	}
 	else if (s.color >= 0 && x.color < 0 && y.color < 0)
 		return (s.color);

@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 21:58:04 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/21 16:40:57 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/26 19:46:59 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ static int		ft_start_pos(t_game *game, int *row, int *col)
 			}
 	}
 	if (nb_pos > 1)
-		return (ft_trash_game(game, no_player_position, -1));
+		return (ft_trash_game(game, no_player_position, -1, "\n"));
 	else if (!nb_pos)
-		return (ft_trash_game(game, multiple_player_position, -1));
+		return (ft_trash_game(game, multiple_player_position, -1, "\n"));
 	return (0);
 }
 
@@ -52,7 +52,7 @@ int				ft_check_map(t_game *game, t_file *file)
 	pos[0] = 0;
 	pos[1] = 0;
 	if (!(map_check = ft_map_cpy(game->file.map, game->file.height_map)))
-		return (ft_trash_game(game, allocation_fail, -1));
+		return (ft_trash_game(game, allocation_fail, -1, "\n"));
 	if (ft_start_pos(game, &pos[0], &pos[1]) == 0)
 	{
 		ft_scan_map(game, map_check, pos[0], pos[1]);

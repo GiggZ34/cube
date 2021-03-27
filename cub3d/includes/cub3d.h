@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 11:56:01 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/25 16:08:33 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/27 19:46:27 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,20 +24,16 @@
 # include <pthread.h>
 # include <stdio.h>
 # include <math.h>
-# define FAIL_EXIT -1
 # define NB_THREADS 4
+# define ARG_FILE 8
 # define UNVISIBLE_COLOR -16777216
-# define NB_IMG_ANIM_GUNS 7
-# define NB_ANIM_GUNS 3
-# define FPS_MAX 80
-# define FPS_MIN 50
-# define FRAME_RATE 50000
-# define DIST_COLLIDE 1.0
-# define ROTATE_SPEED_X M_PI / 4
-# define ROTATE_SPEED_Z M_PI / 4
+# define SCALE_MAX 3
+# define FPS_MAX 60
+# define FPS_MIN 20
+# define ROTATE_SPEED 0.785
 # define SPEED_MAX 10
 # define FOV 60.0
-# define FOV_COS -0.75
+# define FOV_COS -0.1
 # define FOV_DIST 50
 # define FOV_DIST_SQRT 5
 
@@ -59,15 +55,19 @@ typedef enum		e_error_code
 	allocation_fail,
 	no_player_position,
 	multiple_player_position,
-	put_image_fail
-
+	put_image_fail,
+	arguments_error,
+	map_not_close,
+	fail_destroy_image
 }					t_error_code;
 
-typedef enum		e_arms
+typedef enum		e_fusil
 {
+	nb_img_anim = 7,
+	nb_anim = 3,
 	barel_fusil = 6,
 	damages_fusil = 20
-}					t_arms;
+}					t_fusil;
 
 typedef enum		e_states
 {
@@ -161,6 +161,8 @@ typedef struct		s_tab_plane
 
 typedef struct		s_file
 {
+	int				fd;
+	t_list			*check_file;
 	int				ground_color;
 	int				sky_color;
 	char			**map;
@@ -229,7 +231,7 @@ typedef struct		s_player
 	t_view			view;
 	t_collide		collide;
 	t_control		control;
-	t_screen		*gun[NB_ANIM_GUNS];
+	t_screen		**gun;
 	double			dist_screen;
 	double			walk_speed;
 	double			trans_speed;
@@ -328,8 +330,7 @@ t_player_anim		ft_define_nb_anim(int state);
 */
 
 void				ft_free_array(char **array);
-int					ft_clear_file(t_file *file, int fd, int error_code);
-int					ft_trash_game(t_game *game, t_error_code code, int fd);
+int					ft_trash_game(t_game *game, t_error_code code, int fd, char *msg);
 
 /*
 **	Functions load
@@ -368,6 +369,7 @@ void				ft_sort_lst_sprite(t_list **begin);
 int					ft_update_player(t_game *game, t_player *player);
 void				ft_move_player(t_game *game, t_player *player);
 void				ft_rotate_player(t_game *game, t_player *player, double x, double y);
+void				ft_update_planes(t_game *game);
 
 /*
 **	Functions error

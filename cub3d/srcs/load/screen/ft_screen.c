@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 15:21:03 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/21 17:38:04 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/26 19:51:13 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,11 @@ int			ft_init_screen(t_game *game, t_screen *img, int num_img, int state)
 	{
 		if (!(img[i].ptr = mlx_new_image(game->mlx,
 									game->screen.width, game->screen.height)))
-			return (ft_trash_game(game, load_texture_fail, -1));
+			return (ft_trash_game(game, load_texture_fail, -1, "\n"));
 		img[i].height = game->screen.height;
 		if (!(img[i].color = (int*)mlx_get_data_addr(img[i].ptr,
 				&img[i].bit, &img[i].size, &img[i].endian)))
-			return (ft_trash_game(game, color_generation_fail, -1));
+			return (ft_trash_game(game, color_generation_fail, -1, "\n"));
 		img[i].size /= 4;
 		ft_screen_unvisible(game, img[i]);
 		ft_generate_texture(game, img[i], state, i);
@@ -72,10 +72,10 @@ int			ft_screen(t_game *game)
 {
 	if (!(game->screen.ptr = mlx_new_image(game->mlx,
 									game->screen.width, game->screen.height)))
-		return (ft_trash_game(game, load_texture_fail, -1));
+		return (ft_trash_game(game, load_texture_fail, -1, "\n"));
 	if (!(game->screen.color = (int*)mlx_get_data_addr(game->screen.ptr,
 				&game->screen.bit, &game->screen.size, &game->screen.endian)))
-		return (ft_trash_game(game, color_generation_fail, -1));
+		return (ft_trash_game(game, color_generation_fail, -1, "\n"));
 	game->screen.size /= 4;
 	game->screen.w_vec = FOV / game->screen.size;
 	game->screen.scale = 1;

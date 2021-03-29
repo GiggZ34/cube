@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 22:51:43 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/26 19:46:28 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/29 16:45:48 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static char			**ft_generate_map(t_file *file, char *line)
 		return (NULL);
 	if (file->width_map < (int)ft_strlen(line))
 		file->width_map = ft_strlen(line);
-	if (!(str = calloc(sizeof(char **), ft_count_array(file->map) + 2)))
+	if (!(str = ft_calloc(sizeof(char**), ft_count_array(file->map) + 2)))
 		return (NULL);
 	i = 0;
 	if (file->map)

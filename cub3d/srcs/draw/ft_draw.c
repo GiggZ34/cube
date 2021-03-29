@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 08:26:00 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/27 15:44:38 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/29 18:10:07 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,6 @@ void	ft_draw_multi_threads(t_game *game, t_screen *gun)
 	mlx_sync(MLX_SYNC_WIN_FLUSH_CMD, game->window);
 	if (mlx_put_image_to_window(game->mlx, game->window, game->screen.ptr, 0, 0))
 		ft_trash_game(game, put_image_fail, -1, "ft_draw | line 103\n");
-//	ft_image_save(game);
+	ft_image_save(game);
 	ft_print_fps(game, game->dt.dt_str, game->dt.scale_str);
 }

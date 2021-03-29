@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 11:56:01 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/27 19:46:27 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/29 18:23:30 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,27 +96,6 @@ typedef struct		s_color
 	int				color;
 	char			collide;
 }					t_color;
-
-
-typedef struct		s_save_img
-{
-	char			*flag;
-	char			*file_size;
-	char			*first_px;
-	char			*size;
-	char			*width;
-	char			*height;
-	char			*planes;
-	char			*bit_count;
-	char			*compression;
-	char			*size_image;
-	char			*x_pels_per_meter;
-	char			*y_pels_per_meter;
-	char			*clr_used;
-	char			*clr_important;
-
-}					t_save_img;
-
 
 typedef struct		s_texture
 {

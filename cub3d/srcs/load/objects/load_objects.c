@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 11:02:45 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/27 19:47:07 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/30 13:11:17 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ int			ft_load_tilesheet_obj(t_game *game, char *path)
 	while (++state < nb_anim)
 		ft_create_screen(game, &game->player, state);
 	mlx_destroy_image(game->mlx, game->player.guns.obj_texture.ptr);
+	game->player.guns.obj_texture.ptr = NULL;
 	ft_bzero(&game->player.guns, sizeof(t_obj));
 	return (0);
 }

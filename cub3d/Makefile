@@ -6,7 +6,7 @@
 #    By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/24 18:59:35 by grivalan          #+#    #+#              #
-#    Updated: 2021/03/30 11:23:46 by grivalan         ###   ########lyon.fr    #
+#    Updated: 2021/03/30 12:57:44 by grivalan         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ UNAME := $(shell uname)
 
 NAME =		cub3d
 
-NAME2	=	Cub3Dlinux
+NAME2	=	cub3dlinux
 
 LIB  =		./libft
 
@@ -88,13 +88,13 @@ linux :		$(NAME2)
 
 clean :
 		rm -rf $(OBJS)
-		rm img_*
 		$(MAKE) clean -C $(LIB)
 		$(MAKE) clean -C $(MLX)
 
 fclean :	clean
 			$(MAKE) fclean -C $(LIB)
 			rm -f libmlx.dylib
+			rm img_*
 			rm -f $(NAME)
 
 re : fclean all

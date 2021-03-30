@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clear_file.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 15:01:48 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/30 12:51:00 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/30 13:11:44 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 

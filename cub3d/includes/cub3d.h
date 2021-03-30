@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 11:56:01 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/30 09:24:40 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/30 11:36:27 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -369,7 +369,7 @@ int					ft_mini_map(t_game *game);
 **	Functions draw
 */
 
-int					ft_image_save(t_game *game);
+size_t				ft_image_save(t_game *game);
 void				ft_draw_multi_threads(t_game *game, t_screen *gun);
 int					ft_pixel_color(t_game *game, t_vector v, t_sprite *s);
 int					ft_print_fps(t_game *game, char *fps, char *scale);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_update_player.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/10 22:44:47 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/27 17:36:07 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/30 11:32:38 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,17 +72,17 @@ int		ft_update_player(t_game *game, t_player *player)
 
 	x = &(game->player.control.mouse_x_tmp);
 	y = &(game->player.control.mouse_y_tmp);
-	mlx_mouse_get_pos(game->window, x, y);
-//	mlx_mouse_get_pos(game->mlx, game->window, x, y);
-	mlx_mouse_move(game->window, game->player.control.mouse_x,
-												game->player.control.mouse_y);
-//	mlx_mouse_move(game->mlx, game->window, game->player.control.mouse_x, game->player.control.mouse_y);
-	mlx_mouse_get_pos(game->window, &(game->player.control.mouse_x),
-											&(game->player.control.mouse_y));
-//	mlx_mouse_get_pos(game->mlx, game->window, &(game->player.control.mouse_x), &(game->player.control.mouse_y));
-	mlx_mouse_move(game->window, game->player.control.mouse_x,
-											game->player.control.mouse_y);
-//	mlx_mouse_move(game->mlx, game->window, game->player.control.mouse_x, game->player.control.mouse_y);
+//	mlx_mouse_get_pos(game->window, x, y);
+	mlx_mouse_get_pos(game->mlx, game->window, x, y);
+//	mlx_mouse_move(game->window, game->player.control.mouse_x,
+//												game->player.control.mouse_y);
+	mlx_mouse_move(game->mlx, game->window, game->player.control.mouse_x, game->player.control.mouse_y);
+//	mlx_mouse_get_pos(game->window, &(game->player.control.mouse_x),
+//											&(game->player.control.mouse_y));
+	mlx_mouse_get_pos(game->mlx, game->window, &(game->player.control.mouse_x), &(game->player.control.mouse_y));
+//	mlx_mouse_move(game->window, game->player.control.mouse_x,
+//											game->player.control.mouse_y);
+	mlx_mouse_move(game->mlx, game->window, game->player.control.mouse_x, game->player.control.mouse_y);
 	ft_define_angle_move(player);
 	ft_rotate_player(game, player, *x - game->player.control.mouse_x,
 										*y - game->player.control.mouse_y);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   image_save.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 11:00:33 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/30 11:22:23 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/30 11:38:48 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,11 +96,12 @@ char	*search_name(char **name)
 	}
 }
 
-int		ft_image_save(t_game *game)
+size_t	ft_image_save(t_game *game)
 {
 	int				fd;
 	unsigned char	*file;
 	char			*name;
+	size_t			size_file;
 
 	if (!search_name(&name))
 		return (ft_trash_game(game, open_file_fail, -1, "function ft_image_save\n"));
@@ -109,7 +110,7 @@ int		ft_image_save(t_game *game)
 		return (ft_trash_game(game, open_file_fail, -1, "function ft_image_save\n"));
 	create_file(game, &file, fd);
 	image_to_file(game, file);
-	write(fd, file, game->screen.width * game->screen.height * 4 + 54);
+	size_file = write(fd, file, game->screen.width * game->screen.height * 4 + 54);
 	close(fd);
-	return (succes);
+	return (size_file);
 }

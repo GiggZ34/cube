@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clear_file.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 15:01:48 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/30 10:43:17 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/30 12:51:00 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,6 +131,5 @@ int			ft_trash_game(t_game *game, t_error_code code, int fd, char *msg)
 		if (mlx_destroy_window(game->mlx, game->window))
 			printf("Windows destruction failed\n");
 	}
-	while (1);
 	exit(code);
 }

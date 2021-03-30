@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_elments.c                                     :+:      :+:    :+:   */
+/*   ft_free_array.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 13:52:07 by grivalan          #+#    #+#             */
-/*   Updated: 2020/12/31 14:22:10 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/30 14:27:36 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,10 @@ void		ft_free_array(char **array)
 		while (array[i])
 		{
 			free(array[i]);
+			array[i] = NULL;
 			i++;
 		}
 		free(array);
+		array = NULL;
 	}
 }

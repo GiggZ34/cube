@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   load_objects.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 11:02:45 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/30 13:11:17 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/30 14:41:38 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static int	ft_create_screen(t_game *game, t_player *player, int state)
 	int nb_img;
 
 	nb_img = ft_define_nb_anim(state);
-	player->gun[state] = ft_calloc(sizeof(t_screen), nb_img + 1);
+	player->gun[state] = ft_calloc(sizeof(t_screen), nb_img);
 	if (player->gun[state] == NULL)
 		return (ft_trash_game(game, crash_mlx_function, -1, "\n"));
 	ft_init_screen(game, player->gun[state], nb_img, state);
@@ -74,7 +74,6 @@ int			ft_load_tilesheet_obj(t_game *game, char *path)
 	while (++state < nb_anim)
 		ft_create_screen(game, &game->player, state);
 	mlx_destroy_image(game->mlx, game->player.guns.obj_texture.ptr);
-	game->player.guns.obj_texture.ptr = NULL;
 	ft_bzero(&game->player.guns, sizeof(t_obj));
 	return (0);
 }

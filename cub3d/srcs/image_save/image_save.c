@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 11:00:33 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/30 11:38:48 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/30 14:45:49 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,11 +106,15 @@ size_t	ft_image_save(t_game *game)
 	if (!search_name(&name))
 		return (ft_trash_game(game, open_file_fail, -1, "function ft_image_save\n"));
 	fd = open(name, O_WRONLY | O_TRUNC | O_CREAT, 0700);
+	free(name);
+	name = NULL;
 	if (fd < 0)
 		return (ft_trash_game(game, open_file_fail, -1, "function ft_image_save\n"));
 	create_file(game, &file, fd);
 	image_to_file(game, file);
 	size_file = write(fd, file, game->screen.width * game->screen.height * 4 + 54);
+	free(file);
+	file = NULL;
 	close(fd);
 	return (size_file);
 }

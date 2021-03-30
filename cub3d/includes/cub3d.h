@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 11:56:01 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/30 11:36:27 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/30 13:34:36 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@
 # include <pthread.h>
 # include <stdio.h>
 # include <math.h>
-# define NB_THREADS 4
+# define NB_THREADS 8
 # define ARG_FILE 8
 # define UNVISIBLE_COLOR -16777216
-# define SCALE_MAX 3
+# define SCALE_MAX 100
 # define FPS_MAX 60
 # define FPS_MIN 20
 # define ROTATE_SPEED 0.785

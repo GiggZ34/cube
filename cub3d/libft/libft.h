@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/23 11:24:29 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/27 14:39:42 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/30 11:12:47 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,7 +144,7 @@ char			*ft_strdup(const char *s1);
 char			*ft_strchr(const char *s, int c);
 char			*ft_strrchr(const char *s, int c);
 int				ft_strncmp(const char *s1, const char *s2, size_t n);
-char			*ft_strcpy(char *dst, char *src);
+char			*ft_strcpy(char *dst, const char *src);
 char			*ft_strcpypos(char *dst, char *src, int position);
 size_t			ft_strlcpy(char *dst, const char *src, size_t dstsize);
 size_t			ft_strlcat(char *dst, const char *src, size_t dstsize);
@@ -157,6 +157,7 @@ char			*ft_str_to_upper(char *s);
 char			*ft_substr(char const *s, int start, int len);
 char			*ft_strjoin(char const *s1, char const *s2);
 char			*ft_strtrim(char const *s1, char const *set);
+char			*file_name_gen(char **name, const char *str, int num, const char *ext);
 char			*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 char			**ft_split(char const *s, char *c);
 

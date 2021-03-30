@@ -6,7 +6,7 @@
 #    By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/24 18:59:35 by grivalan          #+#    #+#              #
-#    Updated: 2021/03/29 16:32:04 by grivalan         ###   ########lyon.fr    #
+#    Updated: 2021/03/30 11:23:46 by grivalan         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -76,7 +76,7 @@ $(NAME):	$(OBJS)
 		$(MAKE) -C $(LIB)
 		$(MAKE) -C $(MLX)
 		cp mlx/libmlx.dylib .
-		$(CC) -o $(NAME) $(OBJS) -I $(INCLUDES) libft/libft.a -Lmlx -lmlx -lm -lcurses
+		$(CC) -o $(NAME) $(OBJS) -I $(INCLUDES) libft/libft.a -Lmlx -lmlx -lm
 
 $(NAME2) :	$(OBJS)
 		$(MAKE) -C $(LIB)
@@ -88,6 +88,7 @@ linux :		$(NAME2)
 
 clean :
 		rm -rf $(OBJS)
+		rm img_*
 		$(MAKE) clean -C $(LIB)
 		$(MAKE) clean -C $(MLX)
 

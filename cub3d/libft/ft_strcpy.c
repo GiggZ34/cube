@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 20:02:32 by grivalan          #+#    #+#             */
-/*   Updated: 2020/12/15 19:17:17 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/30 11:07:08 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strcpy(char *dst, char *src)
+char	*ft_strcpy(char *dst, const char *src)
 {
 	int i;
 

@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 11:56:01 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/29 18:23:30 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/30 09:24:40 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -284,6 +284,8 @@ typedef struct		s_game
 	t_list			*lst_planes_right;
 	t_list			*lst_planes_left;
 	t_sky_ground	sky_ground;
+	int				save_picture;
+	int				exit;
 }					t_game;
 
 typedef struct		s_thread

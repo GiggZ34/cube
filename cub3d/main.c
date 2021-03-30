@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 11:41:36 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/26 16:42:24 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/30 10:03:47 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,12 @@ int				main(int ac, char **av)
 
 	if (ac == 2 || (ac == 3 && !ft_strncmp(av[2], "--save", 6)))
 	{
+		ft_bzero(&game, sizeof(t_game));
+		if (ac == 3)
+		{
+			game.save_picture = 1;
+			game.exit = 1;
+		}
 		ft_load(av[1], &game);
 		ft_game_loop(&game);
 	}

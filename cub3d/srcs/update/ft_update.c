@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 10:43:23 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/27 19:35:16 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/30 10:13:07 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ int		ft_keypress(int keycode, t_game *game)
 		game->player.control.run = 1;
 	if (keycode == SHOOT && !game->player.control.reload)
 		game->player.control.shoot = 1;
+	if (keycode == P)
+		game->save_picture = 1;
 	return (0);
 }
 

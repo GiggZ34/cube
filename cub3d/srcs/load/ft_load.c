@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 14:19:46 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/27 18:03:39 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/30 09:17:00 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ static int	ft_load_textures(t_game *game)
 
 int			ft_load(char *dir_file, t_game *game)
 {
-	ft_bzero(game, sizeof(t_game));
 	if (!(game->mlx = mlx_init()))
 		return (ft_trash_game(game, mlx_creation_fail, 1, "\n"));
 	ft_init_file(&game->file, game, dir_file);

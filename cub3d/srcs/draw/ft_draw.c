@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 08:26:00 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/29 18:10:07 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/30 10:12:28 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,14 @@ void	*ft_draw(void *g)
 	pthread_exit(&thread->thread);
 }
 
+static void	screen_shot(t_game *game)
+{
+	ft_image_save(game);
+	game->save_picture = 0;
+	if (game->exit)
+		ft_trash_game(game, succes, -1, "Image create !\n");
+}
+
 void	ft_draw_multi_threads(t_game *game, t_screen *gun)
 {
 	int			i;
@@ -102,6 +110,7 @@ void	ft_draw_multi_threads(t_game *game, t_screen *gun)
 	mlx_sync(MLX_SYNC_WIN_FLUSH_CMD, game->window);
 	if (mlx_put_image_to_window(game->mlx, game->window, game->screen.ptr, 0, 0))
 		ft_trash_game(game, put_image_fail, -1, "ft_draw | line 103\n");
-	ft_image_save(game);
+	if (game->save_picture)
+		screen_shot(game);
 	ft_print_fps(game, game->dt.dt_str, game->dt.scale_str);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 11:56:01 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/30 13:34:36 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/30 18:55:48 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,15 @@
 # include <pthread.h>
 # include <stdio.h>
 # include <math.h>
-# define NB_THREADS 8
+# define NB_THREADS 4
 # define ARG_FILE 8
 # define UNVISIBLE_COLOR -16777216
-# define SCALE_MAX 100
+# define SCALE_MAX 3
 # define FPS_MAX 60
 # define FPS_MIN 20
 # define ROTATE_SPEED 0.785
 # define SPEED_MAX 10
-# define FOV 60.0
+# define FOV 80.0
 # define FOV_COS -0.1
 # define FOV_DIST 50
 # define FOV_DIST_SQRT 5
@@ -168,6 +168,8 @@ typedef struct		s_screen
 	int				endian;
 	int				bit;
 	int				*color_objs;
+	int				max_x;
+	int				max_y;
 }					t_screen;
 
 typedef struct		s_control
@@ -182,8 +184,8 @@ typedef struct		s_control
 	int				left;
 	int				run;
 	int				squat;
-	int				mouse_x_tmp;
-	int				mouse_y_tmp;
+	int				mouse_x_pos;
+	int				mouse_y_pos;
 	int				mouse_x;
 	int				mouse_y;
 	int				shoot;

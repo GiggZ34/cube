@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 11:03:58 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/26 19:43:09 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/30 18:59:54 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,12 @@
 
 static int		ft_change_resolution(t_game *game, int fd)
 {
-	int	width_screen;
-	int	height_screen;
-
-	if (mlx_get_screen_size(game->mlx, &width_screen, &height_screen) == -1)
+	if (mlx_get_screen_size(game->mlx, &game->screen.max_x, &game->screen.max_y) == -1)
 		return (ft_trash_game(game, crash_mlx_function, fd, "Function ft_change_resolution | line 20\n"));
-	if (game->screen.width > width_screen)
-		game->screen.width = width_screen;
-	if (game->screen.height > height_screen)
-		game->screen.height = height_screen;
+	if (game->screen.width > game->screen.max_x)
+		game->screen.width = game->screen.max_x;
+	if (game->screen.height > game->screen.max_y)
+		game->screen.height = game->screen.max_y;
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/13 16:00:49 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/27 18:56:38 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/30 19:09:37 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void			ft_rotate_player(t_game *g, t_player *p, double x, double y)
 	double	ratio_x;
 	double	ratio_z;
 
+	printf("%f || %f - %d ** %d\n", x, y, p->control.mouse_x_pos, p->control.mouse_y_pos);
 	if (p->control.right || p->control.left)
 		ratio_z = 2;
 	else
@@ -46,8 +47,10 @@ void			ft_rotate_player(t_game *g, t_player *p, double x, double y)
 		ft_rotate_vectors_collides(p,
 									ROTATE_SPEED * ratio_z * g->dt.dt);
 	}
-	if (p->control.up || y > 0)
+	if ((p->control.up || y > 0) && p->angle_x > -M_PI / 2)
 		p->angle_x += -ROTATE_SPEED * ratio_x * g->dt.dt;
-	else if (p->control.down || y < 0)
+	else if ((p->control.down || y < 0) && p->angle_x < M_PI / 2)
 		p->angle_x += ROTATE_SPEED * ratio_x * g->dt.dt;
+	p->control.mouse_x = p->control.mouse_x_pos;
+	p->control.mouse_y = p->control.mouse_y_pos;
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_draw.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 08:26:00 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/30 11:44:42 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/30 14:53:51 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ void	ft_draw_multi_threads(t_game *game, t_screen *gun)
 	i = -1;
 	while (++i < NB_THREADS)
 		pthread_join(thread[i].thread, NULL);
-//	mlx_sync(MLX_SYNC_WIN_FLUSH_CMD, game->window);
+	mlx_sync(MLX_SYNC_WIN_FLUSH_CMD, game->window);
 	if (mlx_put_image_to_window(game->mlx, game->window, game->screen.ptr, 0, 0))
 		ft_trash_game(game, put_image_fail, -1, "ft_draw | line 103\n");
 	if (game->save_picture)

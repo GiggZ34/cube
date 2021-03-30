@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   load_objects.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 11:02:45 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/30 14:41:38 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/30 16:01:04 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static int	ft_create_screen(t_game *game, t_player *player, int state)
 	nb_img = ft_define_nb_anim(state);
 	player->gun[state] = ft_calloc(sizeof(t_screen), nb_img);
 	if (player->gun[state] == NULL)
-		return (ft_trash_game(game, crash_mlx_function, -1, "\n"));
+		return (ft_trash_game(game, allocation_fail, -1, "\n"));
 	ft_init_screen(game, player->gun[state], nb_img, state);
 	return (0);
 }

@@ -6,7 +6,7 @@
 #    By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/24 18:59:35 by grivalan          #+#    #+#              #
-#    Updated: 2021/03/30 12:57:44 by grivalan         ###   ########lyon.fr    #
+#    Updated: 2021/03/30 18:02:42 by grivalan         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -86,6 +86,9 @@ all :		$(NAME)
 
 linux :		$(NAME2)
 
+imgclean :
+		rm img_*
+
 clean :
 		rm -rf $(OBJS)
 		$(MAKE) clean -C $(LIB)
@@ -93,8 +96,8 @@ clean :
 
 fclean :	clean
 			$(MAKE) fclean -C $(LIB)
+			$(MAKE) imgclean
 			rm -f libmlx.dylib
-			rm img_*
 			rm -f $(NAME)
 
 re : fclean all

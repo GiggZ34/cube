@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_update_player.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/10 22:44:47 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/30 13:13:21 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/30 19:22:17 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,25 +67,10 @@ static void	ft_define_angle_move(t_player *player)
 
 int		ft_update_player(t_game *game, t_player *player)
 {
-	int	*x;
-	int *y;
-
-	x = &(game->player.control.mouse_x_tmp);
-	y = &(game->player.control.mouse_y_tmp);
-//	mlx_mouse_get_pos(game->window, x, y);
-	mlx_mouse_get_pos(game->mlx, game->window, x, y);
-//	mlx_mouse_move(game->window, game->player.control.mouse_x,
-//												game->player.control.mouse_y);
-	mlx_mouse_move(game->mlx, game->window, game->player.control.mouse_x, game->player.control.mouse_y);
-//	mlx_mouse_get_pos(game->window, &(game->player.control.mouse_x),
-//											&(game->player.control.mouse_y));
-	mlx_mouse_get_pos(game->mlx, game->window, &(game->player.control.mouse_x), &(game->player.control.mouse_y));
-//	mlx_mouse_move(game->window, game->player.control.mouse_x,
-//											game->player.control.mouse_y);
-	mlx_mouse_move(game->mlx, game->window, game->player.control.mouse_x, game->player.control.mouse_y);
 	ft_define_angle_move(player);
-	ft_rotate_player(game, player, *x - game->player.control.mouse_x,
-										*y - game->player.control.mouse_y);
+//	printf("%d -- %d -- %d\n", game->player.control.mouse_y, game->player.control.mouse_y_pos, game->player.control.mouse_y - game->player.control.mouse_y_pos);
+	ft_rotate_player(game, player, game->player.control.mouse_x - game->player.control.mouse_x_pos,
+										game->player.control.mouse_y - game->player.control.mouse_y_pos);
 	ft_move_player(game, player);
 	ft_shoot(game, player);
 	return (0);

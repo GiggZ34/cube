@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_screen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 15:21:03 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/30 14:26:57 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/30 17:58:41 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int			ft_screen(t_game *game)
 				&game->screen.bit, &game->screen.size, &game->screen.endian)))
 		return (ft_trash_game(game, color_generation_fail, -1, "\n"));
 	game->screen.size /= 4;
-	game->screen.w_vec = FOV / game->screen.size;
+	game->screen.w_vec = 2 * tan(ft_deg_to_rad(FOV) / 2) / game->screen.width;
 	game->screen.scale = 1;
 	return (0);
 }

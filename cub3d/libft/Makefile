@@ -6,9 +6,23 @@
 #    By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/24 18:59:35 by grivalan          #+#    #+#              #
-#    Updated: 2021/03/30 11:13:07 by grivalan         ###   ########lyon.fr    #
+#    Updated: 2021/03/31 18:06:51 by grivalan         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
+
+ERASE		=	\033[2K\r
+GREY		=	\033[30m
+RED			=	\033[31m
+GREEN		=	\033[32m
+YELLOW		=	\033[33m
+BLUE		=	\033[34m
+PINK		=	\033[35m
+CYAN		=	\033[36m
+WHITE		=	\033[37m
+BOLD		=	\033[1m
+UNDER		=	\033[4m
+SUR			=	\033[7m
+END			=	\033[0m
 
 SRCS		=	ft_calloc.c\
 				ft_realloc.c\
@@ -107,18 +121,22 @@ RM			=	rm -f
 CFLAGS		=	-Wall -Werror -Wextra -Ofast -flto -march=native -ffast-math
 
 %.o: %.c libft.h
-			$(CC) $(CFLAGS) -c $< -o $(<:.c=.o)
+			@$(CC) $(CFLAGS) -c $< -o $(<:.c=.o)
+			@printf "$(ERASE)$(YELLOW)$<"
 
 $(NAME):	$(OBJS)
-			ar rcs $(NAME) $(OBJS)
+			@ar rcs $(NAME) $(OBJS)
+			@printf "$(ERASE)$(GREEN)LIBFT\t\t->\t\tCOMPILED\n$(END)"
 
 all:	$(NAME)
 
 clean:
-		$(RM) $(OBJS)
+		@$(RM) $(OBJS)
+		@printf "$(ERASE)$(RED)LIBFT\t\t->\t\tDESTROY$(END)\n"
 
 fclean:	clean
-		$(RM) $(NAME)
+		@$(RM) $(NAME)
+		@printf "$(ERASE)$(RED)LIBFT.a\t\t->\t\tDESTROY$(END)\n"
 
 re:		fclean all
 

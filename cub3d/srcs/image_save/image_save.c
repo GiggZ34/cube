@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   image_save.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 11:00:33 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/30 14:45:49 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/31 15:11:17 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	create_bitmap_header(t_game *game, unsigned char **file, int size)
 	(*file)[3] = (unsigned char)(size >> 8);
 	(*file)[4] = (unsigned char)(size >> 16);
 	(*file)[5] = (unsigned char)(size >> 24);
-	(*file)[10] = (unsigned char)(14 + 40);
+	(*file)[10] = (unsigned char)(54);
 	(*file)[0 + 14] = (unsigned char)(40);
 	(*file)[4 + 14] = (unsigned char)(game->screen.width >> 0);
 	(*file)[5 + 14] = (unsigned char)(game->screen.width >> 8);

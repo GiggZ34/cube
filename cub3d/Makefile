@@ -6,9 +6,23 @@
 #    By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/24 18:59:35 by grivalan          #+#    #+#              #
-#    Updated: 2021/03/30 18:02:42 by grivalan         ###   ########lyon.fr    #
+#    Updated: 2021/03/31 18:06:06 by grivalan         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
+
+ERASE		=	\033[2K\r
+GREY		=	\033[30m
+RED			=	\033[31m
+GREEN		=	\033[32m
+YELLOW		=	\033[33m
+BLUE		=	\033[34m
+PINK		=	\033[35m
+CYAN		=	\033[36m
+WHITE		=	\033[37m
+BOLD		=	\033[1m
+UNDER		=	\033[4m
+SUR			=	\033[7m
+END			=	\033[0m
 
 UNAME := $(shell uname)
 
@@ -46,6 +60,7 @@ SRCS =		main.c\
 			srcs/tools/ft_color_generate.c\
 			srcs/tools/ft_delta_time_generator.c\
 			srcs/tools/ft_define_nb_anim.c\
+			srcs/tools/del.c\
 			srcs/update/ft_update.c\
 			srcs/update/ft_update_sprites.c\
 			srcs/update/ft_update_player.c\
@@ -70,35 +85,41 @@ INCLUDES =	includes
 OBJS =		$(SRCS:.c=.o)
 
 %.o: %.c includes/cub3d.h libft/libft.h includes/control_mac.h includes/control_linux.h
-			$(CC) $(CFLAGS) -c $< -o $(<:.c=.o) -I $(INCLUDES)
+			@$(CC) $(CFLAGS) -c $< -o $(<:.c=.o) -I $(INCLUDES)
+			@printf "$(ERASE)$(YELLOW)$<$(END)"
 
 $(NAME):	$(OBJS)
-		$(MAKE) -C $(LIB)
-		$(MAKE) -C $(MLX)
-		cp mlx/libmlx.dylib .
-		$(CC) -o $(NAME) $(OBJS) -I $(INCLUDES) libft/libft.a -Lmlx -lmlx -lm
+		@$(MAKE) -C $(LIB)
+		@$(MAKE) -C $(MLX)
+		@cp mlx/libmlx.dylib .
+		@$(CC) -o $(NAME) $(OBJS) -I $(INCLUDES) libft/libft.a -Lmlx -lmlx -lm
+		@printf "$(ERASE)$(GREEN)CUB3D\t->\tCOMPILED$(END)\n"
 
 $(NAME2) :	$(OBJS)
-		$(MAKE) -C $(LIB)
-		$(CC) -o $(NAME) $(OBJS) -I $(INCLUDES) libft/libft.a -lmlx -lm -lbsd -lX11 -lXext -lpthread
+		@$(MAKE) -C $(LIB)
+		@$(CC) -o $(NAME) $(OBJS) -I $(INCLUDES) libft/libft.a -lmlx -lm -lbsd -lX11 -lXext -lpthread
+		@printf "$(ERASE)$(GREEN)CUB3D\t->\tCOMPILED$(END)\n"
 
-all :		$(NAME)
+all :		@$(NAME)
 
-linux :		$(NAME2)
+linux :		@$(NAME2)
 
 imgclean :
-		rm img_*
+		@rm -f *.bmp
+			@printf "$(ERASE)$(RED)IMAGES\t\t->\t\tDESTROY$(END)\n"
 
 clean :
-		rm -rf $(OBJS)
-		$(MAKE) clean -C $(LIB)
-		$(MAKE) clean -C $(MLX)
+		@rm -rf $(OBJS)
+		@printf "$(ERASE)$(RED)CUB3D\t\t->\t\tDESTROY$(END)\n"
+		@$(MAKE) clean -C $(LIB)
+		@$(MAKE) clean -C $(MLX)
 
 fclean :	clean
-			$(MAKE) fclean -C $(LIB)
-			$(MAKE) imgclean
-			rm -f libmlx.dylib
-			rm -f $(NAME)
+			@$(MAKE) fclean -C $(LIB)
+			@$(MAKE) imgclean
+			@rm -f libmlx.dylib
+			@printf "$(ERASE)$(RED)libmlx.dylib\t->\t\tDESTROY$(END)\n"
+			@rm -f $(NAME)
 
 re : fclean all
 

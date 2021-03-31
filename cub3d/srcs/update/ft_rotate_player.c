@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/13 16:00:49 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/30 19:09:37 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/31 14:59:50 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ void			ft_rotate_player(t_game *g, t_player *p, double x, double y)
 	double	ratio_x;
 	double	ratio_z;
 
-	printf("%f || %f - %d ** %d\n", x, y, p->control.mouse_x_pos, p->control.mouse_y_pos);
 	if (p->control.right || p->control.left)
 		ratio_z = 2;
 	else

@@ -6,19 +6,33 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 22:51:43 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/29 16:45:48 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/31 16:34:24 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static char			**ft_generate_map(t_file *file, char *line)
+static int			check_line(char *line, const char *charset)
+{
+	int	i;
+
+	i = -1;
+	while (line[++i])
+		if (!ft_strchr(charset, line[i]))
+			return (0);
+	return (1);
+}
+
+static char			**ft_generate_map(t_game *game, t_file *file, char *line)
 {
 	char	**str;
 	int		i;
 
-	if (!line)
-		return (NULL);
+	if (!check_line(line, "\n 102ESWN"))
+	{
+		free(line);
+		ft_trash_game(game, arguments_error, file->fd, "Invalid line in map or character.");
+	}
 	if (file->width_map < (int)ft_strlen(line))
 		file->width_map = ft_strlen(line);
 	if (!(str = ft_calloc(sizeof(char**), ft_count_array(file->map) + 2)))
@@ -57,7 +71,7 @@ int				ft_parsing_file(t_game *game, int fd, t_file *file)
 			}
 			else if (ft_lstsize(file->check_file) == ARG_FILE && (file->map || line[0]))
 			{
-				if (!(file->map = ft_generate_map(file, line)))
+				if (!(file->map = ft_generate_map(game, file, line)))
 					return (ft_trash_game(game, allocation_fail, fd, "\n"));
 			}
 			else

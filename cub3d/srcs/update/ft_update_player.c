@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/10 22:44:47 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/30 19:22:17 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/31 14:59:27 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ static void	ft_define_angle_move(t_player *player)
 int		ft_update_player(t_game *game, t_player *player)
 {
 	ft_define_angle_move(player);
-//	printf("%d -- %d -- %d\n", game->player.control.mouse_y, game->player.control.mouse_y_pos, game->player.control.mouse_y - game->player.control.mouse_y_pos);
 	ft_rotate_player(game, player, game->player.control.mouse_x - game->player.control.mouse_x_pos,
 										game->player.control.mouse_y - game->player.control.mouse_y_pos);
 	ft_move_player(game, player);

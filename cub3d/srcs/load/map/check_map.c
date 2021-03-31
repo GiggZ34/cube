@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 21:58:04 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/26 19:46:59 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/31 16:37:45 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,6 @@ static int		ft_start_pos(t_game *game, int *row, int *col)
 	else if (!nb_pos)
 		return (ft_trash_game(game, multiple_player_position, -1, "\n"));
 	return (0);
-}
-
-void			del(void *content)
-{
-	free(content);
 }
 
 int				ft_check_map(t_game *game, t_file *file)

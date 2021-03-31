@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 10:43:23 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/31 15:06:37 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/31 18:53:09 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ int		ft_update(t_game *game)
 
 int		mouse_move(int x, int y, t_game *game)
 {
-//	mlx_mouse_hide(game->mlx, game->window);
+	mlx_mouse_hide(game->mlx, game->window);
 	game->player.control.mouse_x = x;
 	game->player.control.mouse_y = y;
 	mlx_mouse_move(game->window, game->player.control.mouse_x_pos, game->player.control.mouse_y_pos);

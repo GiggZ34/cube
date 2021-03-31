@@ -6,7 +6,7 @@
 #    By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/24 18:59:35 by grivalan          #+#    #+#              #
-#    Updated: 2021/03/31 18:06:06 by grivalan         ###   ########lyon.fr    #
+#    Updated: 2021/03/31 19:34:34 by grivalan         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -89,16 +89,17 @@ OBJS =		$(SRCS:.c=.o)
 			@printf "$(ERASE)$(YELLOW)$<$(END)"
 
 $(NAME):	$(OBJS)
+		@printf "$(ERASE)";
 		@$(MAKE) -C $(LIB)
 		@$(MAKE) -C $(MLX)
 		@cp mlx/libmlx.dylib .
 		@$(CC) -o $(NAME) $(OBJS) -I $(INCLUDES) libft/libft.a -Lmlx -lmlx -lm
-		@printf "$(ERASE)$(GREEN)CUB3D\t->\tCOMPILED$(END)\n"
+		@printf "$(ERASE)$(GREEN)CUB3D\t\t->\t\tCOMPILED$(END)\n"
 
 $(NAME2) :	$(OBJS)
 		@$(MAKE) -C $(LIB)
 		@$(CC) -o $(NAME) $(OBJS) -I $(INCLUDES) libft/libft.a -lmlx -lm -lbsd -lX11 -lXext -lpthread
-		@printf "$(ERASE)$(GREEN)CUB3D\t->\tCOMPILED$(END)\n"
+		@printf "$(ERASE)$(GREEN)CUB3D\t\t->\t\tCOMPILED$(END)\n"
 
 all :		@$(NAME)
 

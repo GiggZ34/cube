@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 11:56:01 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/30 18:55:48 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/31 19:35:06 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include <pthread.h>
 # include <stdio.h>
 # include <math.h>
+# include <signal.h>
 # define NB_THREADS 4
 # define ARG_FILE 8
 # define UNVISIBLE_COLOR -16777216

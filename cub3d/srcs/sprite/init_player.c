@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 08:33:59 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/31 15:22:18 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/03/31 19:00:53 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ int	ft_init_player(t_game *game, int x, int y, char dir)
 	game->player.live = 100;
 	game->player.walk_speed_max = 1.5;
 	game->player.run_speed_max = 3;
-	game->player.control.mouse_x_pos = game->screen.width / 2;
-	game->player.control.mouse_y_pos = -game->screen.max_y + game->screen.height / 2 + 320;
+	game->player.control.mouse_x_pos = game->screen.max_x / 2;
+	game->player.control.mouse_y_pos = game->screen.max_y / 2 - 22;
 	game->player.control.mouse_x = game->player.control.mouse_x_pos;
 	game->player.control.mouse_y = game->player.control.mouse_y_pos;
 	return (0);

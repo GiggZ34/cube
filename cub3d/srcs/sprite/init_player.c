@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 08:33:59 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/31 19:00:53 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/04/01 18:43:29 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,11 @@ int	ft_init_player(t_game *game, int x, int y, char dir)
 		angle = 0;
 	game->player.angle_z = angle;
 	game->player.angle_x = 0;
+	ft_init_tab_vector(game, game->player.position);
 	game->player.live = 100;
 	game->player.walk_speed_max = 1.5;
 	game->player.run_speed_max = 3;
+	game->player.pos_z_min = 0.5;
 	game->player.control.mouse_x_pos = game->screen.max_x / 2;
 	game->player.control.mouse_y_pos = game->screen.max_y / 2 - 22;
 	game->player.control.mouse_x = game->player.control.mouse_x_pos;

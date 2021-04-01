@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/13 16:00:49 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/31 14:59:50 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/04/01 18:16:21 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,9 @@ void			ft_rotate_player(t_game *g, t_player *p, double x, double y)
 									ROTATE_SPEED * ratio_z * g->dt.dt);
 	}
 	if ((p->control.up || y > 0) && p->angle_x > -M_PI / 2)
-		p->angle_x += -ROTATE_SPEED * ratio_x * g->dt.dt;
-	else if ((p->control.down || y < 0) && p->angle_x < M_PI / 2)
 		p->angle_x += ROTATE_SPEED * ratio_x * g->dt.dt;
+	else if ((p->control.down || y < 0) && p->angle_x < M_PI / 2)
+		p->angle_x += -ROTATE_SPEED * ratio_x * g->dt.dt;
 	p->control.mouse_x = p->control.mouse_x_pos;
 	p->control.mouse_y = p->control.mouse_y_pos;
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_load.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 14:19:46 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/30 13:55:54 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/04/01 14:30:14 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 

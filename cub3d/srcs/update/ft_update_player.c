@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/10 22:44:47 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/31 18:53:52 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/04/01 20:00:23 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,17 @@ static void ft_shoot(t_game *game, t_player *player)
 
 	if (player->control.shoot && player->state != shoot)
 	{
+		play_sound("afplay -v 3 ./sounds/shoot_fusil.mp3 &");
 		player->state = shoot;
 		player->anim_frame = 0;
 		player->ammunition--;
 	}
-	else if (player->control.reload == 1 && player->state != reload)
+	if (player->control.reload == 1 && player->state != reload)
 	{
 		player->state = reload;
 		player->anim_frame = 0;
 		player->ammunition = barel_fusil;
+		play_sound("afplay -v 3 ./sounds/reload_fusil.mp3 &");
 	}
 	else
 		player->anim_frame += game->dt.dt * 8;
@@ -41,6 +43,7 @@ static void ft_shoot(t_game *game, t_player *player)
 			player->control.reload = 1;
 			player->state = reload;
 			player->ammunition = barel_fusil;
+			play_sound("afplay -v 3 ./sounds/reload_fusil.mp3 &");
 		}
 	}
 	else if ((int)player->anim_frame >= nb_anim)
@@ -67,6 +70,10 @@ static void	ft_define_angle_move(t_player *player)
 
 int		ft_update_player(t_game *game, t_player *player)
 {
+	if (player->control.squat)
+		player->pos_z_min = 0.3;
+	else
+		player->pos_z_min = 0.5;
 	ft_define_angle_move(player);
 	ft_rotate_player(game, player, game->player.control.mouse_x - game->player.control.mouse_x_pos,
 										game->player.control.mouse_y - game->player.control.mouse_y_pos);

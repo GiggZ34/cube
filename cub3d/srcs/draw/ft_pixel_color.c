@@ -6,23 +6,42 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 11:10:27 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/30 17:52:51 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/04/01 20:13:22 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static int		ft_is_in_wall(t_texture *texture, t_dot inter, char dir)
+int			shadow_px(int color, double size)
+{
+	if (color == UNVISIBLE_COLOR)
+		return (UNVISIBLE_COLOR);
+	unsigned char	rgb[3];
+	int				i;
+
+	i = -1;
+	while (++i < 3)
+		rgb[i] = (unsigned char)(color >> (i * 8));
+	size = size / DIST_MAX;
+	if (size > 1)
+		size = 1;
+	i = -1;
+	while (++i < 3)
+		rgb[i] *= 1 - size;
+	return (ft_color_generate(rgb[2], rgb[1], rgb[0], 0));
+}
+
+static int		ft_is_in_wall(t_texture *texture, t_dot inter, char dir, double size)
 {
 	int			x;
 	int			y;
 
-	y = texture->height * inter.z;
+	y = texture->height - (texture->height * inter.z);
 	if (dir == 'y')
 		x = texture->width * (inter.x - floor(inter.x));
 	else
 		x = texture->width * (inter.y - floor(inter.y));
-	return (texture->color[y * texture->size_line + x]);
+	return (shadow_px((texture->color[y * texture->size_line + x]), size));
 }
 
 static double	ft_is_wall(t_game *game, t_plane *plane, t_vector v, t_dot *dot)
@@ -76,7 +95,7 @@ static int		ft_search_color_x(t_game *game, t_vector vec, double *size)
 	{
 		plane = lst->content;
 		if ((*size = ft_is_wall(game, plane, vec, &inter)) != -1)
-			return (ft_is_in_wall(plane->add, inter, 'x'));
+			return (ft_is_in_wall(plane->add, inter, 'x', *size));
 		if (inter.z < 0 || inter.z > 1 || inter.x < 0 || inter.x >= game->file.width_map || inter.y < 0 || inter.y >= game->file.height_map)
 			return (UNVISIBLE_COLOR);
 		lst = lst->next;
@@ -110,7 +129,7 @@ static int		ft_search_color_y(t_game *game, t_vector vec, double *size, t_color 
 	{
 		plane = lst->content;
 		if ((*size = ft_is_wall(game, plane, vec, &inter)) != -1)
-			return (ft_is_in_wall(plane->add, inter, 'y'));
+			return (ft_is_in_wall(plane->add, inter, 'y', *size));
 		if (inter.z < 0 || inter.z > 1 || inter.x < 0 || inter.x >= game->file.width_map || inter.y < 0 || inter.y >= game->file.height_map)
 			return (UNVISIBLE_COLOR);
 		lst = lst->next;
@@ -118,16 +137,20 @@ static int		ft_search_color_y(t_game *game, t_vector vec, double *size, t_color 
 	return (UNVISIBLE_COLOR);
 }
 
-static int	ft_search_sprite_color(t_sprite *sprite, t_texture *texture, double x, double y)
+static int	ft_search_sprite_color(t_sprite *sprite, double x, double y, int size)
 {
-	int	w;
-	int	h;
+	int			w;
+	int			h;
+	t_texture	*texture;
 
+	if (x > sprite->width || y > sprite->height)
+		return (UNVISIBLE_COLOR);
+	texture = sprite->tile_sheet;
 	x /= sprite->width;
-	y = 1 - y / sprite->height;
+	y /= sprite->height;
 	w = x * texture->width;
-	h = y * texture->height;
-	return (texture->color[h * texture->size_line + w]);
+	h = texture->height - y * texture->height;
+	return (shadow_px(texture->color[h * texture->size_line + w], size));
 }
 
 static int	ft_search_sprites(t_game *game, t_vector vec, double *size, t_list *lst)
@@ -140,28 +163,25 @@ static int	ft_search_sprites(t_game *game, t_vector vec, double *size, t_list *l
 
 	*size = -1;
 	color = UNVISIBLE_COLOR;
-	while (lst)
+	while (lst && color == UNVISIBLE_COLOR)
 	{
 		sprite = lst->content;
 		*size = ft_size_vec_plane(&sprite->plane, vec);
 		inter = ft_intersect_plane_dot(game->player.position, vec, *size);
-		if (inter.z > 1 - sprite->height && inter.z < 1)
+		if (inter.z >= 0 && inter.z < sprite->height)
 		{
 			dist = pow(sprite->frist_px.x - inter.x, 2) + pow(sprite->frist_px.y - inter.y, 2);
-			if (dist <= sprite->width * sprite->width)
+			if (dist <= pow(sprite->width, 2))
 			{
 				dir.x = sprite->frist_px.x - inter.x;
 				dir.y = sprite->frist_px.y - inter.y;
-				if (dir.x * sprite->vec_write.x >= 0 && dir.y * sprite->vec_write.y >= 0
-				&& (color = ft_search_sprite_color(sprite, sprite->tile_sheet, sqrt(dist), 1 - inter.z)) != UNVISIBLE_COLOR)
-					return (color);
+				if (dir.x * sprite->vec_write.x >= -0.00001 && dir.y * sprite->vec_write.y >= -0.00001)
+					color = ft_search_sprite_color(sprite, sqrt(dist), inter.z, *size);
 			}
 		}
-		else
-			return (UNVISIBLE_COLOR);
 		lst = lst->next;
 	}
-	return (UNVISIBLE_COLOR);
+	return (color);
 }
 
 int			ft_sky_color(t_game *game, t_vector vec)
@@ -177,7 +197,7 @@ int			ft_sky_color(t_game *game, t_vector vec)
 	inter = ft_intersect_plane_dot(game->player.position, vec, size);
 	y = t.height * (inter.y - floor(inter.y));
 	x = t.width * (inter.x - floor(inter.x));
-	return (t.color[y * t.size_line + x]);
+	return (shadow_px(t.color[y * t.size_line + x], size));
 
 }
 
@@ -194,7 +214,7 @@ int			ft_ground_color(t_game *game, t_vector vec)
 	inter = ft_intersect_plane_dot(game->player.position, vec, size);
 	y = t.height * (inter.y - floor(inter.y));
 	x = t.width * (inter.x - floor(inter.x));
-	return (t.color[y * t.size_line + x]);
+	return (shadow_px(t.color[y * t.size_line + x], size));
 
 }
 
@@ -214,20 +234,20 @@ int			ft_pixel_color(t_game *game, t_vector vec, t_sprite *sprite)
 		s.color = ft_search_sprites(game, vec, &s.size, game->player.view.sprites_in_fov);
 	if (s.color < 0 && x.color < 0 && y.color < 0)
 	{
-		if (vec.z > 0)
+		if (vec.z < 0)
 			return (ft_ground_color(game, vec));
 		else
 			return (ft_sky_color(game, vec));
 	}
-	else if (s.color >= 0 && x.color < 0 && y.color < 0)
+	else if (s.color != UNVISIBLE_COLOR && x.color == UNVISIBLE_COLOR && y.color == UNVISIBLE_COLOR)
 		return (s.color);
-	else if (y.color >= 0 && x.color < 0 && s.color < 0)
+	else if (y.color != UNVISIBLE_COLOR && x.color == UNVISIBLE_COLOR && s.color == UNVISIBLE_COLOR)
 		return (y.color);
-	else if (x.color >= 0 && y.color < 0 && s.color < 0)
+	else if (x.color != UNVISIBLE_COLOR && y.color == UNVISIBLE_COLOR && s.color == UNVISIBLE_COLOR)
 		return (x.color);
 	else
 	{
-		if (s.color >= 0 && s.size > 0 && (s.size < x.size || x.size < 0) && (s.size < y.size || y.size < 0))
+		if (s.color != UNVISIBLE_COLOR && s.size > 0 && (s.size < x.size || x.size < 0) && (s.size < y.size || y.size < 0))
 			return (s.color);
 		else if (x.size > 0 && (x.size < y.size || y.size < 0))
 			return (x.color);

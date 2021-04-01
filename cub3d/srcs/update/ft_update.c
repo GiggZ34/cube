@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 10:43:23 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/31 18:53:09 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/04/01 20:04:39 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ int		ft_keypress(int keycode, t_game *game)
 		game->player.control.shoot = 1;
 	if (keycode == P)
 		game->save_picture = 1;
+	if (keycode == SPACE && !game->player.control.squat)
+		game->player.vz = 3;
 	return (0);
 }
 
@@ -81,6 +83,7 @@ int		ft_mouse_press(int button, int x, int y, t_game *game)
 
 int		ft_update(t_game *game)
 {
+	playmusic(game);
 	ft_delta_time_generate(game);
 	ft_update_player(game, &game->player);
 	ft_update_sprites(/*game, */game->lst_sprites, &game->player);

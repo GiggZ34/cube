@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 16:07:02 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/30 15:57:51 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/04/01 14:39:17 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static char	*ft_init_error_message(int error_code)
 {
 	char *error_message[30];
 
-	error_message[succes] = "\033[1;32mExit Game!\033[0m";
+	error_message[succes] = "\033[32mExit Game!\033[0m";
 	error_message[cash_gnl] = "\033[1;31mCrash in the get_next_line function : \033[0m";
 	error_message[map_not_close] = "\033[1;31mMap has invalid chars or is not closed : \033[0m";
 	error_message[allocation_fail] = "\033[1;31mCrash in allocation memory : ";

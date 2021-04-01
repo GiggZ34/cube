@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 11:56:01 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/31 19:35:06 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/04/01 20:10:54 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,15 @@
 # define SCALE_MAX 3
 # define FPS_MAX 60
 # define FPS_MIN 20
+# define DIST_MAX 7
 # define ROTATE_SPEED 0.785
+# define WEIGHTLESSNESS 9.81
 # define SPEED_MAX 10
 # define FOV 80.0
 # define FOV_COS -0.1
 # define FOV_DIST 50
 # define FOV_DIST_SQRT 5
+# define SOUND_TIME 60
 
 typedef enum		e_error_code
 {
@@ -185,6 +188,7 @@ typedef struct		s_control
 	int				left;
 	int				run;
 	int				squat;
+	int				jump;
 	int				mouse_x_pos;
 	int				mouse_y_pos;
 	int				mouse_x;
@@ -221,10 +225,11 @@ typedef struct		s_player
 	double			run_speed_max;
 	double			dir_walk;
 	double			dir_trans;
+	double			pos_z_min;
 	double			vx;
 	double			vy;
+	double			vz;
 	double			angle_x;
-	double			angle_y;
 	double			angle_z;
 	int				live;
 	t_obj			guns;
@@ -272,6 +277,19 @@ typedef struct		s_sky_ground
 
 }					t_sky_ground;
 
+typedef struct		s_system_call
+{
+	pthread_t		thread;
+	const char		*cmd;
+	int				loop;
+}					t_system_call;
+
+typedef struct		s_music
+{
+	int				time;
+}					t_music;
+
+
 typedef struct		s_game
 {
 	void			*mlx;
@@ -287,6 +305,7 @@ typedef struct		s_game
 	t_list			*lst_planes_right;
 	t_list			*lst_planes_left;
 	t_sky_ground	sky_ground;
+	t_music			music;
 	int				save_picture;
 	int				exit;
 }					t_game;
@@ -345,6 +364,8 @@ int					ft_load_tilesheet_obj(t_game *game, char *path);
 */
 
 int					ft_game_loop(t_game *game);
+void				playmusic(t_game *game);
+void				play_sound(const char *cmd_line);
 int					ft_rotate_vectors_collides(t_player *player, double angle);
 int					ft_translation_vector(t_game *game, double v, double *speed, double angle);
 int					ft_edit_sprite_plane(t_sprite *sprite, t_vector player_normal);
@@ -373,6 +394,7 @@ int					ft_mini_map(t_game *game);
 */
 
 size_t				ft_image_save(t_game *game);
+int					shadow_px(int color, double size);
 void				ft_draw_multi_threads(t_game *game, t_screen *gun);
 int					ft_pixel_color(t_game *game, t_vector v, t_sprite *s);
 int					ft_print_fps(t_game *game, char *fps, char *scale);

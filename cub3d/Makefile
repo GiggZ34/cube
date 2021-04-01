@@ -6,7 +6,7 @@
 #    By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/24 18:59:35 by grivalan          #+#    #+#              #
-#    Updated: 2021/03/31 19:34:34 by grivalan         ###   ########lyon.fr    #
+#    Updated: 2021/04/01 14:04:42 by grivalan         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -71,6 +71,7 @@ SRCS =		main.c\
 			srcs/draw/ft_pixel_color.c\
 			srcs/draw/ft_print_fps.c\
 			srcs/image_save/image_save.c\
+			srcs/sound/play_sound.c\
 
 CC = gcc
 
@@ -101,9 +102,9 @@ $(NAME2) :	$(OBJS)
 		@$(CC) -o $(NAME) $(OBJS) -I $(INCLUDES) libft/libft.a -lmlx -lm -lbsd -lX11 -lXext -lpthread
 		@printf "$(ERASE)$(GREEN)CUB3D\t\t->\t\tCOMPILED$(END)\n"
 
-all :		@$(NAME)
+all :		$(NAME)
 
-linux :		@$(NAME2)
+linux :		$(NAME2)
 
 imgclean :
 		@rm -f *.bmp

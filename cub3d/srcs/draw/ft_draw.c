@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 08:26:00 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/30 14:53:51 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/04/01 20:19:03 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,6 @@ t_vector	ft_rotate_vector_current(t_game *game, t_vector vec)
 {
 	if (game->player.angle_x != 0)
 		vec = ft_rotate_vector(vec, game->player.angle_x, 'x');
-	if (game->player.angle_y != 0)
-		vec = ft_rotate_vector(vec, game->player.angle_y, 'y');
 	if (game->player.angle_z != 0)
 		vec = ft_rotate_vector(vec, game->player.angle_z, 'z');
 	return (vec);
@@ -71,7 +69,7 @@ void	*ft_draw(void *g)
 									ft_pixel_color(thread->game, vec, NULL));
 			}
 			else
-				ft_drawing_scale(thread->game, i, j, thread->screen->color[id]);
+				ft_drawing_scale(thread->game, i, j, shadow_px(thread->screen->color[id], 1 - j / thread->game->screen.height));
 			j += thread->game->screen.scale;
 		}
 		i += thread->game->screen.scale;

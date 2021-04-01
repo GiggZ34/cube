@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/06 23:45:16 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/30 10:13:13 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/04/01 15:17:58 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,3 +23,4 @@
 #define SHIFT 257
 #define ALT 261
 #define SHOOT 82
+#define SPACE 49

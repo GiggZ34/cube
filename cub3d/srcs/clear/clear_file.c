@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 15:01:48 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/30 14:55:07 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/04/01 13:14:23 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@ static int	ft_free_hud(t_game *g, t_player *p)
 
 int			ft_trash_game(t_game *game, t_error_code code, int fd, char *msg)
 {
+	system("killall afplay");
 	ft_error_file(&game->file, code, msg);
 	ft_clear_file(&game->file, fd);
 	ft_delete_textures(game);

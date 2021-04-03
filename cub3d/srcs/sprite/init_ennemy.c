@@ -6,13 +6,13 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/17 13:26:07 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/26 19:51:06 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/04/02 11:44:48 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int					ft_init_ennemy(t_game *game, int x, int y)
+int	ft_init_ennemy(t_game *game, int x, int y)
 {
 	t_list		*new_lst;
 	t_sprite	*ennemy;
@@ -25,9 +25,11 @@ int					ft_init_ennemy(t_game *game, int x, int y)
 	ennemy->position.z = 0;
 	ennemy->ratio = 0.7;
 	ennemy->height = ennemy->tile_sheet->height;
-	ennemy->width = ennemy->tile_sheet->size_line / ennemy->height * ennemy->ratio;
+	ennemy->width = ennemy->tile_sheet->size_line
+		/ ennemy->height * ennemy->ratio;
 	ennemy->height = ennemy->ratio;
-	if (!(new_lst = ft_lstnew(ennemy)))
+	new_lst = ft_lstnew(ennemy);
+	if (!new_lst)
 	{
 		free(ennemy);
 		return (ft_trash_game(game, allocation_fail, -1, "\n"));

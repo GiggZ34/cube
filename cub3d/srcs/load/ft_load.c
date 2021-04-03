@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 14:19:46 by grivalan          #+#    #+#             */
-/*   Updated: 2021/04/01 14:30:14 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/04/03 15:23:34 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,18 @@
 
 static int	ft_load_textures_ground(t_game *game)
 {
-	if (!(game->sky_ground.ground_texture.ptr = mlx_xpm_file_to_image(
-									game->mlx,
-									"./textures/ground_doom_1.xpm",
-									&(game->sky_ground.ground_texture.width),
-									&(game->sky_ground.ground_texture.height))))
+	game->sky_ground.ground_texture.ptr = mlx_xpm_file_to_image(game->mlx,
+			"./textures/ground_doom_1.xpm",
+			&(game->sky_ground.ground_texture.width),
+			&(game->sky_ground.ground_texture.height));
+	if (!game->sky_ground.ground_texture.ptr)
 		return (ft_trash_game(game, load_texture_fail, 1, "\n"));
-	if (!(game->sky_ground.ground_texture.color = (int*)mlx_get_data_addr(
-								game->sky_ground.ground_texture.ptr,
-								&game->sky_ground.ground_texture.bits_per_pixel,
-								&game->sky_ground.ground_texture.size_line,
-								&game->sky_ground.ground_texture.endian)))
+	game->sky_ground.ground_texture.color = (int *)mlx_get_data_addr(
+			game->sky_ground.ground_texture.ptr,
+			&game->sky_ground.ground_texture.bits_per_pixel,
+			&game->sky_ground.ground_texture.size_line,
+			&game->sky_ground.ground_texture.endian);
+	if (!game->sky_ground.ground_texture.color)
 		return (ft_trash_game(game, color_generation_fail, 1, "\n"));
 	game->sky_ground.ground_texture.size_line /= 4;
 	game->sky_ground.ground_plane.a = 0;
@@ -36,17 +37,18 @@ static int	ft_load_textures_ground(t_game *game)
 
 static int	ft_load_textures_sky(t_game *game)
 {
-	if (!(game->sky_ground.sky_texture.ptr = mlx_xpm_file_to_image(
-								game->mlx,
-								"./textures/ceil_doom_1.xpm",
-								&(game->sky_ground.sky_texture.width),
-								&(game->sky_ground.sky_texture.height))))
+	game->sky_ground.sky_texture.ptr = mlx_xpm_file_to_image(game->mlx,
+			"./textures/ceil_doom_1.xpm",
+			&(game->sky_ground.sky_texture.width),
+			&(game->sky_ground.sky_texture.height));
+	if (!game->sky_ground.sky_texture.ptr)
 		return (ft_trash_game(game, load_texture_fail, 1, "\n"));
-	if (!(game->sky_ground.sky_texture.color = (int*)mlx_get_data_addr(
-								game->sky_ground.sky_texture.ptr,
-								&game->sky_ground.sky_texture.bits_per_pixel,
-								&game->sky_ground.sky_texture.size_line,
-								&game->sky_ground.sky_texture.endian)))
+	game->sky_ground.sky_texture.color = (int *)mlx_get_data_addr(
+			game->sky_ground.sky_texture.ptr,
+			&game->sky_ground.sky_texture.bits_per_pixel,
+			&game->sky_ground.sky_texture.size_line,
+			&game->sky_ground.sky_texture.endian);
+	if (!game->sky_ground.sky_texture.color)
 		return (ft_trash_game(game, color_generation_fail, 1, "\n"));
 	game->sky_ground.sky_texture.size_line /= 4;
 	game->sky_ground.sky_plane.a = 0;
@@ -64,9 +66,10 @@ static int	ft_load_textures(t_game *game)
 	return (0);
 }
 
-int			ft_load(char *dir_file, t_game *game)
+int	ft_load(char *dir_file, t_game *game)
 {
-	if (!(game->mlx = mlx_init()))
+	game->mlx = mlx_init();
+	if (!game->mlx)
 		return (ft_trash_game(game, mlx_creation_fail, 1, "\n"));
 	ft_init_file(&game->file, game, dir_file);
 	ft_load_textures(game);

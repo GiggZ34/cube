@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 08:26:00 by grivalan          #+#    #+#             */
-/*   Updated: 2021/04/01 20:19:03 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/04/02 11:46:15 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	ft_drawing_scale(t_game *game, int x, int y, int color)
 {
 	int	i;
 	int	j;
-	int id;
+	int	id;
 	int	pos;
 
 	i = -1;

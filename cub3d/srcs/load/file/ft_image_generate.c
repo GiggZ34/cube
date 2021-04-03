@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 15:08:29 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/26 19:45:46 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/04/03 14:17:36 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,11 +66,11 @@ int			ft_img_generate(t_game *game, char *dir, char *type)
 		if (!(img = mlx_xpm_file_to_image(game->mlx, dir, &dim[0], &dim[1])))
 			return (ft_trash_game(game, crash_mlx_function, -1, "Function ft_img_generate | line 66\n"));
 	}
-//	else if (ext == 0)
-//	{
-//		if (!(img = mlx_png_file_to_image(mlx, dir, &dim[0], &dim[1])))
-//			return (ft_trash_game(game, crash_mlx_function, -1));
-//	}
+	else if (ext == 0)
+	{
+		if (!(img = mlx_png_file_to_image(game->mlx, dir, &dim[0], &dim[1])))
+			return (ft_trash_game(game, crash_mlx_function, -1, "PNG"));
+	}
 	else
 		return (ft_trash_game(game, image_not_exist, -1, "Extension invalid\n"));
 	ft_image_to_struct(game, img, dim, type);

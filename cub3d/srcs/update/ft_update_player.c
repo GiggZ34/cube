@@ -6,13 +6,13 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/10 22:44:47 by grivalan          #+#    #+#             */
-/*   Updated: 2021/04/01 20:00:23 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/04/02 18:04:08 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void ft_shoot(t_game *game, t_player *player)
+static void	ft_shoot(t_game *game, t_player *player)
 {
 	int	nb_anim;
 
@@ -68,15 +68,18 @@ static void	ft_define_angle_move(t_player *player)
 		player->dir_trans = 0;
 }
 
-int		ft_update_player(t_game *game, t_player *player)
+int	ft_update_player(t_game *game, t_player *player)
 {
 	if (player->control.squat)
 		player->pos_z_min = 0.3;
 	else
 		player->pos_z_min = 0.5;
 	ft_define_angle_move(player);
-	ft_rotate_player(game, player, game->player.control.mouse_x - game->player.control.mouse_x_pos,
-										game->player.control.mouse_y - game->player.control.mouse_y_pos);
+	ft_rotate_player(game, player,
+		game->player.control.mouse_diff_x,
+		game->player.control.mouse_diff_y);
+	game->player.control.mouse_diff_x = 0;
+	game->player.control.mouse_diff_y = 0;
 	ft_move_player(game, player);
 	ft_shoot(game, player);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 15:01:48 by grivalan          #+#    #+#             */
-/*   Updated: 2021/04/01 13:14:23 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/04/02 11:45:54 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	ft_clear_file(t_file *file, int fd)
 
 	s = NULL;
 	while (get_next_line(fd, &s) == 1)
-			free(s);
+		free(s);
 	if (s)
 		free(s);
 	if (file->map)
@@ -102,7 +102,7 @@ static int	ft_free_hud(t_game *g, t_player *p)
 	return (0);
 }
 
-int			ft_trash_game(t_game *game, t_error_code code, int fd, char *msg)
+int	ft_trash_game(t_game *game, t_error_code code, int fd, char *msg)
 {
 	system("killall afplay");
 	ft_error_file(&game->file, code, msg);

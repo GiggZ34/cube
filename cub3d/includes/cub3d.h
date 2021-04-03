@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 11:56:01 by grivalan          #+#    #+#             */
-/*   Updated: 2021/04/01 20:10:54 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/04/03 16:05:29 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,6 +165,7 @@ typedef struct		s_screen
 	int				width;
 	int				height;
 	double			w_vec;
+	double			h_vec;
 	int				scale;
 	void			*ptr;
 	int				*color;
@@ -193,6 +194,8 @@ typedef struct		s_control
 	int				mouse_y_pos;
 	int				mouse_x;
 	int				mouse_y;
+	int				mouse_diff_x;
+	int				mouse_diff_y;
 	int				shoot;
 	int				reload;
 }					t_control;

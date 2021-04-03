@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 17:54:10 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/27 15:37:58 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/04/02 11:42:43 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void	ft_limit_speed(t_game *game, int run, double *speed)
 	}
 }
 
-int			ft_translation_vector(t_game *game, double v, double *speed, double angle)
+int	ft_translation_vector(t_game *game, double v, double *speed, double angle)
 {
 	double	x;
 	double	y;
@@ -43,8 +43,8 @@ int			ft_translation_vector(t_game *game, double v, double *speed, double angle)
 	x = cos(game->player.angle_z + angle) * (*speed);
 	if (y < 0)
 		addy *= -1;
-	if (game->file.map[(int)(game->player.position.y +
-			(y * game->dt.dt) + addy)][(int)(game->player.position.x)] != '1')
+	if (game->file.map[(int)(game->player.position.y
+			+ (y * game->dt.dt) + addy)][(int)(game->player.position.x)] != '1')
 		game->player.position.y += (y * game->dt.dt);
 	if (x < 0)
 		addx *= -1;

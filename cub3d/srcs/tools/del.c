@@ -6,13 +6,13 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/31 16:38:07 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/31 16:38:18 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/04/02 11:42:53 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void			del(void *content)
+void	del(void *content)
 {
 	free(content);
 }

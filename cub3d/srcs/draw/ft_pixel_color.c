@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 11:10:27 by grivalan          #+#    #+#             */
-/*   Updated: 2021/04/01 20:13:22 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/04/03 16:03:22 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 int			shadow_px(int color, double size)
 {
-	if (color == UNVISIBLE_COLOR)
-		return (UNVISIBLE_COLOR);
 	unsigned char	rgb[3];
 	int				i;
 
+	if (color == UNVISIBLE_COLOR)
+		return (UNVISIBLE_COLOR);
 	i = -1;
 	while (++i < 3)
 		rgb[i] = (unsigned char)(color >> (i * 8));
@@ -137,7 +137,7 @@ static int		ft_search_color_y(t_game *game, t_vector vec, double *size, t_color 
 	return (UNVISIBLE_COLOR);
 }
 
-static int	ft_search_sprite_color(t_sprite *sprite, double x, double y, int size)
+static int	ft_search_sprite_color(t_sprite *sprite, double x, double y)
 {
 	int			w;
 	int			h;
@@ -150,7 +150,19 @@ static int	ft_search_sprite_color(t_sprite *sprite, double x, double y, int size
 	y /= sprite->height;
 	w = x * texture->width;
 	h = texture->height - y * texture->height;
-	return (shadow_px(texture->color[h * texture->size_line + w], size));
+	return (texture->color[h * texture->size_line + w]);
+}
+
+static int	red_color(int color, int size)
+{
+	unsigned char	rgb[3];
+
+	rgb[0] = (unsigned char)(color);
+	rgb[1] = (unsigned char)(color >> 8);
+	rgb[2] = (unsigned char)(color >> 16);
+	if ((int)rgb[2] >= 253 && (int)rgb[1] <= 3 && (int)rgb[0] >= 164 && (int)rgb[0] <= 167)
+		return (ft_color_generate(190, 24, 24, 0));
+	return (shadow_px(color, size));
 }
 
 static int	ft_search_sprites(t_game *game, t_vector vec, double *size, t_list *lst)
@@ -176,12 +188,12 @@ static int	ft_search_sprites(t_game *game, t_vector vec, double *size, t_list *l
 				dir.x = sprite->frist_px.x - inter.x;
 				dir.y = sprite->frist_px.y - inter.y;
 				if (dir.x * sprite->vec_write.x >= -0.00001 && dir.y * sprite->vec_write.y >= -0.00001)
-					color = ft_search_sprite_color(sprite, sqrt(dist), inter.z, *size);
+					color = ft_search_sprite_color(sprite, sqrt(dist), inter.z);
 			}
 		}
 		lst = lst->next;
 	}
-	return (color);
+	return (red_color(color, *size));
 }
 
 int			ft_sky_color(t_game *game, t_vector vec)

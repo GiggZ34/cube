@@ -6,13 +6,13 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 10:43:23 by grivalan          #+#    #+#             */
-/*   Updated: 2021/04/01 20:04:39 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/04/02 19:36:15 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int		ft_keypress(int keycode, t_game *game)
+int	ft_keypress(int keycode, t_game *game)
 {
 	if (keycode == DESTROY)
 		return (ft_trash_game(game, succes, -1, ""));
@@ -40,12 +40,12 @@ int		ft_keypress(int keycode, t_game *game)
 		game->player.control.shoot = 1;
 	if (keycode == P)
 		game->save_picture = 1;
-	if (keycode == SPACE && !game->player.control.squat)
+	if (keycode == SPACE && !game->player.control.squat && game->player.position.z == game->player.pos_z_min)
 		game->player.vz = 3;
 	return (0);
 }
 
-int		ft_keyrelease(int keycode, t_game *game)
+int	ft_keyrelease(int keycode, t_game *game)
 {
 	if (keycode == RIGHT)
 		game->player.control.right = 0;
@@ -70,23 +70,23 @@ int		ft_keyrelease(int keycode, t_game *game)
 	return (0);
 }
 
-int		ft_mouse_press(int button, int x, int y, t_game *game)
+int	ft_mouse_press(int button, int x, int y, t_game *game)
 {
 	if (button == 1 && !game->player.control.reload)
 		game->player.control.shoot = 1;
-	else if (button == 2)
+	else if (button == 2 && !game->player.control.shoot)
 		game->player.control.reload = 1;
 	if (x == 0 && y == 0)
 		return (0);
 	return (0);
 }
 
-int		ft_update(t_game *game)
+int	ft_update(t_game *game)
 {
 	playmusic(game);
 	ft_delta_time_generate(game);
 	ft_update_player(game, &game->player);
-	ft_update_sprites(/*game, */game->lst_sprites, &game->player);
+	ft_update_sprites(game->lst_sprites, &game->player);
 	ft_update_planes(game);
 	mlx_sync(MLX_SYNC_WIN_CMD_COMPLETED, game->window);
 	mlx_sync(MLX_SYNC_IMAGE_WRITABLE, game->screen.ptr);
@@ -94,22 +94,29 @@ int		ft_update(t_game *game)
 	return (0);
 }
 
-int		mouse_move(int x, int y, t_game *game)
+int	mouse_move(int x, int y, t_game *game)
 {
+	(void)y;
 	mlx_mouse_hide(game->mlx, game->window);
-	game->player.control.mouse_x = x;
-	game->player.control.mouse_y = y;
-	mlx_mouse_move(game->window, game->player.control.mouse_x_pos, game->player.control.mouse_y_pos);
+	game->player.control.mouse_diff_x = x - game->player.control.mouse_x_pos;
+	game->player.control.mouse_diff_y = y
+		- game->player.control.mouse_y_pos + 21;
+	mlx_mouse_move(game->window,
+		game->screen.width / 2 + 100,
+		game->screen.max_y - game->screen.height / 2 - 100);
+	mlx_mouse_get_pos(game->window,
+		&game->player.control.mouse_x_pos,
+		&game->player.control.mouse_y_pos);
 	return (0);
 }
 
-int		ft_game_loop(t_game *game)
+int	ft_game_loop(t_game *game)
 {
 	mlx_mouse_hook(game->window, ft_mouse_press, game);
-	mlx_hook(game->window, 6, 1L<<6, &mouse_move, game);
-	mlx_hook(game->window, 17, 1L<<17, &ft_trash_game, game);
-	mlx_hook(game->window, 2, 1L<<0, ft_keypress, game);
-	mlx_hook(game->window, 3, 1L<<1, ft_keyrelease, game);
+	mlx_hook(game->window, 6, 1L << 6, &mouse_move, game);
+	mlx_hook(game->window, 17, 1L << 17, &ft_trash_game, game);
+	mlx_hook(game->window, 2, 1L << 0, ft_keypress, game);
+	mlx_hook(game->window, 3, 1L << 1, ft_keyrelease, game);
 	mlx_loop_hook(game->mlx, &ft_update, game);
 	mlx_loop(game->mlx);
 	return (0);

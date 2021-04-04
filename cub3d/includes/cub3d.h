@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 11:56:01 by grivalan          #+#    #+#             */
-/*   Updated: 2021/04/03 16:05:29 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/04/04 19:04:49 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 # define SCALE_MAX 3
 # define FPS_MAX 60
 # define FPS_MIN 20
-# define DIST_MAX 7
+# define DIST_MAX 2.0
 # define ROTATE_SPEED 0.785
 # define WEIGHTLESSNESS 9.81
 # define SPEED_MAX 10
@@ -41,21 +41,21 @@
 # define FOV_DIST_SQRT 5
 # define SOUND_TIME 60
 
-typedef enum		e_error_code
+typedef enum	e_error_code
 {
 	succes,
 	mlx_creation_fail,
 	win_creation_fail,
 	load_texture_fail,
 	color_generation_fail,
-	crash_mlx_function,
+	crash_mlx_ft,
 	open_file_fail,
 	cash_gnl,
 	image_not_exist,
 	invalid_image,
 	unknow_instruction,
 	incorrect_color_code,
-	incorrect_resolution_size,
+	incorrect_res,
 	allocation_fail,
 	no_player_position,
 	multiple_player_position,
@@ -63,203 +63,215 @@ typedef enum		e_error_code
 	arguments_error,
 	map_not_close,
 	fail_destroy_image
-}					t_error_code;
+}				t_error_code;
 
-typedef enum		e_fusil
+typedef enum	e_fusil
 {
 	nb_img_anim = 7,
 	nb_anim = 3,
 	barel_fusil = 6,
 	damages_fusil = 20
-}					t_fusil;
+}				t_fusil;
 
-typedef enum		e_states
+typedef enum	e_states
 {
 	rest,
 	reload,
 	shoot,
 	escape,
 	search
-}					t_states;
+}				t_states;
 
-typedef enum		e_player_anim
+typedef enum	e_player_anim
 {
 	anim_rest = 1,
 	anim_reload = 7,
 	anim_shoot = 2
-}					t_player_anim;
+}				t_player_anim;
 
-typedef enum		e_data_sprite
+typedef enum	e_data_sprite
 {
 	time_search = 10
-}					t_data_sprite;
+}				t_data_sprite;
 
-typedef struct		s_color
+typedef struct	s_color
 {
-	double			size;
-	int				color;
-	char			collide;
-}					t_color;
+	double		size;
+	int			color;
+	char		collide;
+}				t_color;
 
-typedef struct		s_texture
+typedef struct			s_texture
 {
-	void			*ptr;
-	char			*type;
-	int				*color;
-	int				width;
-	int				height;
-	int				bits_per_pixel;
-	int				size_line;
-	int				endian;
-}					t_texture;
+	void				*ptr;
+	char				*type;
+	int					*color;
+	int					width;
+	int					height;
+	int					bits_per_pixel;
+	int					size_line;
+	int					endian;
+	struct s_texture	*next;
+}						t_texture;
 
-typedef struct		s_view
+typedef struct	s_view
 {
-	t_vector		view;
-	t_vector		*vector;
-	t_dot			extremity[2];
-	t_vector		*tab_vectors;
-	t_list			*sprites_in_fov;
-}					t_view;
+	t_vector	view;
+	t_vector	*vector;
+	t_dot		extremity[2];
+	t_vector	*tab_vectors;
+	t_list		*sprites_in_fov;
+}				t_view;
 
-typedef struct		s_collide
+typedef struct	s_collide
 {
-	t_vector		top;
-	t_vector		bottom;
-	t_vector		left;
-	t_vector		right;
-	int				top_bool;
-	int				bottom_bool;
-	int				left_bool;
-	int				right_bool;
-}					t_collide;
+	t_vector	top;
+	t_vector	bottom;
+	t_vector	left;
+	t_vector	right;
+	int			top_bool;
+	int			bottom_bool;
+	int			left_bool;
+	int			right_bool;
+}				t_collide;
 
-typedef struct		s_tab_plane
+typedef struct	s_tab_plane
 {
-	t_list			**left;
-	t_list			**right;
-	t_list			**top;
-	t_list			**bottom;
-}					t_tab_plane;
+	t_list		**left;
+	t_list		**right;
+	t_list		**top;
+	t_list		**bottom;
+}				t_tab_plane;
 
-typedef struct		s_file
+typedef struct	s_file
 {
-	int				fd;
-	t_list			*check_file;
-	int				ground_color;
-	int				sky_color;
-	char			**map;
-	int				width_map;
-	int				height_map;
-	int				error_code;
-	char			*error_message[8];
-	t_texture		*texture_no;
-	t_texture		*texture_so;
-	t_texture		*texture_we;
-	t_texture		*texture_ea;
-	t_texture		*texture_s;
-}					t_file;
+	int			fd;
+	t_list		*check_file;
+	int			ground_color;
+	int			sky_color;
+	int			light_color;
+	char		**map;
+	int			width_map;
+	int			height_map;
+	int			error_code;
+	char		*error_message[8];
+	t_texture	*texture_no;
+	t_texture	*texture_so;
+	t_texture	*texture_we;
+	t_texture	*texture_ea;
+	t_texture	*texture_s;
+	t_texture	*texture_light;
+	t_texture	*texture_obj;
+}				t_file;
 
-typedef struct		s_screen
+typedef struct	s_screen
 {
-	int				width;
-	int				height;
-	double			w_vec;
-	double			h_vec;
-	int				scale;
-	void			*ptr;
-	int				*color;
-	int				size;
-	int				endian;
-	int				bit;
-	int				*color_objs;
-	int				max_x;
-	int				max_y;
-}					t_screen;
+	int			width;
+	int			height;
+	double		w_vec;
+	double		h_vec;
+	int			scale;
+	void		*ptr;
+	int			*color;
+	int			size;
+	int			endian;
+	int			bit;
+	int			*color_objs;
+	int			max_x;
+	int			max_y;
+}				t_screen;
 
-typedef struct		s_control
+typedef struct	s_control
 {
-	int				w;
-	int				s;
-	int				a;
-	int				d;
-	int				up;
-	int				down;
-	int				right;
-	int				left;
-	int				run;
-	int				squat;
-	int				jump;
-	int				mouse_x_pos;
-	int				mouse_y_pos;
-	int				mouse_x;
-	int				mouse_y;
-	int				mouse_diff_x;
-	int				mouse_diff_y;
-	int				shoot;
-	int				reload;
-}					t_control;
+	int			w;
+	int			s;
+	int			a;
+	int			d;
+	int			up;
+	int			down;
+	int			right;
+	int			left;
+	int			run;
+	int			squat;
+	int			jump;
+	int			mouse_x_pos;
+	int			mouse_y_pos;
+	int			mouse_x;
+	int			mouse_y;
+	int			mouse_diff_x;
+	int			mouse_diff_y;
+	int			shoot;
+	int			reload;
+}				t_control;
 
-typedef struct		s_obj
+typedef struct	s_obj
 {
-	t_texture		obj_texture;
-	int				width;
-	int				height;
-	double			ratio_pos;
-	double			ratio_size;
-	t_dot			position;
-}					t_obj;
+	t_texture	obj_texture;
+	int			width;
+	int			height;
+	double		ratio_pos;
+	double		ratio_size;
+	t_dot		position;
+}				t_obj;
 
-typedef struct		s_player
+typedef struct		s_light
 {
-	int				state;
-	double			anim_frame;
-	int				ammunition;
-	t_screen		*arm;
-	t_dot			position;
-	t_view			view;
-	t_collide		collide;
-	t_control		control;
-	t_screen		**gun;
-	double			dist_screen;
-	double			walk_speed;
-	double			trans_speed;
-	double			walk_speed_max;
-	double			run_speed_max;
-	double			dir_walk;
-	double			dir_trans;
-	double			pos_z_min;
-	double			vx;
-	double			vy;
-	double			vz;
-	double			angle_x;
-	double			angle_z;
-	int				live;
-	t_obj			guns;
-}					t_player;
+	float			x;
+	float			y;
+	float			z;
+	struct s_light	*next;
+}					t_light;
 
-typedef struct		s_sprite
+typedef struct	s_player
 {
-	t_dot			position;
-	t_plane			plane;
-	t_vector		normal;
-	t_dot			frist_px;
-	t_vector		vec_write;
-	t_vector		sprite_to_player;
-	double			dist_to_player;
-	t_vector		first_col;
-	t_collide		collide;
-	double			vx;
-	double			vy;
-	double			width;
-	double			height;
-	double			ratio;
-	double			angle;
-	double			time_search;
-	int				live;
-	t_states		state;
-	t_texture		*tile_sheet;
-}					t_sprite;
+	int			state;
+	double		anim_frame;
+	int			ammunition;
+	t_screen	*arm;
+	t_dot		position;
+	t_view		view;
+	t_collide	collide;
+	t_control	control;
+	t_screen	**gun;
+	double		dist_screen;
+	double		walk_speed;
+	double		trans_speed;
+	double		walk_speed_max;
+	double		run_speed_max;
+	double		dir_walk;
+	double		dir_trans;
+	double		pos_z_min;
+	double		vx;
+	double		vy;
+	double		vz;
+	double		angle_x;
+	double		angle_z;
+	int			live;
+	t_obj		guns;
+}				t_player;
+
+typedef struct	s_sprite
+{
+	t_dot		position;
+	t_plane		plane;
+	t_vector	normal;
+	t_dot		frist_px;
+	t_vector	vec_write;
+	t_vector	sprite_to_player;
+	double		dist_to_player;
+	t_vector	first_col;
+	t_collide	collide;
+	double		vx;
+	double		vy;
+	double		width;
+	double		height;
+	double		ratio;
+	double		angle;
+	double		time_search;
+	int			live;
+	t_states	state;
+	t_texture	*tile_sheet;
+}				t_sprite;
 
 typedef	struct		s_dt
 {
@@ -271,32 +283,31 @@ typedef	struct		s_dt
 	char			*scale_str;
 }					t_dt;
 
-typedef struct		s_sky_ground
+typedef struct	s_sky_ground
 {
-	t_plane			ground_plane;
-	t_texture		ground_texture;
-	t_plane			sky_plane;
-	t_texture		sky_texture;
+	t_plane		ground_plane;
+	t_texture	ground_texture;
+	t_plane		sky_plane;
+	t_texture	sky_texture;
+}				t_sky_ground;
 
-}					t_sky_ground;
-
-typedef struct		s_system_call
+typedef struct	s_system_call
 {
-	pthread_t		thread;
-	const char		*cmd;
-	int				loop;
-}					t_system_call;
+	pthread_t	thread;
+	const char	*cmd;
+	int			loop;
+}				t_system_call;
 
-typedef struct		s_music
+typedef struct	s_music
 {
-	int				time;
-}					t_music;
-
+	int			time;
+}				t_music;
 
 typedef struct		s_game
 {
 	void			*mlx;
 	void			*window;
+	int				debug;
 	t_dt			dt;
 	t_file			file;
 	t_screen		screen;
@@ -311,17 +322,18 @@ typedef struct		s_game
 	t_music			music;
 	int				save_picture;
 	int				exit;
+	t_light			*light;
 }					t_game;
 
-typedef struct		s_thread
+typedef struct	s_thread
 {
-	int				id;
-	t_game			*game;
-	int				start;
-	int				size;
-	pthread_t		thread;
-	t_screen		*screen;
-}					t_thread;
+	int			id;
+	t_game		*game;
+	int			start;
+	int			size;
+	pthread_t	thread;
+	t_screen	*screen;
+}				t_thread;
 
 /*
 **	Functions tools
@@ -330,13 +342,15 @@ typedef struct		s_thread
 int					ft_color_generate(int red, int green, int blue, int alpha);
 void				ft_delta_time_generate(t_game *game);
 t_player_anim		ft_define_nb_anim(int state);
+int					ft_change_resolution(t_game *game, int fd);
+int					count_letters(char *line);
 
 /*
 **	Functions free
 */
 
 void				ft_free_array(char **array);
-int					ft_trash_game(t_game *game, t_error_code code, int fd, char *msg);
+int					ft_trash_game(t_game *g, t_error_code cd, int fd, char *mg);
 
 /*
 **	Functions load
@@ -344,8 +358,12 @@ int					ft_trash_game(t_game *game, t_error_code code, int fd, char *msg);
 
 int					ft_load(char *r_f, t_game *game);
 int					ft_init_file(t_file *file, t_game *game, char *dir_file);
-int					ft_parsing_file(t_game *game, int fd, t_file *file);
+int					ft_parsing_file(t_game *game, int fd);
 int					ft_file_to_struct(t_game *game, char *line, int fd);
+char				**check_format(char *line, char ***array);
+char				**check_color(char *line, char ***array);
+char				**check_res(char *line, char ***array);
+char				**check_texture(char *line, char ***array);
 char				**ft_map_cpy(char **map, int height);
 int					ft_check_map(t_game *game, t_file *file);
 void				ft_scan_map(t_game *game, char **map, int i, int j);
@@ -397,7 +415,7 @@ int					ft_mini_map(t_game *game);
 */
 
 size_t				ft_image_save(t_game *game);
-int					shadow_px(int color, double size);
+int					shadow_px(t_game *game, int color, t_dot collide);
 void				ft_draw_multi_threads(t_game *game, t_screen *gun);
 int					ft_pixel_color(t_game *game, t_vector v, t_sprite *s);
 int					ft_print_fps(t_game *game, char *fps, char *scale);

@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 08:26:00 by grivalan          #+#    #+#             */
-/*   Updated: 2021/04/02 11:46:15 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/04/03 20:27:55 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	*ft_draw(void *g)
 									ft_pixel_color(thread->game, vec, NULL));
 			}
 			else
-				ft_drawing_scale(thread->game, i, j, shadow_px(thread->screen->color[id], 1 - j / thread->game->screen.height));
+				ft_drawing_scale(thread->game, i, j, shadow_px(thread->game, thread->screen->color[id], thread->game->player.position));
 			j += thread->game->screen.scale;
 		}
 		i += thread->game->screen.scale;

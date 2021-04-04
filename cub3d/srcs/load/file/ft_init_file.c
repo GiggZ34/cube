@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 13:21:48 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/26 19:46:17 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/04/04 14:30:16 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int				ft_init_file(t_file *file, t_game *game, char *dir_file)
 	file->fd = open(dir_file, O_RDONLY);
 	if (file->fd <= 0)
 		return (ft_trash_game(game, open_file_fail, file->fd, "\n"));
-	ft_parsing_file(game, file->fd, file);
+	ft_parsing_file(game, file->fd);
 	ft_check_map(game, file);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/23 11:24:29 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/30 15:45:49 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/04/04 17:25:05 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,6 +148,7 @@ char			*ft_strcpy(char *dst, const char *src);
 char			*ft_strcpypos(char *dst, char *src, int position);
 size_t			ft_strlcpy(char *dst, const char *src, size_t dstsize);
 size_t			ft_strlcat(char *dst, const char *src, size_t dstsize);
+int				ft_skip_white_space(char *str);
 char			*ft_strstr(char *s, char *needle);
 char			*ft_strnstr(const char *s, const char *needle, size_t len);
 char			*ft_str_pad(char *src, int size, char c, char direction);

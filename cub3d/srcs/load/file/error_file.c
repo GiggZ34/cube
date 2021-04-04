@@ -6,13 +6,13 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 16:07:02 by grivalan          #+#    #+#             */
-/*   Updated: 2021/04/01 14:39:17 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/04/04 14:55:00 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-char		*ft_search_error(char **str, int id, int row)
+char	*ft_search_error(char **str, int id, int row)
 {
 	char	*tmp;
 	char	*tmp2;
@@ -52,10 +52,10 @@ char		*ft_search_error(char **str, int id, int row)
 
 static char	*ft_init_error_message(int error_code)
 {
-	char *error_message[30];
+	char	*error_message[30];
 
 	error_message[succes] = "\033[32mExit Game!\033[0m";
-	error_message[cash_gnl] = "\033[1;31mCrash in the get_next_line function : \033[0m";
+	error_message[cash_gnl] = "\033[1;31mCrash in the gnl function : \033[0m";
 	error_message[map_not_close] = "\033[1;31mMap has invalid chars or is not closed : \033[0m";
 	error_message[allocation_fail] = "\033[1;31mCrash in allocation memory : ";
 	error_message[no_player_position] = "\033[1;31mProblem with the starting position : \033[0m";
@@ -67,7 +67,7 @@ static char	*ft_init_error_message(int error_code)
 	error_message[unknow_instruction] = "\033[1;31mUnknow extension. : \033[0m";
 	error_message[image_not_exist] = "\033[1;31mimage not exist. : \033[0m";
 	error_message[invalid_image] = "\033[1;31mCrash in loading image. : \033[0m";
-	error_message[incorrect_resolution_size] = "\033[1;31mScreen resolution problem. \033[0m";
+	error_message[incorrect_res] = "\033[1;31mScreen resolution problem. \033[0m";
 	return (error_message[error_code]);
 }
 

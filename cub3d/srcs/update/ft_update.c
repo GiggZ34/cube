@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 10:43:23 by grivalan          #+#    #+#             */
-/*   Updated: 2021/04/02 19:36:15 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/04/04 19:27:25 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,13 @@ int	ft_keypress(int keycode, t_game *game)
 		game->player.control.shoot = 1;
 	if (keycode == P)
 		game->save_picture = 1;
-	if (keycode == SPACE && !game->player.control.squat && game->player.position.z == game->player.pos_z_min)
+	if (keycode == SPACE && !game->player.control.squat
+		&& game->player.position.z == game->player.pos_z_min)
 		game->player.vz = 3;
+	if (keycode == L && !game->debug)
+		game->debug = 1;
+	else if (keycode == L && game->debug)
+		game->debug = 0;
 	return (0);
 }
 
@@ -72,12 +77,27 @@ int	ft_keyrelease(int keycode, t_game *game)
 
 int	ft_mouse_press(int button, int x, int y, t_game *game)
 {
+	(void)x;
+	(void)y;
 	if (button == 1 && !game->player.control.reload)
 		game->player.control.shoot = 1;
 	else if (button == 2 && !game->player.control.shoot)
 		game->player.control.reload = 1;
-	if (x == 0 && y == 0)
-		return (0);
+	return (0);
+}
+
+int	mouse_move(int x, int y, t_game *game)
+{
+	mlx_mouse_hide(game->mlx, game->window);
+	game->player.control.mouse_diff_x = x - game->player.control.mouse_x_pos;
+	game->player.control.mouse_diff_y = y
+		- game->player.control.mouse_y_pos + 21;
+	mlx_mouse_move(game->window,
+		game->screen.width / 2 + 100,
+		game->screen.max_y - game->screen.height / 2 - 100);
+	mlx_mouse_get_pos(game->window,
+		&game->player.control.mouse_x_pos,
+		&game->player.control.mouse_y_pos);
 	return (0);
 }
 
@@ -91,22 +111,6 @@ int	ft_update(t_game *game)
 	mlx_sync(MLX_SYNC_WIN_CMD_COMPLETED, game->window);
 	mlx_sync(MLX_SYNC_IMAGE_WRITABLE, game->screen.ptr);
 	ft_draw_multi_threads(game, game->player.arm);
-	return (0);
-}
-
-int	mouse_move(int x, int y, t_game *game)
-{
-	(void)y;
-	mlx_mouse_hide(game->mlx, game->window);
-	game->player.control.mouse_diff_x = x - game->player.control.mouse_x_pos;
-	game->player.control.mouse_diff_y = y
-		- game->player.control.mouse_y_pos + 21;
-	mlx_mouse_move(game->window,
-		game->screen.width / 2 + 100,
-		game->screen.max_y - game->screen.height / 2 - 100);
-	mlx_mouse_get_pos(game->window,
-		&game->player.control.mouse_x_pos,
-		&game->player.control.mouse_y_pos);
 	return (0);
 }
 

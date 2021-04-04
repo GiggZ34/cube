@@ -6,13 +6,13 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 22:51:43 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/31 16:34:24 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/04/04 18:35:00 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static int			check_line(char *line, const char *charset)
+static int	check_line(char *line, const char *charset)
 {
 	int	i;
 
@@ -23,19 +23,20 @@ static int			check_line(char *line, const char *charset)
 	return (1);
 }
 
-static char			**ft_generate_map(t_game *game, t_file *file, char *line)
+static char	**ft_generate_map(t_game *game, t_file *file, char *line)
 {
 	char	**str;
 	int		i;
 
-	if (!check_line(line, "\n 102ESWN"))
+	if (!check_line(line, "\n 102ESWNL"))
 	{
 		free(line);
-		ft_trash_game(game, arguments_error, file->fd, "Invalid line in map or character.");
+		ft_trash_game(game, arguments_error, file->fd, "Invalid map.");
 	}
 	if (file->width_map < (int)ft_strlen(line))
 		file->width_map = ft_strlen(line);
-	if (!(str = ft_calloc(sizeof(char**), ft_count_array(file->map) + 2)))
+	str = ft_calloc(sizeof(char **), ft_count_array(file->map) + 2);
+	if (!str)
 		return (NULL);
 	i = 0;
 	if (file->map)
@@ -48,35 +49,60 @@ static char			**ft_generate_map(t_game *game, t_file *file, char *line)
 		free(file->map);
 	}
 	str[i] = line;
-	str[i + 1] = NULL;
 	return (str);
 }
 
-int				ft_parsing_file(t_game *game, int fd, t_file *file)
+static int	is_line_map(char *line)
+{
+	int	i;
+
+	i = 0;
+	if (!line[0])
+		return (0);
+	while (line[i] && line[i] == ' ')
+		i++;
+	while (line[i] && line[i] != ' ')
+	{
+		if (line[i++] != '1')
+			return (0);
+	}
+	return (1);
+}
+
+static void	tidy_arguments(t_game *game, char *line, int fd, int *map)
+{
+	if (!(*map))
+		(*map) = is_line_map(line);
+	if (!(*map) && line[0])
+	{
+		ft_file_to_struct(game, line, fd);
+		free(line);
+	}
+	else if (*map && (game->file.map || line[0]))
+	{
+		game->file.map = ft_generate_map(game, &game->file, line);
+		if (!game->file.map)
+			ft_trash_game(game, allocation_fail, fd, "\n");
+	}
+	else
+		free(line);
+}
+
+int	ft_parsing_file(t_game *game, int fd)
 {
 	char	*line;
 	int		rest;
+	int		map;
 
+	map = 0;
 	rest = 1;
 	while (rest)
 	{
-		if ((rest = get_next_line(fd, &line)) == -1)
+		rest = get_next_line(fd, &line);
+		if (rest == -1)
 			return (ft_trash_game(game, cash_gnl, fd, "\n"));
 		if (line)
-		{
-			if (ft_lstsize(file->check_file) < ARG_FILE && line[0])
-			{
-				ft_file_to_struct(game, line, fd);
-				free(line);
-			}
-			else if (ft_lstsize(file->check_file) == ARG_FILE && (file->map || line[0]))
-			{
-				if (!(file->map = ft_generate_map(game, file, line)))
-					return (ft_trash_game(game, allocation_fail, fd, "\n"));
-			}
-			else
-				free(line);
-		}
+			tidy_arguments(game, line, fd, &map);
 	}
 	return (0);
 }

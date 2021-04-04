@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 15:01:48 by grivalan          #+#    #+#             */
-/*   Updated: 2021/04/02 11:45:54 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/04/04 19:31:29 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,19 @@ static void	ft_clear_file(t_file *file, int fd)
 		ft_free_array(file->map);
 	s = NULL;
 	file->map = NULL;
+}
+
+static void	free_texture_lst(t_game *game)
+{
+	t_texture	*t;
+
+	while (game->file.texture_obj)
+	{
+		t = game->file.texture_obj;
+		free(t->type);
+		game->file.texture_obj = game->file.texture_obj->next;
+		free(t);
+	}
 }
 
 static void	ft_delete_textures(t_game *game)
@@ -116,6 +129,7 @@ int	ft_trash_game(t_game *game, t_error_code code, int fd, char *msg)
 	ft_lstclear(&game->lst_planes_left, &delete, 1);
 	ft_lstclear(&game->lst_planes_right, &delete, 1);
 	ft_lstclear(&game->player.view.sprites_in_fov, &delete, 0);
+	free_texture_lst(game);
 	if (game->tab_planes.bottom)
 	{
 		free(game->tab_planes.bottom);

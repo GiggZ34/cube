@@ -6,32 +6,45 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 11:10:27 by grivalan          #+#    #+#             */
-/*   Updated: 2021/04/03 16:03:22 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/04/04 14:04:56 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int			shadow_px(int color, double size)
+int	shadow_px(t_game *game, int color, t_dot collide)
 {
-	unsigned char	rgb[3];
+/*	unsigned char	rgb[3];
 	int				i;
+	double			size;
+	t_vector		to_light;*/
 
+	(void) collide;
+	if (!game->light || !game->debug)
+		return (color);
 	if (color == UNVISIBLE_COLOR)
 		return (UNVISIBLE_COLOR);
+	return (UNVISIBLE_COLOR);
+/*	to_light.x = game->light.x - collide.x;
+	to_light.y = game->light.y - collide.y;
+	to_light.z = game->light.z - collide.z;
+	size = pow(to_light.x, 2) + pow(to_light.y, 2) + pow(to_light.z, 2);
 	i = -1;
 	while (++i < 3)
 		rgb[i] = (unsigned char)(color >> (i * 8));
-	size = size / DIST_MAX;
-	if (size > 1)
-		size = 1;
+	size /= pow(DIST_MAX, 2.0);
 	i = -1;
 	while (++i < 3)
-		rgb[i] *= 1 - size;
-	return (ft_color_generate(rgb[2], rgb[1], rgb[0], 0));
+	{
+		if ((int)rgb[i] / size > 255)
+			rgb[i] = 255;
+		else
+			rgb[i] /= size;
+	}
+	return (ft_color_generate(rgb[2], rgb[1], rgb[0], 0));*/
 }
 
-static int		ft_is_in_wall(t_texture *texture, t_dot inter, char dir, double size)
+static int		ft_is_in_wall(t_texture *texture, t_dot inter, char dir)
 {
 	int			x;
 	int			y;
@@ -41,7 +54,7 @@ static int		ft_is_in_wall(t_texture *texture, t_dot inter, char dir, double size
 		x = texture->width * (inter.x - floor(inter.x));
 	else
 		x = texture->width * (inter.y - floor(inter.y));
-	return (shadow_px((texture->color[y * texture->size_line + x]), size));
+	return ((texture->color[y * texture->size_line + x]));
 }
 
 static double	ft_is_wall(t_game *game, t_plane *plane, t_vector v, t_dot *dot)
@@ -95,7 +108,7 @@ static int		ft_search_color_x(t_game *game, t_vector vec, double *size)
 	{
 		plane = lst->content;
 		if ((*size = ft_is_wall(game, plane, vec, &inter)) != -1)
-			return (ft_is_in_wall(plane->add, inter, 'x', *size));
+			return (shadow_px(game, ft_is_in_wall(plane->add, inter, 'x'), inter));
 		if (inter.z < 0 || inter.z > 1 || inter.x < 0 || inter.x >= game->file.width_map || inter.y < 0 || inter.y >= game->file.height_map)
 			return (UNVISIBLE_COLOR);
 		lst = lst->next;
@@ -129,7 +142,7 @@ static int		ft_search_color_y(t_game *game, t_vector vec, double *size, t_color 
 	{
 		plane = lst->content;
 		if ((*size = ft_is_wall(game, plane, vec, &inter)) != -1)
-			return (ft_is_in_wall(plane->add, inter, 'y', *size));
+			return (shadow_px(game, ft_is_in_wall(plane->add, inter, 'y'), inter));
 		if (inter.z < 0 || inter.z > 1 || inter.x < 0 || inter.x >= game->file.width_map || inter.y < 0 || inter.y >= game->file.height_map)
 			return (UNVISIBLE_COLOR);
 		lst = lst->next;
@@ -151,18 +164,6 @@ static int	ft_search_sprite_color(t_sprite *sprite, double x, double y)
 	w = x * texture->width;
 	h = texture->height - y * texture->height;
 	return (texture->color[h * texture->size_line + w]);
-}
-
-static int	red_color(int color, int size)
-{
-	unsigned char	rgb[3];
-
-	rgb[0] = (unsigned char)(color);
-	rgb[1] = (unsigned char)(color >> 8);
-	rgb[2] = (unsigned char)(color >> 16);
-	if ((int)rgb[2] >= 253 && (int)rgb[1] <= 3 && (int)rgb[0] >= 164 && (int)rgb[0] <= 167)
-		return (ft_color_generate(190, 24, 24, 0));
-	return (shadow_px(color, size));
 }
 
 static int	ft_search_sprites(t_game *game, t_vector vec, double *size, t_list *lst)
@@ -188,12 +189,12 @@ static int	ft_search_sprites(t_game *game, t_vector vec, double *size, t_list *l
 				dir.x = sprite->frist_px.x - inter.x;
 				dir.y = sprite->frist_px.y - inter.y;
 				if (dir.x * sprite->vec_write.x >= -0.00001 && dir.y * sprite->vec_write.y >= -0.00001)
-					color = ft_search_sprite_color(sprite, sqrt(dist), inter.z);
+					return (shadow_px(game, ft_search_sprite_color(sprite, sqrt(dist), inter.z), inter));
 			}
 		}
 		lst = lst->next;
 	}
-	return (red_color(color, *size));
+	return (UNVISIBLE_COLOR);
 }
 
 int			ft_sky_color(t_game *game, t_vector vec)
@@ -209,7 +210,7 @@ int			ft_sky_color(t_game *game, t_vector vec)
 	inter = ft_intersect_plane_dot(game->player.position, vec, size);
 	y = t.height * (inter.y - floor(inter.y));
 	x = t.width * (inter.x - floor(inter.x));
-	return (shadow_px(t.color[y * t.size_line + x], size));
+	return (shadow_px(game, t.color[y * t.size_line + x], inter));
 
 }
 
@@ -226,7 +227,7 @@ int			ft_ground_color(t_game *game, t_vector vec)
 	inter = ft_intersect_plane_dot(game->player.position, vec, size);
 	y = t.height * (inter.y - floor(inter.y));
 	x = t.width * (inter.x - floor(inter.x));
-	return (shadow_px(t.color[y * t.size_line + x], size));
+	return (shadow_px(game, t.color[y * t.size_line + x], inter));
 
 }
 

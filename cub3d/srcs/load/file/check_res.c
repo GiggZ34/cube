@@ -1,27 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   control_linux.h                                    :+:      :+:    :+:   */
+/*   check_res.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/06 23:29:01 by grivalan          #+#    #+#             */
-/*   Updated: 2021/04/04 12:55:08 by grivalan         ###   ########lyon.fr   */
+/*   Created: 2021/04/04 18:59:50 by grivalan          #+#    #+#             */
+/*   Updated: 2021/04/04 19:00:32 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#define DESTROY 65307
-#define DOWN 65362
-#define UP 65364
-#define RIGHT 65361
-#define LEFT 65363
-#define W 'w'
-#define S 's'
-#define A 'a'
-#define D 'd'
-#define P 'p'
-#define SHIFT 65505
-#define ALT 65507
-#define SHOOT 65438
-#define SPACE 49
-#define L 'l'
+#include "cub3d.h"
+
+char	**check_res(char *line, char ***array)
+{
+	int	i;
+	int	j;
+
+	*array = ft_split(line, " \t");
+	if (!(*array))
+		return (NULL);
+	j = 0;
+	while ((*array)[++j])
+	{
+		i = -1;
+		while ((*array)[j][++i])
+		{
+			if (!ft_isdigit((*array)[j][i]))
+			{
+				ft_free_array(*array);
+				return (*array = NULL);
+			}
+		}
+	}
+	return (*array);
+}

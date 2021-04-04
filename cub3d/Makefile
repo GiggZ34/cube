@@ -6,7 +6,7 @@
 #    By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/24 18:59:35 by grivalan          #+#    #+#              #
-#    Updated: 2021/04/01 14:04:42 by grivalan         ###   ########lyon.fr    #
+#    Updated: 2021/04/04 19:05:09 by grivalan         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,6 +40,10 @@ SRCS =		main.c\
 			srcs/load/file/parsing_file.c\
 			srcs/load/file/ft_file_to_struct.c\
 			srcs/load/file/error_file.c\
+			srcs/load/file/check_format.c\
+			srcs/load/file/check_color.c\
+			srcs/load/file/check_res.c\
+			srcs/load/file/check_texture.c\
 			srcs/load/map/check_map.c\
 			srcs/load/map/ft_map_cpy.c\
 			srcs/load/map/ft_scan_map.c\
@@ -61,6 +65,8 @@ SRCS =		main.c\
 			srcs/tools/ft_delta_time_generator.c\
 			srcs/tools/ft_define_nb_anim.c\
 			srcs/tools/del.c\
+			srcs/tools/change_resolution.c\
+			srcs/tools/count_letters.c\
 			srcs/update/ft_update.c\
 			srcs/update/ft_update_sprites.c\
 			srcs/update/ft_update_player.c\

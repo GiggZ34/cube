@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/28 16:08:43 by grivalan          #+#    #+#             */
-/*   Updated: 2020/12/29 12:41:00 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/04/04 13:51:12 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,20 @@
 
 static t_fd	*ft_new_elmt_lst(int fd)
 {
-	t_fd *new;
+	t_fd	*new;
 
-	if (!(new = ft_calloc(sizeof(t_fd), 1)))
+	new = ft_calloc(sizeof(t_fd), 1);
+	if (!new)
 		return (0);
+	ft_bzero(new, sizeof(t_fd));
 	new->fd = fd;
-	new->buff = NULL;
-	new->next = 0;
-	new->start = 0;
-	new->end = 0;
 	return (new);
 }
 
 static t_fd	*ft_search_fd(t_fd **begin, int fd)
 {
-	t_fd *lst;
-	t_fd *tmp;
+	t_fd	*lst;
+	t_fd	*tmp;
 
 	lst = (*begin);
 	tmp = lst;
@@ -52,7 +50,7 @@ static t_fd	*ft_search_fd(t_fd **begin, int fd)
 
 static int	ft_clear_fd(t_fd **begin, t_fd *lst, int value)
 {
-	t_fd *tmp;
+	t_fd	*tmp;
 
 	tmp = (*begin);
 	if (tmp->fd == lst->fd)
@@ -78,7 +76,8 @@ static int	ft_clear_fd(t_fd **begin, t_fd *lst, int value)
 
 static int	ft_new_line(char **line, t_fd *obj, t_fd **begin, int value)
 {
-	if (!(*line = ft_substr(obj->buff, obj->start, obj->end - obj->start)))
+	*line = ft_substr(obj->buff, obj->start, obj->end - obj->start);
+	if (!(*line))
 		value = -1;
 	obj->end++;
 	obj->start = obj->end;
@@ -94,7 +93,7 @@ static int	ft_new_line(char **line, t_fd *obj, t_fd **begin, int value)
 	return (value);
 }
 
-int			get_next_line(int fd, char **line)
+int	get_next_line(int fd, char **line)
 {
 	static t_fd	*begin_lst;
 	t_fd		*obj;
@@ -102,17 +101,21 @@ int			get_next_line(int fd, char **line)
 
 	if (line == NULL || fd < 0 || BUFFER_SIZE <= 0)
 		return (-1);
-	if (!(obj = ft_search_fd(&begin_lst, fd)))
+	obj = ft_search_fd(&begin_lst, fd);
+	if (!obj)
 		return (-1);
-	while (!obj->buff ||
-	obj->buff[(obj->end += ft_strpos(&(obj->buff[obj->end]), '\n'))] != '\n')
+	obj->end += ft_strpos(&(obj->buff[obj->end]), '\n');
+	while (!obj->buff || obj->buff[obj->end] != '\n')
 	{
-		if (!(obj->buff = ft_realloc(obj->buff, BUFFER_SIZE)))
+		obj->buff = ft_realloc(obj->buff, BUFFER_SIZE);
+		if (!obj->buff)
 			return (ft_clear_fd(&begin_lst, obj, -1));
-		if ((res = read(fd, &(obj->buff[obj->end]), BUFFER_SIZE)) == 0)
+		res = read(fd, &(obj->buff[obj->end]), BUFFER_SIZE);
+		if (!res)
 			return (ft_new_line(line, obj, &begin_lst, 0));
-		if (res == -1)
+		else if (res == -1)
 			return (ft_clear_fd(&begin_lst, obj, -1));
+		obj->end += ft_strpos(&(obj->buff[obj->end]), '\n');
 	}
 	return (ft_new_line(line, obj, &begin_lst, 1));
 }

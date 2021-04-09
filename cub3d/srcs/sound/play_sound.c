@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 12:22:02 by grivalan          #+#    #+#             */
-/*   Updated: 2021/04/02 11:45:13 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/04/05 11:50:29 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	play_sound(const char *cmd_line)
 
 	sys.cmd = cmd_line;
 	pthread_create(&sys.thread, NULL, &cmd, &sys);
+	pthread_join(sys.thread, NULL);
 }
 
 void	playmusic(t_game *game)

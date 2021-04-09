@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/10 22:42:23 by grivalan          #+#    #+#             */
-/*   Updated: 2021/04/02 19:23:31 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/04/06 13:55:31 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static int	ft_search_sprites(t_sprite *s, t_list **begin, t_player *player)
 	if (ft_dot_product(player->collide.top, s->sprite_to_player) < FOV_COS)
 	{
 		lst = ft_lstnew(s);
-		ft_plane_inter_nom(&s->plane, player->position);
+		s->plane.nom_size = ft_plane_inter_nom(&s->plane, player->position);
 		ft_lstadd_back(begin, lst);
 		return (1);
 	}

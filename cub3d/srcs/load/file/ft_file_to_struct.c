@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 11:03:58 by grivalan          #+#    #+#             */
-/*   Updated: 2021/04/04 19:33:11 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/04/08 15:29:42 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,11 @@ static int	ft_three_parameter(t_game *game, char **array, int fd)
 	else if (!ft_strncmp(*array, "C", len))
 		game->file.sky_color = ft_color_generate(r, g, b, 0);
 	else if (!ft_strncmp(*array, "L", len))
-		game->file.light_color = ft_color_generate(r, g, b, 0);
+	{
+		game->file.light_color[0] = (float)b;
+		game->file.light_color[1] = (float)g;
+		game->file.light_color[2] = (float)r;
+	}
 	else
 	{
 		ft_free_array(array);
@@ -108,41 +112,13 @@ static int	ft_one_parameter(t_game *game, char **array, int fd)
 	return (0);
 }
 
-void	ft_add_arguments(t_game *game, t_file *file, char *arg)
-{
-	t_list	*lst;
-	t_list	*new_list;
-	char	*test;
-	char	*content;
-
-	lst = file->check_file;
-	while (lst)
-	{
-		test = lst->content;
-		if (!ft_strncmp(test, arg, 2))
-			ft_trash_game(game, arguments_error, file->fd, "This arg exist");
-		lst = lst->next;
-	}
-	content = ft_strdup(arg);
-	if (!content)
-		ft_trash_game(game, allocation_fail, file->fd, "In ft_add_arguments");
-	new_list = ft_lstnew(content);
-	if (!new_list)
-	{
-		free(content);
-		ft_trash_game(game, allocation_fail, file->fd, "In ft_add_arguments");
-	}
-	ft_lstadd_back(&(game->file.check_file), new_list);
-}
-
 int	ft_file_to_struct(t_game *game, char *line, int fd)
 {
 	char	**array;
 	int		count;
 
-	if (!check_format(line, &array))
+	if (!check_format(game, line, &array))
 		ft_trash_game(game, allocation_fail, fd, "In check_format");
-	ft_add_arguments(game, &game->file, array[0]);
 	count = ft_count_array(array);
 	if (count == 2)
 		ft_one_parameter(game, array, fd);

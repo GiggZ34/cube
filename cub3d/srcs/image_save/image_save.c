@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 11:00:33 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/31 15:11:17 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/04/09 12:28:21 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static int	create_file(t_game *game, unsigned char **file, int fd)
 	if (!(*file))
 	{
 		close(fd);
-		return (ft_trash_game(game, allocation_fail, -1, "Fuction ft_header_create | line 17\n"));
+		return (ft_trash_game(game, allocation_fail, -1, "In header_file"));
 	}
 	create_bitmap_header(game, file, size);
 	return (0);
@@ -63,7 +63,7 @@ static void	image_to_file(t_game *game, unsigned char *file)
 	while (--y >= 0)
 	{
 		x = -1;
-		while (++x < game->screen.size)
+		while (++x < game->screen.width)
 		{
 			id = y * game->screen.size + x;
 			file[54 + i] = game->screen.color[id];
@@ -76,24 +76,27 @@ static void	image_to_file(t_game *game, unsigned char *file)
 	}
 }
 
-char	*search_name(char **name)
+char	*search_name(t_file *file, char **name)
 {
-	int i;
+	int	i;
 	int	fd;
 
-	i = 0;
-	fd = 1;
+	i = file->nb_img;
 	while (1)
 	{
 		if (!file_name_gen(name, "./img_", i, ".bmp"))
 			return (*name);
 		fd = open(*name, O_RDONLY);
 		if (fd == -1)
+		{
+			file->nb_img = i;
 			return (*name);
+		}
 		i++;
 		free(*name);
 		*name = NULL;
 	}
+	return (NULL);
 }
 
 size_t	ft_image_save(t_game *game)
@@ -103,16 +106,17 @@ size_t	ft_image_save(t_game *game)
 	char			*name;
 	size_t			size_file;
 
-	if (!search_name(&name))
-		return (ft_trash_game(game, open_file_fail, -1, "function ft_image_save\n"));
+	if (!search_name(&game->file, &name))
+		ft_trash_game(game, open_file_fail, -1, "In ft_image_save\n");
 	fd = open(name, O_WRONLY | O_TRUNC | O_CREAT, 0700);
 	free(name);
 	name = NULL;
 	if (fd < 0)
-		return (ft_trash_game(game, open_file_fail, -1, "function ft_image_save\n"));
+		ft_trash_game(game, open_file_fail, -1, "In ft_image_save\n");
 	create_file(game, &file, fd);
 	image_to_file(game, file);
-	size_file = write(fd, file, game->screen.width * game->screen.height * 4 + 54);
+	size_file = write(fd, file,
+			game->screen.width * game->screen.height * 4 + 54);
 	free(file);
 	file = NULL;
 	close(fd);

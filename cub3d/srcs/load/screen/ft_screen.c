@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 15:21:03 by grivalan          #+#    #+#             */
-/*   Updated: 2021/04/03 16:06:14 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/04/07 10:24:20 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	ft_screen_unvisible(t_game *game, t_screen s)
 
 	i = -1;
 	while (++i < game->screen.height * game->screen.size)
-		s.color[i] = UNVISIBLE_COLOR;
+		s.color[i] = INVISIBLE_COLOR;
 }
 
 static void	ft_generate_texture(t_game *game, t_screen s, int state, int num_img)

@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 10:43:23 by grivalan          #+#    #+#             */
-/*   Updated: 2021/04/04 19:27:25 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/04/08 16:50:25 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	ft_keypress(int keycode, t_game *game)
 	if (keycode == SPACE && !game->player.control.squat
 		&& game->player.position.z == game->player.pos_z_min)
 		game->player.vz = 3;
-	if (keycode == L && !game->debug)
+	if (keycode == L && !game->debug && game->light)
 		game->debug = 1;
 	else if (keycode == L && game->debug)
 		game->debug = 0;
@@ -108,7 +108,8 @@ int	ft_update(t_game *game)
 	ft_update_player(game, &game->player);
 	ft_update_sprites(game->lst_sprites, &game->player);
 	ft_update_planes(game);
-	mlx_sync(MLX_SYNC_WIN_CMD_COMPLETED, game->window);
+	if (game->window)
+		mlx_sync(MLX_SYNC_WIN_CMD_COMPLETED, game->window);
 	mlx_sync(MLX_SYNC_IMAGE_WRITABLE, game->screen.ptr);
 	ft_draw_multi_threads(game, game->player.arm);
 	return (0);
@@ -116,11 +117,14 @@ int	ft_update(t_game *game)
 
 int	ft_game_loop(t_game *game)
 {
-	mlx_mouse_hook(game->window, ft_mouse_press, game);
-	mlx_hook(game->window, 6, 1L << 6, &mouse_move, game);
-	mlx_hook(game->window, 17, 1L << 17, &ft_trash_game, game);
-	mlx_hook(game->window, 2, 1L << 0, ft_keypress, game);
-	mlx_hook(game->window, 3, 1L << 1, ft_keyrelease, game);
+	if (game->window)
+	{
+		mlx_mouse_hook(game->window, ft_mouse_press, game);
+		mlx_hook(game->window, 6, 1L << 6, &mouse_move, game);
+		mlx_hook(game->window, 17, 1L << 17, &ft_trash_game, game);
+		mlx_hook(game->window, 2, 1L << 0, ft_keypress, game);
+		mlx_hook(game->window, 3, 1L << 1, ft_keyrelease, game);
+	}
 	mlx_loop_hook(game->mlx, &ft_update, game);
 	mlx_loop(game->mlx);
 	return (0);

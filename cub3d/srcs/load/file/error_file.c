@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 16:07:02 by grivalan          #+#    #+#             */
-/*   Updated: 2021/04/04 14:55:00 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/04/07 19:57:47 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,13 +68,13 @@ static char	*ft_init_error_message(int error_code)
 	error_message[image_not_exist] = "\033[1;31mimage not exist. : \033[0m";
 	error_message[invalid_image] = "\033[1;31mCrash in loading image. : \033[0m";
 	error_message[incorrect_res] = "\033[1;31mScreen resolution problem. \033[0m";
+	error_message[incorrect_res] = "\033[1;31mScreen resolution problem. \033[0m";
+	error_message[file_incorrect] = "\033[1;31mFile incorrect\033[0m";
 	return (error_message[error_code]);
 }
 
-int			ft_error_file(t_file *file, int code_error, char *msg)
+int			ft_error_file(int code_error, char *msg)
 {
-	if (file)
-		file->error_code = code_error;
 	if (code_error != succes)
 		ft_putstr_fd("Error\n", 1);
 	ft_putstr_fd(ft_init_error_message(code_error), 1);

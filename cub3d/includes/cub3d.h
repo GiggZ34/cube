@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 11:56:01 by grivalan          #+#    #+#             */
-/*   Updated: 2021/04/04 19:04:49 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/04/09 12:27:43 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,13 @@
 # include <stdio.h>
 # include <math.h>
 # include <signal.h>
-# define NB_THREADS 4
-# define ARG_FILE 8
-# define UNVISIBLE_COLOR -16777216
+# define PRECISION .00001
+# define NB_THREADS 8
+# define INVISIBLE_COLOR -16777216
 # define SCALE_MAX 3
 # define FPS_MAX 60
 # define FPS_MIN 20
-# define DIST_MAX 2.0
+# define DIST_MAX 2
 # define ROTATE_SPEED 0.785
 # define WEIGHTLESSNESS 9.81
 # define SPEED_MAX 10
@@ -62,7 +62,9 @@ typedef enum	e_error_code
 	put_image_fail,
 	arguments_error,
 	map_not_close,
-	fail_destroy_image
+	fail_destroy_image,
+	lack_of_arguments,
+	file_incorrect
 }				t_error_code;
 
 typedef enum	e_fusil
@@ -98,7 +100,7 @@ typedef struct	s_color
 {
 	double		size;
 	int			color;
-	char		collide;
+	t_dot		inter;
 }				t_color;
 
 typedef struct			s_texture
@@ -146,10 +148,12 @@ typedef struct	s_tab_plane
 typedef struct	s_file
 {
 	int			fd;
+	int			nb_img;
 	t_list		*check_file;
+	int			check_args;
 	int			ground_color;
 	int			sky_color;
-	int			light_color;
+	float		light_color[3];
 	char		**map;
 	int			width_map;
 	int			height_map;
@@ -216,9 +220,16 @@ typedef struct	s_obj
 
 typedef struct		s_light
 {
+	char			type;
 	float			x;
 	float			y;
 	float			z;
+	unsigned char	rgb[3];
+	t_texture		*t;
+	float			width;
+	float			height;
+	float			ratio;
+	t_plane			plane;
 	struct s_light	*next;
 }					t_light;
 
@@ -331,6 +342,7 @@ typedef struct	s_thread
 	t_game		*game;
 	int			start;
 	int			size;
+	t_sprite	*sprite;
 	pthread_t	thread;
 	t_screen	*screen;
 }				t_thread;
@@ -360,7 +372,7 @@ int					ft_load(char *r_f, t_game *game);
 int					ft_init_file(t_file *file, t_game *game, char *dir_file);
 int					ft_parsing_file(t_game *game, int fd);
 int					ft_file_to_struct(t_game *game, char *line, int fd);
-char				**check_format(char *line, char ***array);
+char				**check_format(t_game *game, char *line, char ***array);
 char				**check_color(char *line, char ***array);
 char				**check_res(char *line, char ***array);
 char				**check_texture(char *line, char ***array);
@@ -401,7 +413,7 @@ void				ft_update_planes(t_game *game);
 **	Functions error
 */
 
-int					ft_error_file(t_file *file, int code_error, char *msg);
+int					ft_error_file(int code_error, char *msg);
 char				*ft_search_error(char **str, int id, int row);
 
 /*
@@ -415,9 +427,9 @@ int					ft_mini_map(t_game *game);
 */
 
 size_t				ft_image_save(t_game *game);
-int					shadow_px(t_game *game, int color, t_dot collide);
 void				ft_draw_multi_threads(t_game *game, t_screen *gun);
-int					ft_pixel_color(t_game *game, t_vector v, t_sprite *s);
+int					ft_pixel_color(t_game *game, t_vector *v, t_sprite *s);
 int					ft_print_fps(t_game *game, char *fps, char *scale);
+int					luminosity_px(t_game *game, int color, t_dot collide);
 
 #endif

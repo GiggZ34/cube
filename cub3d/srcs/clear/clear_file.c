@@ -6,11 +6,26 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 15:01:48 by grivalan          #+#    #+#             */
-/*   Updated: 2021/04/04 19:31:29 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/04/07 19:59:00 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+static void	clear_light(t_game *game)
+{
+	t_light	*tmp;
+
+	while (game->light)
+	{
+		tmp = game->light;
+		game->light = game->light->next;
+		if (tmp->t)
+			free(tmp->t);
+		free(tmp);
+	}
+	game->light = NULL;
+}
 
 static void	ft_clear_file(t_file *file, int fd)
 {
@@ -35,7 +50,7 @@ static void	free_texture_lst(t_game *game)
 	{
 		t = game->file.texture_obj;
 		free(t->type);
-		game->file.texture_obj = game->file.texture_obj->next;
+		game->file.texture_obj = t->next;
 		free(t);
 	}
 }
@@ -118,7 +133,7 @@ static int	ft_free_hud(t_game *g, t_player *p)
 int	ft_trash_game(t_game *game, t_error_code code, int fd, char *msg)
 {
 	system("killall afplay");
-	ft_error_file(&game->file, code, msg);
+	ft_error_file(code, msg);
 	ft_clear_file(&game->file, fd);
 	ft_delete_textures(game);
 	ft_free_hud(game, &game->player);
@@ -169,6 +184,7 @@ int	ft_trash_game(t_game *game, t_error_code code, int fd, char *msg)
 		free(game->player.view.tab_vectors);
 		game->player.view.tab_vectors = NULL;
 	}
+	clear_light(game);
 	if (game->window)
 	{
 		mlx_clear_window(game->mlx, game->window);

@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/27 13:54:57 by grivalan          #+#    #+#             */
-/*   Updated: 2021/04/01 15:47:15 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/04/06 13:11:34 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,5 @@
 
 double		ft_plane_inter_nom(t_plane *p, t_dot pos)
 {
-	p->nom_size = -(p->a * pos.x + p->b * pos.y + p->c * pos.z + p->d);
-	return (p->nom_size);
+	return (-(p->a * pos.x + p->b * pos.y + p->c * pos.z + p->d));
 }

@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/23 11:24:29 by grivalan          #+#    #+#             */
-/*   Updated: 2021/04/04 17:25:05 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/04/09 11:48:35 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ typedef struct	s_plane
 double			ft_abs(double n);
 double			ft_min(double a, double b);
 double			ft_max(double a, double b);
+double			ft_max_tab(double *tab, int n);
 void			ft_sort_numbers(int *tab, int n);
 t_vector		ft_create_vector(t_dot dot1, t_dot dot2);
 t_vector		ft_normalize_vector(t_vector vec);
@@ -78,7 +79,7 @@ t_vector		ft_vec_norm_define(t_vector vec, double size);
 t_vector		ft_rotate_vector(t_vector vec, double angle, char axis);
 double			ft_dot_product(t_vector vec1, t_vector vec2);
 double			ft_plane_inter_nom(t_plane *p, t_dot pos);
-double			ft_size_vec_plane(t_plane *plane, t_vector vec);
+double			ft_size_vec_plane(t_plane *plane, t_vector vec, float nom);
 t_dot			ft_intersect_plane_dot(t_dot origin, t_vector vec, double t);
 double			ft_norm_vector_calculate(t_vector v);
 double			ft_deg_to_rad(double degree);
@@ -204,5 +205,11 @@ size_t			ft_putstr_repeat(char *str, size_t len, int fd);
 */
 
 int				get_next_line(int fd, char **line);
+
+/*
+**	functions tools
+*/
+
+double			ft_int_ternary(int condition, double res1, double res2);
 
 #endif

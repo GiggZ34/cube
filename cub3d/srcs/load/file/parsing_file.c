@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 22:51:43 by grivalan          #+#    #+#             */
-/*   Updated: 2021/04/04 18:35:00 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/04/08 15:35:54 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,5 +104,7 @@ int	ft_parsing_file(t_game *game, int fd)
 		if (line)
 			tidy_arguments(game, line, fd, &map);
 	}
+	if (!game->file.map)
+		ft_trash_game(game, map_not_close, -1, "no Map");
 	return (0);
 }

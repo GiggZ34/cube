@@ -6,11 +6,45 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/04 18:54:46 by grivalan          #+#    #+#             */
-/*   Updated: 2021/04/04 19:05:55 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/04/08 15:33:20 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+static int	check_lst(t_list *lst, char *type)
+{
+	char	*str;
+
+	while (lst)
+	{
+		str = lst->content;
+		if (!ft_strncmp(str, type,
+				ft_max(ft_strlen(str), ft_strlen(type))))
+			return (1);
+		lst = lst->next;
+	}
+	return (0);
+}
+
+static int	type_to_lst(t_game *game, char *type)
+{
+	t_list	*new_lst;
+
+	new_lst = ft_lstnew(type);
+	if (!game->file.check_file)
+		game->file.check_file = new_lst;
+	else
+	{
+		if (check_lst(game->file.check_file, type))
+		{
+			free(new_lst);
+			return (1);
+		}
+		ft_lstadd_back(&game->file.check_file, new_lst);
+	}
+	return (0);
+}
 
 static char	*type_argument(char *line, char **type)
 {
@@ -25,12 +59,14 @@ static char	*type_argument(char *line, char **type)
 	return (*type);
 }
 
-char	**check_format(char *line, char ***array)
+char	**check_format(t_game *game, char *line, char ***array)
 {
 	char	*type;
 
 	if (!type_argument(line, &type))
 		return (0);
+	if (type_to_lst(game, type))
+		ft_trash_game(game, arguments_error, game->file.fd, "");
 	if (!ft_strncmp(type, "R", 2))
 		check_res(line, array);
 	else if (!ft_strncmp(type, "F", 2)
@@ -38,6 +74,5 @@ char	**check_format(char *line, char ***array)
 		check_color(line, array);
 	else
 		check_texture(line, array);
-	free(type);
 	return (*array);
 }

@@ -6,7 +6,7 @@
 #    By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/24 18:59:35 by grivalan          #+#    #+#              #
-#    Updated: 2021/04/04 17:29:37 by grivalan         ###   ########lyon.fr    #
+#    Updated: 2021/04/09 11:39:46 by grivalan         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -107,7 +107,9 @@ SRCS		=	ft_calloc.c\
 				ft_decbin.c\
 				ft_plane_inter_nom.c\
 				file_name_gen.c\
-				ft_skip_white_space.c
+				ft_skip_white_space.c\
+				ft_max_tab.c\
+				ft_ternary.c\
 
 INCLUDES	=	libft.h
 

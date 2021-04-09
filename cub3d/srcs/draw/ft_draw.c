@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 08:26:00 by grivalan          #+#    #+#             */
-/*   Updated: 2021/04/03 20:27:55 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/04/09 12:19:41 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,25 +51,23 @@ void	*ft_draw(void *g)
 
 	thread = (t_thread *)g;
 	i = thread->start;
-	while (i < thread->start + thread->size)
+	while (i < thread->game->screen.width && i < thread->start + thread->size)
 	{
 		j = 0;
 		while (j < thread->game->screen.height)
 		{
 			id = j * thread->game->screen.size + i;
-			if (thread->screen->color[id] == UNVISIBLE_COLOR)
+			if (thread->screen->color[id] == INVISIBLE_COLOR)
 			{
-				vec = thread->game->player.view.tab_vectors[id];
-				vec = ft_rotate_vector_current(thread->game, vec);
-				if (thread->game->player.view.sprites_in_fov)
-					ft_drawing_scale(thread->game, i, j, ft_pixel_color(thread->game,
-						vec, thread->game->player.view.sprites_in_fov->content));
-				else
-					ft_drawing_scale(thread->game, i, j,
-									ft_pixel_color(thread->game, vec, NULL));
+				vec = ft_rotate_vector_current(thread->game,
+						thread->game->player.view.tab_vectors[id]);
+				ft_drawing_scale(thread->game, i, j,
+					ft_pixel_color(thread->game, &vec, thread->sprite));
 			}
 			else
-				ft_drawing_scale(thread->game, i, j, shadow_px(thread->game, thread->screen->color[id], thread->game->player.position));
+				ft_drawing_scale(thread->game, i, j,
+					luminosity_px(thread->game, thread->screen->color[id],
+						thread->game->player.position));
 			j += thread->game->screen.scale;
 		}
 		i += thread->game->screen.scale;
@@ -96,6 +94,9 @@ void	ft_draw_multi_threads(t_game *game, t_screen *gun)
 	i = -1;
 	while (++i < NB_THREADS)
 	{
+		ft_bzero(&(thread[i]), sizeof(t_thread));
+		if (game->player.view.sprites_in_fov)
+			thread[i].sprite = game->player.view.sprites_in_fov->content;
 		thread[i].game = game;
 		thread[i].start = size_px * i;
 		thread[i].size = size_px;
@@ -106,10 +107,10 @@ void	ft_draw_multi_threads(t_game *game, t_screen *gun)
 	i = -1;
 	while (++i < NB_THREADS)
 		pthread_join(thread[i].thread, NULL);
+	if (game->save_picture)
+		screen_shot(game);
 	mlx_sync(MLX_SYNC_WIN_FLUSH_CMD, game->window);
 	if (mlx_put_image_to_window(game->mlx, game->window, game->screen.ptr, 0, 0))
 		ft_trash_game(game, put_image_fail, -1, "ft_draw | line 103\n");
-	if (game->save_picture)
-		screen_shot(game);
 	ft_print_fps(game, game->dt.dt_str, game->dt.scale_str);
 }

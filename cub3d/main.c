@@ -6,13 +6,13 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 11:41:36 by grivalan          #+#    #+#             */
-/*   Updated: 2021/04/01 14:49:55 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/04/07 19:41:15 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int				main(int ac, char **av)
+int	main(int ac, char **av)
 {
 	t_game	game;
 

@@ -1,21 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_max.c                                           :+:      :+:    :+:   */
+/*   ft_ternary.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/28 11:47:48 by grivalan          #+#    #+#             */
-/*   Updated: 2021/04/06 14:53:21 by grivalan         ###   ########lyon.fr   */
+/*   Created: 2021/04/09 11:31:51 by grivalan          #+#    #+#             */
+/*   Updated: 2021/04/09 11:48:51 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-double	ft_max(double a, double b)
+double	ft_int_ternary(int condition, double res1, double res2)
 {
-	if (a >= b)
-		return (a);
-	else
-		return (b);
+	if (condition)
+		return (res1);
+	return (res2);
 }

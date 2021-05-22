@@ -6,13 +6,13 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 16:26:21 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/29 16:39:32 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/05/22 13:36:50 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_decbin(char **bin, long long dec)
+int	ft_decbin(char **bin, long long dec)
 {
 	int	nb_bits;
 	int	id;

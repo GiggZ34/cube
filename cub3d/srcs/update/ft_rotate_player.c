@@ -6,14 +6,16 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/13 16:00:49 by grivalan          #+#    #+#             */
-/*   Updated: 2021/04/03 15:39:54 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/05/22 17:20:35 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static double	ft_define_ratio(double value)
+static double	ft_define_ratio(int control, double value)
 {
+	if (control)
+		return (2);
 	if (!value)
 		return (1);
 	if (value < 2 && value > -2)
@@ -28,14 +30,8 @@ void	ft_rotate_player(t_game *g, t_player *p, double x, double y)
 	double	ratio_x;
 	double	ratio_z;
 
-	if (p->control.right || p->control.left)
-		ratio_z = 2;
-	else
-		ratio_z = ft_define_ratio(x);
-	if (p->control.up || p->control.down)
-		ratio_x = 2;
-	else
-		ratio_x = ft_define_ratio(y);
+	ratio_z = ft_define_ratio(p->control.right || p->control.left, x);
+	ratio_x = ft_define_ratio(p->control.up || p->control.down, y);
 	if (p->control.right || x < 0)
 	{
 		p->angle_z += -ROTATE_SPEED * ratio_z * g->dt.dt;

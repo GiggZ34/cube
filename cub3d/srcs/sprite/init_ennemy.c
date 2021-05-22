@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/17 13:26:07 by grivalan          #+#    #+#             */
-/*   Updated: 2021/04/02 11:44:48 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/05/22 17:16:38 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ int	ft_init_ennemy(t_game *game, int x, int y)
 	t_list		*new_lst;
 	t_sprite	*ennemy;
 
-	if (!(ennemy = ft_calloc(sizeof(t_sprite), 1)))
+	ennemy = ft_calloc(sizeof(t_sprite), 1);
+	if (!ennemy)
 		return (ft_trash_game(game, allocation_fail, -1, "\n"));
 	ennemy->tile_sheet = game->file.texture_s;
 	ennemy->position.x = x + 0.5;

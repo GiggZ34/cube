@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/15 19:35:17 by grivalan          #+#    #+#             */
-/*   Updated: 2020/12/15 19:35:18 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/05/22 13:35:06 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,12 @@
 static int	ft_crash(int sign)
 {
 	if (sign == -1)
-		return (0);
+		return (INT_MIN);
 	else
-		return (-1);
+		return (INT_MAX);
 }
 
-int			ft_atoi(const char *str)
+int	ft_atoi(const char *str)
 {
 	int		i;
 	int		sign;

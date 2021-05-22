@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 18:06:31 by grivalan          #+#    #+#             */
-/*   Updated: 2020/12/15 19:17:26 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/05/22 13:53:04 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ char	*ft_strdup(const char *s1)
 	i = 0;
 	while (s1[i])
 		i++;
-	if ((scp = malloc(sizeof(char) * i + 1)) == NULL)
+	scp = calloc(sizeof(char), i + 1);
+	if (!scp)
 		return (0);
 	i = -1;
 	while (s1[++i])

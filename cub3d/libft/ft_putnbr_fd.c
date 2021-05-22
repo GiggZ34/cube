@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 19:01:18 by grivalan          #+#    #+#             */
-/*   Updated: 2020/12/15 19:16:29 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/05/22 13:45:09 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	ft_print_number(long n, int fd, size_t *len)
 {
-	char c;
+	char	c;
 
 	if (n > 9)
 		ft_print_number(n / 10, fd, len);
@@ -22,7 +22,7 @@ static void	ft_print_number(long n, int fd, size_t *len)
 	*len += write(fd, &c, 1);
 }
 
-size_t		ft_putnbr_fd(int n, int fd)
+size_t	ft_putnbr_fd(int n, int fd)
 {
 	size_t	len;
 	long	nbr;

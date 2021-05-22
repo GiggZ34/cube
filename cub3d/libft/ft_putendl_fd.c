@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putendl_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 18:58:26 by grivalan          #+#    #+#             */
-/*   Updated: 2020/12/15 19:26:56 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/05/22 13:45:00 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 size_t	ft_putendl_fd(char *s, int fd)
 {
-	size_t len;
+	size_t	len;
 
 	len = ft_strlen(s);
 	if (s)

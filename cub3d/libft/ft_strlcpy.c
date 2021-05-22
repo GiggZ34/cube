@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 08:45:26 by grivalan          #+#    #+#             */
-/*   Updated: 2020/12/15 19:17:46 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/05/22 13:54:16 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 {
-	size_t len;
-	size_t i;
+	size_t	len;
+	size_t	i;
 
 	if (!dst || !src)
 		return (0);
@@ -25,7 +25,7 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 		len++;
 	if (dstsize == 0)
 	{
-		dst = (char*)src;
+		dst = (char *)src;
 	}
 	else
 	{

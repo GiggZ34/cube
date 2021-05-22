@@ -1,27 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_str_to_lower.c                                  :+:      :+:    :+:   */
+/*   color_tex_wall.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/12 19:11:08 by grivalan          #+#    #+#             */
-/*   Updated: 2021/05/22 13:51:59 by grivalan         ###   ########lyon.fr   */
+/*   Created: 2021/05/22 18:59:36 by grivalan          #+#    #+#             */
+/*   Updated: 2021/05/22 18:59:48 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "cub3d.h"
 
-char	*ft_str_to_lower(char *s)
+int	ft_is_in_wall(t_texture *texture, t_dot inter, char dir)
 {
-	int	i;
+	int	x;
+	int	y;
 
-	i = 0;
-	while (s[i])
-	{
-		if (ft_isupper(s[i]))
-			s[i] = (char)ft_tolower(s[i]);
-		i++;
-	}
-	return (s);
+	y = texture->height - (texture->height * inter.z);
+	if (dir == 'y')
+		x = texture->width * (inter.x - floor(inter.x));
+	else
+		x = texture->width * (inter.y - floor(inter.y));
+	return ((texture->color[y * texture->size_line + x]));
 }

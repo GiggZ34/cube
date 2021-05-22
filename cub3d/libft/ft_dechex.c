@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_dechex.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 14:09:47 by grivalan          #+#    #+#             */
-/*   Updated: 2020/12/15 19:14:19 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/05/22 13:36:55 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 

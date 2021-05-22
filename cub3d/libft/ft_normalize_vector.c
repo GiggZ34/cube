@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_normalize_vector.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 12:19:44 by grivalan          #+#    #+#             */
-/*   Updated: 2021/02/28 12:21:49 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/05/22 13:42:57 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 

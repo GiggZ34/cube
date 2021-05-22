@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/29 14:09:42 by grivalan          #+#    #+#             */
-/*   Updated: 2020/12/29 14:31:06 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/05/22 13:55:30 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 char	*ft_strstr(char *s, char *needle)
 {
-	int i;
+	int	i;
 
 	if (!s)
 		return (0);

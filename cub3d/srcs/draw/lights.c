@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 11:10:27 by grivalan          #+#    #+#             */
-/*   Updated: 2021/04/09 12:07:34 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/05/22 19:02:22 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,9 +159,9 @@ int	luminosity_px(t_game *game, int color, t_dot collide)
 	t_vector	to_px;
 	t_light		*light;
 
-	rgb_tmp[0] = 0;
-	rgb_tmp[1] = 0;
-	rgb_tmp[2] = 0;
+	rgb_tmp[0] = game->file.light_color[0] * 80;
+	rgb_tmp[1] = game->file.light_color[1] * 80;
+	rgb_tmp[2] = game->file.light_color[2] * 80;
 	if (!game->debug)
 		return (color);
 	if (color == INVISIBLE_COLOR)
@@ -180,7 +180,7 @@ int	luminosity_px(t_game *game, int color, t_dot collide)
 		{
 			i = -1;
 			while (++i < 3)
-				rgb_tmp[i] += light->rgb[i] / size;
+				rgb_tmp[i] += light->rgb[i] * 255 / size;
 			ft_ratio_color(rgb_tmp);
 		}
 		light = light->next;

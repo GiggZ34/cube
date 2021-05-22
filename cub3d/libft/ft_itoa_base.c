@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/05 17:28:32 by grivalan          #+#    #+#             */
-/*   Updated: 2020/12/28 12:17:03 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/05/22 13:39:26 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	ft_count_char(unsigned long nbr, int base)
 {
-	int count;
+	int	count;
 
 	count = 0;
 	if (nbr == 0)
@@ -34,14 +34,15 @@ static void	ft_nbr_generation(unsigned long nbr, int id, char *str, char *base)
 	str[id] = base[nbr % ft_strlen(base)];
 }
 
-char		*ft_itoa_base(unsigned long nbr, char *base)
+char	*ft_itoa_base(unsigned long nbr, char *base)
 {
 	char	*str;
 	int		nb_char;
 	int		id;
 
 	nb_char = ft_count_char(nbr, ft_strlen(base));
-	if (!(str = malloc(sizeof(char) * (nb_char + 1))))
+	str = malloc(sizeof(char) * (nb_char + 1));
+	if (!str)
 		return (0);
 	ft_memset(str, '0', nb_char);
 	str[nb_char] = '\0';

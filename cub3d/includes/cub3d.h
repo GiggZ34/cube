@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 11:56:01 by grivalan          #+#    #+#             */
-/*   Updated: 2021/04/09 12:27:43 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/05/22 19:00:03 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@
 # define FOV_DIST_SQRT 5
 # define SOUND_TIME 60
 
-typedef enum	e_error_code
+typedef enum e_error_code
 {
 	succes,
 	mlx_creation_fail,
@@ -54,56 +54,57 @@ typedef enum	e_error_code
 	image_not_exist,
 	invalid_image,
 	unknow_instruction,
+	wrong_extension,
 	incorrect_color_code,
 	incorrect_res,
 	allocation_fail,
-	no_player_position,
-	multiple_player_position,
+	no_s_position,
+	mult_s_position,
 	put_image_fail,
 	arguments_error,
 	map_not_close,
 	fail_destroy_image,
 	lack_of_arguments,
 	file_incorrect
-}				t_error_code;
+}t_error_code;
 
-typedef enum	e_fusil
+typedef enum e_fusil
 {
 	nb_img_anim = 7,
 	nb_anim = 3,
 	barel_fusil = 6,
 	damages_fusil = 20
-}				t_fusil;
+}t_fusil;
 
-typedef enum	e_states
+typedef enum e_states
 {
 	rest,
 	reload,
 	shoot,
 	escape,
 	search
-}				t_states;
+}t_states;
 
-typedef enum	e_player_anim
+typedef enum e_player_anim
 {
 	anim_rest = 1,
 	anim_reload = 7,
 	anim_shoot = 2
-}				t_player_anim;
+}t_player_anim;
 
-typedef enum	e_data_sprite
+typedef enum e_data_sprite
 {
 	time_search = 10
-}				t_data_sprite;
+}t_data_sprite;
 
-typedef struct	s_color
+typedef struct s_color
 {
 	double		size;
 	int			color;
 	t_dot		inter;
-}				t_color;
+}t_color;
 
-typedef struct			s_texture
+typedef struct s_texture
 {
 	void				*ptr;
 	char				*type;
@@ -114,18 +115,18 @@ typedef struct			s_texture
 	int					size_line;
 	int					endian;
 	struct s_texture	*next;
-}						t_texture;
+}t_texture;
 
-typedef struct	s_view
+typedef struct s_view
 {
 	t_vector	view;
 	t_vector	*vector;
 	t_dot		extremity[2];
 	t_vector	*tab_vectors;
 	t_list		*sprites_in_fov;
-}				t_view;
+}t_view;
 
-typedef struct	s_collide
+typedef struct s_collide
 {
 	t_vector	top;
 	t_vector	bottom;
@@ -135,17 +136,17 @@ typedef struct	s_collide
 	int			bottom_bool;
 	int			left_bool;
 	int			right_bool;
-}				t_collide;
+}t_collide;
 
-typedef struct	s_tab_plane
+typedef struct s_tab_plane
 {
 	t_list		**left;
 	t_list		**right;
 	t_list		**top;
 	t_list		**bottom;
-}				t_tab_plane;
+}t_tab_plane;
 
-typedef struct	s_file
+typedef struct s_file
 {
 	int			fd;
 	int			nb_img;
@@ -166,9 +167,9 @@ typedef struct	s_file
 	t_texture	*texture_s;
 	t_texture	*texture_light;
 	t_texture	*texture_obj;
-}				t_file;
+}t_file;
 
-typedef struct	s_screen
+typedef struct s_screen
 {
 	int			width;
 	int			height;
@@ -183,9 +184,9 @@ typedef struct	s_screen
 	int			*color_objs;
 	int			max_x;
 	int			max_y;
-}				t_screen;
+}t_screen;
 
-typedef struct	s_control
+typedef struct s_control
 {
 	int			w;
 	int			s;
@@ -206,9 +207,9 @@ typedef struct	s_control
 	int			mouse_diff_y;
 	int			shoot;
 	int			reload;
-}				t_control;
+}t_control;
 
-typedef struct	s_obj
+typedef struct s_obj
 {
 	t_texture	obj_texture;
 	int			width;
@@ -216,9 +217,9 @@ typedef struct	s_obj
 	double		ratio_pos;
 	double		ratio_size;
 	t_dot		position;
-}				t_obj;
+}t_obj;
 
-typedef struct		s_light
+typedef struct s_light
 {
 	char			type;
 	float			x;
@@ -231,9 +232,9 @@ typedef struct		s_light
 	float			ratio;
 	t_plane			plane;
 	struct s_light	*next;
-}					t_light;
+}t_light;
 
-typedef struct	s_player
+typedef struct s_player
 {
 	int			state;
 	double		anim_frame;
@@ -259,9 +260,9 @@ typedef struct	s_player
 	double		angle_z;
 	int			live;
 	t_obj		guns;
-}				t_player;
+}t_player;
 
-typedef struct	s_sprite
+typedef struct s_sprite
 {
 	t_dot		position;
 	t_plane		plane;
@@ -282,9 +283,9 @@ typedef struct	s_sprite
 	int			live;
 	t_states	state;
 	t_texture	*tile_sheet;
-}				t_sprite;
+}t_sprite;
 
-typedef	struct		s_dt
+typedef struct s_dt
 {
 	struct timeval	time;
 	unsigned long	time_start;
@@ -292,29 +293,29 @@ typedef	struct		s_dt
 	double			dt;
 	char			*dt_str;
 	char			*scale_str;
-}					t_dt;
+}t_dt;
 
-typedef struct	s_sky_ground
+typedef struct s_sky_ground
 {
 	t_plane		ground_plane;
 	t_texture	ground_texture;
 	t_plane		sky_plane;
 	t_texture	sky_texture;
-}				t_sky_ground;
+}t_sky_ground;
 
-typedef struct	s_system_call
+typedef struct s_system_call
 {
 	pthread_t	thread;
 	const char	*cmd;
 	int			loop;
-}				t_system_call;
+}t_system_call;
 
-typedef struct	s_music
+typedef struct s_music
 {
 	int			time;
-}				t_music;
+}t_music;
 
-typedef struct		s_game
+typedef struct s_game
 {
 	void			*mlx;
 	void			*window;
@@ -334,9 +335,9 @@ typedef struct		s_game
 	int				save_picture;
 	int				exit;
 	t_light			*light;
-}					t_game;
+}t_game;
 
-typedef struct	s_thread
+typedef struct s_thread
 {
 	int			id;
 	t_game		*game;
@@ -345,91 +346,100 @@ typedef struct	s_thread
 	t_sprite	*sprite;
 	pthread_t	thread;
 	t_screen	*screen;
-}				t_thread;
+}t_thread;
 
 /*
 **	Functions tools
 */
 
-int					ft_color_generate(int red, int green, int blue, int alpha);
-void				ft_delta_time_generate(t_game *game);
-t_player_anim		ft_define_nb_anim(int state);
-int					ft_change_resolution(t_game *game, int fd);
-int					count_letters(char *line);
+int				ft_color_generate(int red, int green, int blue, int alpha);
+void			ft_delta_time_generate(t_game *game);
+t_player_anim	ft_define_nb_anim(int state);
+int				ft_change_resolution(t_game *game, int fd);
+int				count_letters(char *line);
 
 /*
 **	Functions free
 */
 
-void				ft_free_array(char **array);
-int					ft_trash_game(t_game *g, t_error_code cd, int fd, char *mg);
+void			ft_free_array(char **array);
+int				ft_trash_game(t_game *g, t_error_code cd, int fd, char *mg);
 
 /*
 **	Functions load
 */
 
-int					ft_load(char *r_f, t_game *game);
-int					ft_init_file(t_file *file, t_game *game, char *dir_file);
-int					ft_parsing_file(t_game *game, int fd);
-int					ft_file_to_struct(t_game *game, char *line, int fd);
-char				**check_format(t_game *game, char *line, char ***array);
-char				**check_color(char *line, char ***array);
-char				**check_res(char *line, char ***array);
-char				**check_texture(char *line, char ***array);
-char				**ft_map_cpy(char **map, int height);
-int					ft_check_map(t_game *game, t_file *file);
-void				ft_scan_map(t_game *game, char **map, int i, int j);
-int					ft_create_plane(t_game *game, t_list **lst, int *pos, char dir);
-t_plane				*ft_search_plane(t_list *lst, int x, int y, char dir);
-void				ft_sort_planes(t_list *lst);
-void				ft_asort_planes(t_list *lst);
-int					ft_lst_planes_to_tab(t_game *game);
-int					ft_img_generate(t_game *game, char *dir, char *type);
-int					ft_screen(t_game *game);
-int					ft_init_screen(t_game *game, t_screen *img, int nb_img, int state);
-int					ft_init_tab_vector(t_game *game, t_dot origin);
-int					ft_init_ennemy(t_game *game, int x, int y);
-int					ft_init_player(t_game *game, int x, int y, char dir);
-int					ft_load_tilesheet_obj(t_game *game, char *path);
+int				ft_load(char *r_f, t_game *game);
+int				ft_init_file(t_file *file, t_game *game, char *dir_file);
+int				ft_parsing_file(t_game *game, int fd);
+void			init_color_light(t_game *game, float r, float g, float b);
+void			ft_init_light(t_game *game, int x, int y);
+int				ft_file_to_struct(t_game *game, char *line, int fd);
+char			**check_format(t_game *game, char *line, char ***array);
+char			**check_color(char *line, char ***array);
+char			**check_res(char *line, char ***array);
+char			**check_texture(char *line, char ***array);
+char			**ft_map_cpy(char **map, int height);
+int				ft_check_map(t_game *game, t_file *file);
+void			ft_scan_map(t_game *game, char **map, int i, int j);
+int				ft_create_plane(t_game *game, t_list **lst, int *pos, char dir);
+t_plane			*ft_search_plane(t_list *lst, int x, int y, char dir);
+void			ft_sort_planes(t_list *lst);
+void			ft_asort_planes(t_list *lst);
+int				ft_lst_planes_to_tab(t_game *game);
+int				ft_img_generate(t_game *game, char *dir, char *type);
+int				ft_screen(t_game *game);
+int				ft_init_screen(t_game *g, t_screen *img, int nb_img, int state);
+int				ft_init_tab_vector(t_game *game, t_dot origin);
+int				ft_init_ennemy(t_game *game, int x, int y);
+int				ft_init_player(t_game *game, int x, int y, char dir);
+int				ft_load_tilesheet_obj(t_game *game, char *path);
 
 /*
 **	Function update
 */
 
-int					ft_game_loop(t_game *game);
-void				playmusic(t_game *game);
-void				play_sound(const char *cmd_line);
-int					ft_rotate_vectors_collides(t_player *player, double angle);
-int					ft_translation_vector(t_game *game, double v, double *speed, double angle);
-int					ft_edit_sprite_plane(t_sprite *sprite, t_vector player_normal);
-int					ft_update_sprites(/*t_game *game, */t_list *lst_sprites, t_player *player);
-void				ft_sort_lst_sprite(t_list **begin);
-int					ft_update_player(t_game *game, t_player *player);
-void				ft_move_player(t_game *game, t_player *player);
-void				ft_rotate_player(t_game *game, t_player *player, double x, double y);
-void				ft_update_planes(t_game *game);
+int				ft_game_loop(t_game *game);
+void			playmusic(t_game *game);
+void			play_sound(const char *cmd_line);
+int				ft_rotate_vectors_collides(t_player *player, double angle);
+int				ft_translation_vector(t_game *g, double v, double *s, double a);
+int				ft_edit_sprite_plane(t_sprite *sprite, t_vector player_normal);
+int				ft_update_sprites(t_list *lst_sprites, t_player *p);
+void			ft_sort_lst_sprite(t_list **begin);
+int				ft_update_player(t_game *game, t_player *player);
+void			player_shoot(t_game *game, t_player *player);
+int				mouse_move(int x, int y, t_game *game);
+int				ft_mouse_press(int button, int x, int y, t_game *game);
+void			ft_move_player(t_game *game, t_player *player);
+void			ft_rotate_player(t_game *g, t_player *p, double x, double y);
+void			ft_update_planes(t_game *game);
 
 /*
 **	Functions error
 */
 
-int					ft_error_file(int code_error, char *msg);
-char				*ft_search_error(char **str, int id, int row);
+int				ft_error_file(int code_error, char *msg);
+char			*ft_search_error(char **str, int id, int row);
 
 /*
 **	Functions mini-map
 */
 
-int					ft_mini_map(t_game *game);
+int				ft_mini_map(t_game *game);
 
 /*
 **	Functions draw
 */
 
-size_t				ft_image_save(t_game *game);
-void				ft_draw_multi_threads(t_game *game, t_screen *gun);
-int					ft_pixel_color(t_game *game, t_vector *v, t_sprite *s);
-int					ft_print_fps(t_game *game, char *fps, char *scale);
-int					luminosity_px(t_game *game, int color, t_dot collide);
+size_t			ft_image_save(t_game *game);
+void			ft_draw_multi_threads(t_game *game, t_screen *gun);
+int				ft_pixel_color(t_game *game, t_vector *v, t_sprite *s);
+int				search_color_x(t_game *g, t_vector *vec, t_color *x);
+int				search_color_y(t_game *g, t_vector *vec, t_color *y, t_color x);
+int				ft_is_in_wall(t_texture *texture, t_dot inter, char dir);
+int				ft_search_sprite(t_game *g, t_vector *v, t_color *s, t_list *l);
+int				ft_print_fps(t_game *game, char *fps, char *scale);
+int				luminosity_px(t_game *game, int color, t_dot collide);
 
 #endif

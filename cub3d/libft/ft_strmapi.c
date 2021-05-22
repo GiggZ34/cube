@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 15:30:23 by grivalan          #+#    #+#             */
-/*   Updated: 2020/12/15 19:17:55 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/05/22 14:06:33 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 	len = 0;
 	while (s[len])
 		len++;
-	if ((result = malloc(sizeof(char) * (len + 1))) == NULL)
+	result = calloc(sizeof(char), (len + 1));
+	if (!result)
 		return (0);
 	i = 0;
 	while (s[i])
@@ -31,6 +32,5 @@ char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 		result[i] = (*f)(i, s[i]);
 		i++;
 	}
-	result[i] = '\0';
 	return (result);
 }

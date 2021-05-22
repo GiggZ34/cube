@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 08:33:59 by grivalan          #+#    #+#             */
-/*   Updated: 2021/04/07 19:40:07 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/05/22 17:13:44 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 int	ft_init_player(t_game *game, int x, int y, char dir)
 {
-	double	angle;
-
 	game->player.position.x = x + 0.5;
 	game->player.position.y = y + 0.5;
 	game->player.position.z = 0.5;
@@ -23,14 +21,13 @@ int	ft_init_player(t_game *game, int x, int y, char dir)
 	game->player.anim_frame = 0;
 	game->player.ammunition = barel_fusil;
 	if (dir == 'E')
-		angle = M_PI / 2;
+		game->player.angle_z = -M_PI / 2;
 	else if (dir == 'S')
-		angle = M_PI;
+		game->player.angle_z = M_PI;
 	else if (dir == 'W')
-		angle = 3 / 2 * M_PI;
+		game->player.angle_z = M_PI / 2;
 	else
-		angle = 0;
-	game->player.angle_z = angle;
+		game->player.angle_z = 0;
 	game->player.angle_x = 0;
 	ft_init_tab_vector(game, game->player.position);
 	game->player.live = 100;

@@ -6,7 +6,7 @@
 #    By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/24 18:59:35 by grivalan          #+#    #+#              #
-#    Updated: 2021/04/09 11:39:46 by grivalan         ###   ########lyon.fr    #
+#    Updated: 2021/05/22 14:12:45 by grivalan         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -86,7 +86,6 @@ SRCS		=	ft_calloc.c\
 				ft_str_pad.c\
 				ft_strchr.c\
 				ft_strjoin.c\
-				ft_strmapi.c\
 				ft_strtrim.c\
 				ft_strpos.c\
 				get_next_line.c\
@@ -110,6 +109,7 @@ SRCS		=	ft_calloc.c\
 				ft_skip_white_space.c\
 				ft_max_tab.c\
 				ft_ternary.c\
+				ft_strmapi.c\
 
 INCLUDES	=	libft.h
 
@@ -145,6 +145,5 @@ re:		fclean all
 
 norme:
 			@norminette $(SRCS) $(INCLUDES)
-			@echo "\033[1;34mlibft\t\033[1;33mNorminette\t\033[0;32m[OK]\033[0m"
 
-.PHONY:	all clean fclean re
+.PHONY:	all clean fclean re norme

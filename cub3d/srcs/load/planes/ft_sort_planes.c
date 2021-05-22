@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_sort_planes.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 14:53:07 by grivalan          #+#    #+#             */
-/*   Updated: 2021/02/04 16:17:57 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/05/22 15:35:57 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void		ft_asort_planes(t_list *lst)
+void	ft_asort_planes(t_list *lst)
 {
 	t_list	*next;
 	t_list	*tmp;
@@ -35,7 +35,7 @@ void		ft_asort_planes(t_list *lst)
 	}
 }
 
-void		ft_sort_planes(t_list *lst)
+void	ft_sort_planes(t_list *lst)
 {
 	t_list	*next;
 	t_list	*tmp;

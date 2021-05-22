@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 11:02:45 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/30 16:01:04 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/05/22 16:22:31 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,15 @@ static void	ft_define_data_tilesheet(t_game *game, t_player *player)
 	player->guns.width = player->guns.obj_texture.width / nb_img_anim;
 	player->guns.height = player->guns.obj_texture.height / nb_anim;
 	ft_ratio_dim_obj(game, player);
-	player->guns.position.x = game->screen.width / 2 - (player->guns.width * player->guns.ratio_pos) / 2;
-	player->guns.position.y = game->screen.height - (player->guns.height * player->guns.ratio_pos);
+	player->guns.position.x = game->screen.width / 2
+		- (player->guns.width * player->guns.ratio_pos) / 2;
+	player->guns.position.y = game->screen.height
+		- (player->guns.height * player->guns.ratio_pos);
 }
 
 static int	ft_create_screen(t_game *game, t_player *player, int state)
 {
-	int nb_img;
+	int	nb_img;
 
 	nb_img = ft_define_nb_anim(state);
 	player->gun[state] = ft_calloc(sizeof(t_screen), nb_img);
@@ -51,23 +53,25 @@ static int	ft_create_screen(t_game *game, t_player *player, int state)
 	return (0);
 }
 
-int			ft_load_tilesheet_obj(t_game *game, char *path)
+int	ft_load_tilesheet_obj(t_game *game, char *path)
 {
 	int	state;
 
-	if (!(game->player.guns.obj_texture.ptr = mlx_xpm_file_to_image(game->mlx,
-									path,
-									&(game->player.guns.obj_texture.width),
-									&(game->player.guns.obj_texture.height))))
+	game->player.guns.obj_texture.ptr = mlx_xpm_file_to_image(game->mlx,
+			path,
+			&(game->player.guns.obj_texture.width),
+			&(game->player.guns.obj_texture.height));
+	if (!game->player.guns.obj_texture.ptr)
 		return (ft_trash_game(game, load_texture_fail, -1, "\n"));
-	if (!(game->player.guns.obj_texture.color = (int*)mlx_get_data_addr(
-								game->player.guns.obj_texture.ptr,
-								&game->player.guns.obj_texture.bits_per_pixel,
-								&game->player.guns.obj_texture.size_line,
-								&game->player.guns.obj_texture.endian)))
+	game->player.guns.obj_texture.color = (int *)mlx_get_data_addr(
+			game->player.guns.obj_texture.ptr,
+			&game->player.guns.obj_texture.bits_per_pixel,
+			&game->player.guns.obj_texture.size_line,
+			&game->player.guns.obj_texture.endian);
+	if (!game->player.guns.obj_texture.color)
 		return (ft_trash_game(game, color_generation_fail, -1, "\n"));
 	ft_define_data_tilesheet(game, &game->player);
-	game->player.gun = ft_calloc(sizeof(t_screen*), nb_anim);
+	game->player.gun = ft_calloc(sizeof(t_screen *), nb_anim);
 	if (!game->player.gun)
 		ft_trash_game(game, allocation_fail, game->file.fd, "\n");
 	state = -1;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 18:32:12 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/04 09:28:29 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/05/22 13:41:13 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 	begin = 0;
 	while (lst)
 	{
-		if (!(new_lst = ft_lstnew((*f)(lst->content))))
+		new_lst = ft_lstnew((*f)(lst->content));
+		if (!new_lst)
 		{
 			ft_lstclear(&begin, (*del), 1);
 			return (0);

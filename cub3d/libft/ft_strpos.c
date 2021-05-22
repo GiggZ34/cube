@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 11:27:55 by grivalan          #+#    #+#             */
-/*   Updated: 2020/12/29 14:38:49 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/05/22 13:55:21 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	ft_strpos(const char *s, char c)
 {
-	int		i;
+	int	i;
 
 	i = 0;
 	if (!s)

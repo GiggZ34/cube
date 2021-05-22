@@ -6,13 +6,13 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 08:57:40 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/26 19:51:27 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/05/22 15:39:23 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static t_list		**ft_planes_top_to_tab(t_game *game)
+static t_list	**ft_planes_top_to_tab(t_game *game)
 {
 	int		size;
 	t_list	**tab;
@@ -21,7 +21,8 @@ static t_list		**ft_planes_top_to_tab(t_game *game)
 	int		i;
 
 	size = game->file.height_map;
-	if (!(tab = ft_calloc(sizeof(t_plane*), size + 1)))
+	tab = ft_calloc(sizeof(t_plane *), size + 1);
+	if (!tab)
 		return (NULL);
 	i = -1;
 	while (++i <= size)
@@ -36,7 +37,7 @@ static t_list		**ft_planes_top_to_tab(t_game *game)
 	return (tab);
 }
 
-static t_list		**ft_planes_bottom_to_tab(t_game *game)
+static t_list	**ft_planes_bottom_to_tab(t_game *game)
 {
 	int		size;
 	t_list	**tab;
@@ -45,7 +46,8 @@ static t_list		**ft_planes_bottom_to_tab(t_game *game)
 	int		i;
 
 	size = game->file.height_map;
-	if (!(tab = ft_calloc(sizeof(t_plane*), size + 1)))
+	tab = ft_calloc(sizeof(t_plane *), size + 1);
+	if (!tab)
 		return (NULL);
 	i = -1;
 	while (++i <= size)
@@ -60,7 +62,7 @@ static t_list		**ft_planes_bottom_to_tab(t_game *game)
 	return (tab);
 }
 
-static t_list		**ft_planes_right_to_tab(t_game *game)
+static t_list	**ft_planes_right_to_tab(t_game *game)
 {
 	int		size;
 	t_list	**tab;
@@ -69,7 +71,8 @@ static t_list		**ft_planes_right_to_tab(t_game *game)
 	int		i;
 
 	size = game->file.width_map;
-	if (!(tab = ft_calloc(sizeof(t_plane*), size + 1)))
+	tab = ft_calloc(sizeof(t_plane *), size + 1);
+	if (!tab)
 		return (NULL);
 	i = -1;
 	while (++i <= size)
@@ -84,7 +87,7 @@ static t_list		**ft_planes_right_to_tab(t_game *game)
 	return (tab);
 }
 
-static t_list		**ft_planes_left_to_tab(t_game *game)
+static t_list	**ft_planes_left_to_tab(t_game *game)
 {
 	int		size;
 	t_list	**tab;
@@ -93,7 +96,8 @@ static t_list		**ft_planes_left_to_tab(t_game *game)
 	int		i;
 
 	size = game->file.width_map;
-	if (!(tab = ft_calloc(sizeof(t_plane*), size + 1)))
+	tab = ft_calloc(sizeof(t_plane *), size + 1);
+	if (!tab)
 		return (NULL);
 	i = -1;
 	while (++i <= size)
@@ -108,15 +112,19 @@ static t_list		**ft_planes_left_to_tab(t_game *game)
 	return (tab);
 }
 
-int					ft_lst_planes_to_tab(t_game *game)
+int	ft_lst_planes_to_tab(t_game *game)
 {
-	if (!(game->tab_planes.left = ft_planes_left_to_tab(game)))
+	game->tab_planes.left = ft_planes_left_to_tab(game);
+	game->tab_planes.right = ft_planes_right_to_tab(game);
+	game->tab_planes.top = ft_planes_top_to_tab(game);
+	game->tab_planes.bottom = ft_planes_bottom_to_tab(game);
+	if (!game->tab_planes.left)
 		return (ft_trash_game(game, allocation_fail, -1, "\n"));
-	if (!(game->tab_planes.right = ft_planes_right_to_tab(game)))
+	if (!game->tab_planes.right)
 		return (ft_trash_game(game, allocation_fail, -1, "\n"));
-	if (!(game->tab_planes.top = ft_planes_top_to_tab(game)))
+	if (!game->tab_planes.top)
 		return (ft_trash_game(game, allocation_fail, -1, "\n"));
-	if (!(game->tab_planes.bottom = ft_planes_bottom_to_tab(game)))
+	if (!game->tab_planes.bottom)
 		return (ft_trash_game(game, allocation_fail, -1, "\n"));
 	return (0);
 }

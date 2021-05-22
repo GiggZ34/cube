@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 11:03:58 by grivalan          #+#    #+#             */
-/*   Updated: 2021/04/08 15:29:42 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/05/22 14:28:51 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,29 +15,24 @@
 static int	ft_three_parameter(t_game *game, char **array, int fd)
 {
 	int	len;
-	int	r;
-	int	g;
-	int	b;
+	int	rgb[3];
 
-	r = ft_atoi(array[1]);
-	g = ft_atoi(array[2]);
-	b = ft_atoi(array[3]);
-	if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255)
+	rgb[0] = ft_atoi(array[1]);
+	rgb[1] = ft_atoi(array[2]);
+	rgb[2] = ft_atoi(array[3]);
+	if (rgb[0] < 0 || rgb[0] > 255 || rgb[1] < 0
+		|| rgb[1] > 255 || rgb[2] < 0 || rgb[2] > 255)
 	{
 		ft_free_array(array);
 		ft_trash_game(game, incorrect_color_code, fd, "Color incorrect");
 	}
 	len = ft_strlen(*array);
 	if (!ft_strncmp(*array, "F", len))
-		game->file.ground_color = ft_color_generate(r, g, b, 0);
+		game->file.ground_color = ft_color_generate(rgb[0], rgb[1], rgb[2], 0);
 	else if (!ft_strncmp(*array, "C", len))
-		game->file.sky_color = ft_color_generate(r, g, b, 0);
+		game->file.sky_color = ft_color_generate(rgb[0], rgb[1], rgb[2], 0);
 	else if (!ft_strncmp(*array, "L", len))
-	{
-		game->file.light_color[0] = (float)b;
-		game->file.light_color[1] = (float)g;
-		game->file.light_color[2] = (float)r;
-	}
+		init_color_light(game, rgb[0], rgb[1], rgb[2]);
 	else
 	{
 		ft_free_array(array);
@@ -46,32 +41,29 @@ static int	ft_three_parameter(t_game *game, char **array, int fd)
 	return (0);
 }
 
+static int	init_res(long long res_file, int res_max)
+{
+	if (res_file <= 0)
+		return (0);
+	if (res_file > res_max)
+		return (res_max);
+	return (res_file);
+}
+
 static int	ft_two_parameter(t_game *game, char **array, int fd)
 {
-	int			len;
-	long long	size;
-
 	mlx_get_screen_size(game->mlx, &game->screen.max_x, &game->screen.max_y);
-	len = ft_strlen(*array);
-	if (!ft_strncmp(*array, "R", len))
+	if (!ft_strncmp(*array, "R", ft_strlen(*array)))
 	{
-		size = ft_atoi(array[1]);
-		if (size <= game->screen.max_x)
-			game->screen.width = size;
-		else
-			game->screen.width = game->screen.max_x;
-		size = ft_atoi(array[2]);
-		if (size <= game->screen.max_y)
-			game->screen.height = size;
-		else
-			game->screen.height = game->screen.max_y;
+		game->screen.width = init_res(ft_atoi(array[1]), game->screen.max_x);
+		game->screen.height = init_res(ft_atoi(array[2]), game->screen.max_y);
 	}
 	else
 	{
 		ft_free_array(array);
 		ft_trash_game(game, unknow_instruction, fd, "Argument not found");
 	}
-	if (game->screen.width == 0 || game->screen.height == 0)
+	if (!game->screen.width || !game->screen.height)
 	{
 		ft_free_array(array);
 		ft_trash_game(game, win_creation_fail, fd, "Resolution a 0.");

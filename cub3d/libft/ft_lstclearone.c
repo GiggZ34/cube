@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstclearone.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 10:10:42 by grivalan          #+#    #+#             */
-/*   Updated: 2021/02/04 14:45:07 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/05/22 13:40:44 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	ft_search_lst(t_list **pre, t_list **now, t_list **next, t_list *el)
 	}
 }
 
-void		ft_lstclearone(t_list **lst, t_list *element, void (*del)(void*))
+void	ft_lstclearone(t_list **lst, t_list *element, void (*del)(void*))
 {
 	t_list	*current;
 	t_list	*previous;

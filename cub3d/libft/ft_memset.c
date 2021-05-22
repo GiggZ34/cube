@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/24 10:40:32 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/12 23:29:53 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/05/22 13:42:44 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	*ft_memset(void *b, int c, size_t len)
 {
-	size_t			i;
-	char			*tab;
+	size_t	i;
+	char	*tab;
 
 	tab = b;
 	i = 0;

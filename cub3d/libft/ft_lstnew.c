@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 12:00:56 by grivalan          #+#    #+#             */
-/*   Updated: 2021/02/04 13:49:33 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/05/22 13:41:48 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,10 @@
 
 t_list	*ft_lstnew(void *content)
 {
-	t_list *lst;
+	t_list	*lst;
 
-	if ((lst = malloc(sizeof(t_list))) == NULL)
+	lst = malloc(sizeof(t_list));
+	if (!lst)
 		return (0);
 	lst->content = content;
 	lst->next = NULL;

@@ -6,7 +6,7 @@
 #    By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/24 18:59:35 by grivalan          #+#    #+#              #
-#    Updated: 2021/04/06 13:14:49 by grivalan         ###   ########lyon.fr    #
+#    Updated: 2021/05/22 19:00:31 by grivalan         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,6 +38,7 @@ SRCS =		main.c\
 			srcs/load/ft_load.c\
 			srcs/load/file/ft_init_file.c\
 			srcs/load/file/parsing_file.c\
+			srcs/load/file/init_color_light.c\
 			srcs/load/file/ft_file_to_struct.c\
 			srcs/load/file/error_file.c\
 			srcs/load/file/check_format.c\
@@ -70,11 +71,16 @@ SRCS =		main.c\
 			srcs/update/ft_update.c\
 			srcs/update/ft_update_sprites.c\
 			srcs/update/ft_update_player.c\
+			srcs/update/update_mouse.c\
+			srcs/update/player_shoot.c\
 			srcs/update/ft_rotate_player.c\
 			srcs/update/ft_move_player.c\
 			srcs/update/ft_update_planes.c\
 			srcs/draw/ft_draw.c\
 			srcs/draw/ft_pixel_color.c\
+			srcs/draw/wall_color.c\
+			srcs/draw/color_tex_wall.c\
+			srcs/draw/sprite_color.c\
 			srcs/draw/ft_print_fps.c\
 			srcs/draw/lights.c\
 			srcs/image_save/image_save.c\
@@ -134,7 +140,6 @@ re : fclean all
 
 norme:
 			@norminette $(SRCS) $(INCLUDES)
-			@echo "\033[1;34mcub3d\t\033[1;33mNorminette\t\033[0;32m[OK]\033[0m"
-			$(MAKE) norme -C ./libft
+			@$(MAKE) norme -C $(LIB)
 
 .PHONY : re all clean fclean norme

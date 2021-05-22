@@ -6,13 +6,13 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/25 13:47:18 by grivalan          #+#    #+#             */
-/*   Updated: 2020/12/29 11:42:29 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/05/22 13:50:26 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int		ft_is_charset(char c, const char *charset)
+static int	ft_is_charset(char c, const char *charset)
 {
 	if (!c)
 		return (1);
@@ -36,7 +36,7 @@ static size_t	ft_letter(char const *s, char *c)
 	return (nb_letters + 1);
 }
 
-static	int		ft_free_split(char **str)
+static	int	ft_free_split(char **str)
 {
 	while (*str)
 	{
@@ -47,27 +47,27 @@ static	int		ft_free_split(char **str)
 	return (0);
 }
 
-static int		ft_str_to_tab(char **new_s, char *str, char *c, size_t nb_words)
+static int	ft_str_to_tab(char **new_s, char *str, char *c, size_t nb_words)
 {
-	size_t i;
-	size_t j;
+	size_t	i;
+	size_t	j;
 
 	i = -1;
 	while (++i < nb_words)
 	{
 		while (*str && ft_is_charset(*str, c))
 			str++;
-		if ((new_s[i] = malloc(sizeof(char) * (ft_letter(str, c) + 1))) == NULL)
+		new_s[i] = calloc(sizeof(char), (ft_letter(str, c) + 1));
+		if (!new_s[i])
 			return (ft_free_split(new_s));
 		j = 0;
 		while (*str && !ft_is_charset(*str, c))
 			new_s[i][j++] = *str++;
-		new_s[i][j] = '\0';
 	}
 	return (0);
 }
 
-char			**ft_split(char const *s, char *c)
+char	**ft_split(char const *s, char *c)
 {
 	char	**new_s;
 	char	*str;
@@ -75,9 +75,10 @@ char			**ft_split(char const *s, char *c)
 
 	if (!s)
 		return (0);
-	str = (char*)s;
+	str = (char *)s;
 	nb_words = ft_count_words(s, c);
-	if ((new_s = malloc(sizeof(char *) * (nb_words + 1))) == NULL)
+	new_s = ft_calloc(sizeof(char *), (nb_words + 1));
+	if (!new_s)
 		return (0);
 	new_s[nb_words] = 0;
 	ft_str_to_tab(new_s, str, c, nb_words);

@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 19:35:44 by grivalan          #+#    #+#             */
-/*   Updated: 2020/12/31 11:31:29 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/05/22 13:45:43 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ char	*ft_realloc(char *str, int size)
 	if (size <= 0)
 		return (str);
 	len = ft_strlen(str) + size + 1;
-	if (!(new_str = ft_calloc(sizeof(char), len)))
+	new_str = ft_calloc(sizeof(char), len);
+	if (!new_str)
 		return (0);
 	if (str)
 	{

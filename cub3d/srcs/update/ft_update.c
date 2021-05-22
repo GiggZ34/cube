@@ -6,13 +6,29 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 10:43:23 by grivalan          #+#    #+#             */
-/*   Updated: 2021/04/08 16:50:25 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/05/22 18:00:00 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	ft_keypress(int keycode, t_game *game)
+static int	keypress_next(int keycode, t_game *game)
+{
+	if (keycode == SHOOT && !game->player.control.reload)
+		game->player.control.shoot = 1;
+	if (keycode == SPACE && !game->player.control.squat
+		&& game->player.position.z == game->player.pos_z_min)
+		game->player.vz = 3;
+	if (keycode == L && !game->debug && game->light)
+		game->debug = 1;
+	else if (keycode == L && game->debug)
+		game->debug = 0;
+	if (keycode == P)
+		game->save_picture = 1;
+	return (0);
+}
+
+static int	ft_keypress(int keycode, t_game *game)
 {
 	if (keycode == DESTROY)
 		return (ft_trash_game(game, succes, -1, ""));
@@ -36,21 +52,10 @@ int	ft_keypress(int keycode, t_game *game)
 		game->player.control.squat = 1;
 	if (keycode == SHIFT)
 		game->player.control.run = 1;
-	if (keycode == SHOOT && !game->player.control.reload)
-		game->player.control.shoot = 1;
-	if (keycode == P)
-		game->save_picture = 1;
-	if (keycode == SPACE && !game->player.control.squat
-		&& game->player.position.z == game->player.pos_z_min)
-		game->player.vz = 3;
-	if (keycode == L && !game->debug && game->light)
-		game->debug = 1;
-	else if (keycode == L && game->debug)
-		game->debug = 0;
-	return (0);
+	return (keypress_next(keycode, game));
 }
 
-int	ft_keyrelease(int keycode, t_game *game)
+static int	ft_keyrelease(int keycode, t_game *game)
 {
 	if (keycode == RIGHT)
 		game->player.control.right = 0;
@@ -75,33 +80,7 @@ int	ft_keyrelease(int keycode, t_game *game)
 	return (0);
 }
 
-int	ft_mouse_press(int button, int x, int y, t_game *game)
-{
-	(void)x;
-	(void)y;
-	if (button == 1 && !game->player.control.reload)
-		game->player.control.shoot = 1;
-	else if (button == 2 && !game->player.control.shoot)
-		game->player.control.reload = 1;
-	return (0);
-}
-
-int	mouse_move(int x, int y, t_game *game)
-{
-	mlx_mouse_hide(game->mlx, game->window);
-	game->player.control.mouse_diff_x = x - game->player.control.mouse_x_pos;
-	game->player.control.mouse_diff_y = y
-		- game->player.control.mouse_y_pos + 21;
-	mlx_mouse_move(game->window,
-		game->screen.width / 2 + 100,
-		game->screen.max_y - game->screen.height / 2 - 100);
-	mlx_mouse_get_pos(game->window,
-		&game->player.control.mouse_x_pos,
-		&game->player.control.mouse_y_pos);
-	return (0);
-}
-
-int	ft_update(t_game *game)
+static int	ft_update(t_game *game)
 {
 	playmusic(game);
 	ft_delta_time_generate(game);

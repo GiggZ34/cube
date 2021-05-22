@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/07 20:02:32 by grivalan          #+#    #+#             */
-/*   Updated: 2021/03/30 11:07:08 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/05/22 13:52:17 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 char	*ft_strcpy(char *dst, const char *src)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	while (src[++i])

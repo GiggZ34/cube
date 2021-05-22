@@ -6,41 +6,11 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 12:30:41 by grivalan          #+#    #+#             */
-/*   Updated: 2021/04/07 14:06:39 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/05/22 15:09:19 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-void	ft_init_light(t_game *game, int x, int y)
-{
-	t_light	*light;
-	t_light	*tmp;
-
-	light = ft_calloc(sizeof(t_light), 1);
-	light->type = 'L';
-	light->x = x + 0.5;
-	light->y = y + 0.5;
-	light->z = 0.7;
-	light->rgb[0] = game->file.light_color[0];
-	light->rgb[1] = game->file.light_color[1];
-	light->rgb[2] = game->file.light_color[2];
-	light->ratio = 0.3;
-//	light->t = game->file.texture_light;
-//	light->height = light->t->height;
-//	light->width = light->t->size_line
-//		/ light->height * light->ratio;
-//	light->height = light->ratio;
-	if (!game->light)
-		game->light = light;
-	else
-	{
-		tmp = game->light;
-		while (tmp->next)
-			tmp = tmp->next;
-		tmp->next = light;
-	}
-}
 
 static void	ft_scan_horizontal_left(t_game *game, char **map, int i, int j)
 {
@@ -110,12 +80,13 @@ static void	ft_scan_vertical_bottom(t_game *game, char **map, int i, int j)
 	ft_scan_map(game, map, i, j);
 }
 
-void		ft_scan_map(t_game *game, char **map, int i, int j)
+void	ft_scan_map(t_game *game, char **map, int i, int j)
 {
 	if (((i == ft_count_array(map) || j == (int)ft_strlen(map[i])
-			|| i == 0 || j == 0) && map[i][j] != '1')
+				|| i == 0 || j == 0) && map[i][j] != '1')
 			|| ft_in_array(map[i][j], "012cNSEWL") == -1)
-		ft_trash_game(game, map_not_close, game->file.fd, ft_search_error(&game->file.map[i], j, i));
+		ft_trash_game(game, map_not_close, game->file.fd,
+			ft_search_error(&game->file.map[i], j, i));
 	else if (ft_in_array(map[i][j], "02NSEWL") != -1)
 	{
 		map[i][j] = 'c';

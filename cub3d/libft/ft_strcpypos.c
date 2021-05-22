@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strcpypos.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/08 11:28:51 by grivalan          #+#    #+#             */
-/*   Updated: 2020/12/15 19:17:22 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/05/22 13:52:22 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 char	*ft_strcpypos(char *dst, char *src, int position)
 {
-	int i;
+	int	i;
 
 	if (!dst || !src || ft_strlen(dst) - position < ft_strlen(src))
 		return (0);

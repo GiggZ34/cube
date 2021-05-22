@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/29 11:12:19 by grivalan          #+#    #+#             */
-/*   Updated: 2020/12/29 12:48:02 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/05/22 13:36:39 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int	ft_is_charset(char c, const char *charset)
 	return (0);
 }
 
-int			ft_count_words(const char *s, const char *charset)
+int	ft_count_words(const char *s, const char *charset)
 {
 	int	count;
 	int	i;

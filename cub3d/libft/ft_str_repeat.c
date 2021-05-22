@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_str_repeat.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 18:04:35 by grivalan          #+#    #+#             */
-/*   Updated: 2020/12/15 19:16:54 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/05/22 13:51:47 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ char	*ft_str_repeat(const char *str, int nb)
 	int		i;
 	int		y;
 
-	if (!(new_str = malloc(sizeof(char) * (nb * ft_strlen(str) + 1))))
+	new_str = calloc(sizeof(char), (nb * ft_strlen(str) + 1));
+	if (!(new_str))
 		return (0);
 	y = 0;
 	while (nb > 0)
@@ -31,6 +32,5 @@ char	*ft_str_repeat(const char *str, int nb)
 		}
 		nb--;
 	}
-	new_str[y] = '\0';
 	return (new_str);
 }

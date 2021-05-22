@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_search_plane.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/04 15:37:35 by grivalan          #+#    #+#             */
-/*   Updated: 2021/02/05 08:51:48 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/05/22 15:34:50 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-t_plane		*ft_search_plane_top(t_list *lst, int y)
+t_plane	*ft_search_plane_top(t_list *lst, int y)
 {
-	t_plane *plane;
+	t_plane	*plane;
 
 	while (lst)
 	{
@@ -26,9 +26,9 @@ t_plane		*ft_search_plane_top(t_list *lst, int y)
 	return (NULL);
 }
 
-t_plane		*ft_search_plane_bottom(t_list *lst, int y)
+t_plane	*ft_search_plane_bottom(t_list *lst, int y)
 {
-	t_plane *plane;
+	t_plane	*plane;
 
 	while (lst)
 	{
@@ -40,9 +40,9 @@ t_plane		*ft_search_plane_bottom(t_list *lst, int y)
 	return (NULL);
 }
 
-t_plane		*ft_search_plane_right(t_list *lst, int x)
+t_plane	*ft_search_plane_right(t_list *lst, int x)
 {
-	t_plane *plane;
+	t_plane	*plane;
 
 	while (lst)
 	{
@@ -54,9 +54,9 @@ t_plane		*ft_search_plane_right(t_list *lst, int x)
 	return (NULL);
 }
 
-t_plane		*ft_search_plane_left(t_list *lst, int x)
+t_plane	*ft_search_plane_left(t_list *lst, int x)
 {
-	t_plane *plane;
+	t_plane	*plane;
 
 	while (lst)
 	{
@@ -68,7 +68,7 @@ t_plane		*ft_search_plane_left(t_list *lst, int x)
 	return (NULL);
 }
 
-t_plane		*ft_search_plane(t_list *lst, int x, int y, char dir)
+t_plane	*ft_search_plane(t_list *lst, int x, int y, char dir)
 {
 	if (dir == 'R')
 		return (ft_search_plane_right(lst, x));

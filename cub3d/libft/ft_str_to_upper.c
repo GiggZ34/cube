@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_str_to_upper.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/12 19:28:14 by grivalan          #+#    #+#             */
-/*   Updated: 2020/12/15 19:17:06 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/05/22 13:52:05 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 char	*ft_str_to_upper(char *s)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	while (s[++i])

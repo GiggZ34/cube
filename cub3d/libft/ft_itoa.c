@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: grivalan <grivalan@studen.42lyon.fr>       +#+  +:+       +#+        */
+/*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/15 19:35:57 by grivalan          #+#    #+#             */
-/*   Updated: 2020/12/15 19:36:01 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/05/22 13:40:12 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static	int		ft_nb_numbers(long n)
+static	int	ft_nb_numbers(long n)
 {
-	int nb_numbers;
+	int	nb_numbers;
 
 	nb_numbers = 0;
 	if (n == 0)
@@ -36,14 +36,15 @@ static	void	ft_int_to_char(char *str, int id, long n)
 	str[id] = n % 10 + 48;
 }
 
-char			*ft_itoa(long n)
+char	*ft_itoa(long n)
 {
 	char	*result;
 	int		i;
 	int		size;
 
 	size = ft_nb_numbers(n);
-	if ((result = malloc(sizeof(char) * (size + 1))) == NULL)
+	result = malloc(sizeof(char) * (size + 1));
+	if (!result)
 		return (0);
 	ft_memset(result, '0', size + 1);
 	result[size] = '\0';

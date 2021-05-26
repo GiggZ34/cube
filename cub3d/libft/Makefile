@@ -6,7 +6,7 @@
 #    By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/24 18:59:35 by grivalan          #+#    #+#              #
-#    Updated: 2021/05/22 14:12:45 by grivalan         ###   ########lyon.fr    #
+#    Updated: 2021/05/26 15:06:21 by grivalan         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -144,6 +144,7 @@ fclean:	clean
 re:		fclean all
 
 norme:
-			@norminette $(SRCS) $(INCLUDES)
+			@norminette -R CheckForbiddenSourceHeader $(SRCS) $(INCLUDES)
+			@printf "$(YELLOW)Norminette libtf\t->\tfinish$(END)\n"
 
 .PHONY:	all clean fclean re norme

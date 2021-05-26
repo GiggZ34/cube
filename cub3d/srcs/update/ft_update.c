@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 10:43:23 by grivalan          #+#    #+#             */
-/*   Updated: 2021/05/22 18:00:00 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/05/26 17:06:16 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,8 @@ static int	ft_keyrelease(int keycode, t_game *game)
 
 static int	ft_update(t_game *game)
 {
-	playmusic(game);
+	if (!game->exit)
+		playmusic(game);
 	ft_delta_time_generate(game);
 	ft_update_player(game, &game->player);
 	ft_update_sprites(game->lst_sprites, &game->player);

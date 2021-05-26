@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 08:26:00 by grivalan          #+#    #+#             */
-/*   Updated: 2021/05/22 17:47:03 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/05/26 17:12:55 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,9 @@ static void	screen_shot(t_game *game)
 		if (ft_image_save(game) < 54)
 			ft_trash_game(game, image_not_exist, -1, "failed create img");
 		game->save_picture = 0;
+		printf("\033[32mImage create\033[0m\n");
 		if (game->exit)
-			ft_trash_game(game, succes, -1, "Image create !\n");
+			ft_trash_game(game, succes, -1, "");
 	}
 }
 

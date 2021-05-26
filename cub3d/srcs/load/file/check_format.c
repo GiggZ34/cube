@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/04 18:54:46 by grivalan          #+#    #+#             */
-/*   Updated: 2021/04/08 15:33:20 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/05/26 15:15:14 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,11 @@ static int	type_to_lst(t_game *game, char *type)
 	t_list	*new_lst;
 
 	new_lst = ft_lstnew(type);
+	if (!new_lst)
+	{
+		free(type);
+		ft_trash_game(game, allocation_fail, game->file.fd, "type_to_lst");
+	}
 	if (!game->file.check_file)
 		game->file.check_file = new_lst;
 	else
@@ -59,18 +64,30 @@ static char	*type_argument(char *line, char **type)
 	return (*type);
 }
 
+static int	is_color(char *line)
+{
+	while (ft_iswhtespace(*line))
+		line++;
+	while (ft_isalpha(*line))
+		line++;
+	while (ft_iswhtespace(*line))
+		line++;
+	return (ft_isdigit(*line));
+}
+
 char	**check_format(t_game *game, char *line, char ***array)
 {
 	char	*type;
 
 	if (!type_argument(line, &type))
-		return (0);
+		ft_trash_game(game, arguments_error, game->file.fd, "");
 	if (type_to_lst(game, type))
 		ft_trash_game(game, arguments_error, game->file.fd, "");
 	if (!ft_strncmp(type, "R", 2))
 		check_res(line, array);
-	else if (!ft_strncmp(type, "F", 2)
-		|| !ft_strncmp(type, "C", 2) || !ft_strncmp(type, "L", 2))
+	else if ((!ft_strncmp(type, "F", 2) && is_color(line))
+		|| (!ft_strncmp(type, "C", 2) && is_color(line))
+		|| !ft_strncmp(type, "L", 2))
 		check_color(line, array);
 	else
 		check_texture(line, array);

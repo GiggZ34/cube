@@ -6,26 +6,11 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 15:08:29 by grivalan          #+#    #+#             */
-/*   Updated: 2021/05/23 17:58:43 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/05/26 16:46:07 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-static void	texture_obj_to_back(t_game *game, t_texture *texture)
-{
-	t_texture	*obj;
-
-	if (!game->file.texture_obj)
-		game->file.texture_obj = texture;
-	else
-	{
-		obj = game->file.texture_obj;
-		while (obj->next)
-			obj = obj->next;
-		obj->next = texture;
-	}
-}
 
 static int	ft_search_extension(char *dir_img)
 {
@@ -56,10 +41,10 @@ static void	save_texture(t_game *game, t_texture *texture, char *type)
 		game->file.texture_we = texture;
 	else if (!ft_strncmp(type, "S", 2))
 		game->file.texture_s = texture;
-	else if (!ft_strncmp(type, "LI", 2))
-		game->file.texture_light = texture;
-	else
-		texture_obj_to_back(game, texture);
+	else if (!ft_strncmp(type, "C", 2))
+		game->file.texture_c = texture;
+	else if (!ft_strncmp(type, "F", 2))
+		game->file.texture_f = texture;
 }
 
 static int	ft_image_to_struct(t_game *game, void *img, int *dim, char *type)
@@ -79,7 +64,7 @@ static int	ft_image_to_struct(t_game *game, void *img, int *dim, char *type)
 			&(texture->size_line), &(texture->endian));
 	if (!texture->color)
 		return (ft_trash_game(game,
-				color_generation_fail, -1, "In image_to_struct"));
+				crash_mlx_ft, -1, "In image_to_struct"));
 	texture->size_line /= 4;
 	save_texture(game, texture, type);
 	return (0);
@@ -103,7 +88,7 @@ int	ft_img_generate(t_game *game, char *dir, char *type)
 		ft_trash_game(game,
 			image_not_exist, game->file.fd, "Extension invalid\n");
 	if (!img)
-		ft_trash_game(game, crash_mlx_ft, game->file.fd, "Image error");
+		ft_trash_game(game, load_texture_fail, game->file.fd, "");
 	ft_image_to_struct(game, img, dim, type);
 	return (0);
 }

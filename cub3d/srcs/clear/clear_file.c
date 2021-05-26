@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 15:01:48 by grivalan          #+#    #+#             */
-/*   Updated: 2021/05/26 12:31:22 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/05/26 17:09:49 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,8 @@ static void	ft_delete_textures(t_game *game)
 	game->file.texture_s = free_texture(game, game->file.texture_s);
 	game->file.texture_so = free_texture(game, game->file.texture_so);
 	game->file.texture_we = free_texture(game, game->file.texture_we);
-	if (game->sky_ground.ground_texture.ptr)
-		if (mlx_destroy_image(game->mlx, game->sky_ground.ground_texture.ptr))
-			printf("Error\nTexture destruction failed\n");
-	if (game->sky_ground.sky_texture.ptr)
-		if (mlx_destroy_image(game->mlx, game->sky_ground.sky_texture.ptr))
-			printf("Error\nTexture destruction failed\n");
+	game->file.texture_f = free_texture(game, game->file.texture_f);
+	game->file.texture_c = free_texture(game, game->file.texture_c);
 	if (game->player.guns.obj_texture.ptr)
 		if (mlx_destroy_image(game->mlx, game->player.guns.obj_texture.ptr))
 			printf("Error\nTexture destruction failed\n");
@@ -72,7 +68,8 @@ static void	free_allocation_cub(t_game *game)
 
 int	ft_trash_game(t_game *game, t_error_code code, int fd, char *msg)
 {
-	system("killall afplay");
+	if (game->music.play)
+		system("killall afplay");
 	ft_error_file(code, msg);
 	ft_clear_file(&game->file, fd);
 	ft_delete_textures(game);

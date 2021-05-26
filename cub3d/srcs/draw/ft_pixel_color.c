@@ -6,13 +6,13 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 11:10:27 by grivalan          #+#    #+#             */
-/*   Updated: 2021/05/22 18:55:22 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/05/26 13:35:40 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static int	sky_ground_color(t_game *g, t_vector *vec, t_texture t, t_plane p)
+static int	sky_ground_color(t_game *g, t_vector *vec, t_texture *t, t_plane p)
 {
 	double		size;
 	t_dot		inter;
@@ -23,9 +23,13 @@ static int	sky_ground_color(t_game *g, t_vector *vec, t_texture t, t_plane p)
 	inter.x = g->player.position.x + vec->x * size;
 	inter.y = g->player.position.y + vec->y * size;
 	inter.z = -p.d;
-	y = t.height * (inter.y - floor(inter.y));
-	x = t.width * (inter.x - floor(inter.x));
-	return (luminosity_px(g, t.color[y * t.size_line + x], inter));
+	y = t->height * (inter.y - floor(inter.y));
+	x = t->width * (inter.x - floor(inter.x));
+	if (t)
+		return (luminosity_px(g, t->color[y * t->size_line + x], inter));
+	else if (!p.d)
+		return (luminosity_px(g, g->file.ground_color, inter));
+	return (luminosity_px(g, g->file.sky_color, inter));
 }
 
 static t_color	sort_color(t_color *color, int n)
@@ -66,10 +70,10 @@ int	ft_pixel_color(t_game *game, t_vector *vec, t_sprite *sprite)
 	if (result.color == INVISIBLE_COLOR)
 	{
 		if (vec->z < 0)
-			return (sky_ground_color(game, vec, game->sky_ground.ground_texture,
+			return (sky_ground_color(game, vec, game->file.texture_f,
 					game->sky_ground.ground_plane));
 		else
-			return (sky_ground_color(game, vec, game->sky_ground.sky_texture,
+			return (sky_ground_color(game, vec, game->file.texture_c,
 					game->sky_ground.sky_plane));
 	}
 	return (luminosity_px(game, result.color, result.inter));

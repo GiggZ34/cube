@@ -6,11 +6,17 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 17:11:43 by grivalan          #+#    #+#             */
-/*   Updated: 2021/04/02 11:43:17 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/05/26 15:38:37 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+static void	data_to_str(t_game *game, int fps, int scale)
+{
+	game->dt.dt_str = ft_itoa(fps);
+	game->dt.scale_str = ft_itoa(scale);
+}
 
 void	ft_delta_time_generate(t_game *game)
 {
@@ -34,8 +40,9 @@ void	ft_delta_time_generate(t_game *game)
 		game->screen.scale++;
 	else if (fps > FPS_MAX && game->screen.scale > 1)
 		game->screen.scale--;
-	game->dt.dt_str = ft_itoa(fps);
-	game->dt.scale_str = ft_itoa(game->screen.scale);
+	if (game->save_picture)
+		game->screen.scale = 1;
+	data_to_str(game, fps, game->screen.scale);
 	if (!game->dt.dt_str)
 		ft_trash_game(game, allocation_fail, game->file.fd, "\n");
 }

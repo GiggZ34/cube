@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 12:22:02 by grivalan          #+#    #+#             */
-/*   Updated: 2021/04/05 11:50:29 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/05/26 17:09:07 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,5 @@ void	playmusic(t_game *game)
 		game->music.time = t.tv_sec;
 		play_sound("afplay sounds/ambience.mp3 &");
 	}
+	game->music.play = 1;
 }

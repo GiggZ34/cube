@@ -6,13 +6,13 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 11:03:58 by grivalan          #+#    #+#             */
-/*   Updated: 2021/05/22 14:28:51 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/05/26 17:00:04 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static int	ft_three_parameter(t_game *game, char **array, int fd)
+static void	ft_three_parameter(t_game *game, char **array, int fd)
 {
 	int	len;
 	int	rgb[3];
@@ -24,7 +24,7 @@ static int	ft_three_parameter(t_game *game, char **array, int fd)
 		|| rgb[1] > 255 || rgb[2] < 0 || rgb[2] > 255)
 	{
 		ft_free_array(array);
-		ft_trash_game(game, incorrect_color_code, fd, "Color incorrect");
+		ft_trash_game(game, incorrect_color_code, fd, "");
 	}
 	len = ft_strlen(*array);
 	if (!ft_strncmp(*array, "F", len))
@@ -38,7 +38,6 @@ static int	ft_three_parameter(t_game *game, char **array, int fd)
 		ft_free_array(array);
 		ft_trash_game(game, unknow_instruction, fd, "argument not found");
 	}
-	return (0);
 }
 
 static int	init_res(long long res_file, int res_max)
@@ -50,7 +49,7 @@ static int	init_res(long long res_file, int res_max)
 	return (res_file);
 }
 
-static int	ft_two_parameter(t_game *game, char **array, int fd)
+static void	ft_two_parameter(t_game *game, char **array, int fd)
 {
 	mlx_get_screen_size(game->mlx, &game->screen.max_x, &game->screen.max_y);
 	if (!ft_strncmp(*array, "R", ft_strlen(*array)))
@@ -63,23 +62,22 @@ static int	ft_two_parameter(t_game *game, char **array, int fd)
 		ft_free_array(array);
 		ft_trash_game(game, unknow_instruction, fd, "Argument not found");
 	}
-	if (!game->screen.width || !game->screen.height)
+	if (game->screen.width <= 0 || game->screen.height <= 0)
 	{
 		ft_free_array(array);
-		ft_trash_game(game, win_creation_fail, fd, "Resolution a 0.");
+		ft_trash_game(game, win_creation_fail, fd, "Resolution invalid");
 	}
 	if (!game->save_picture)
 		game->window = mlx_new_window(game->mlx,
-				game->screen.width, game->screen.height, "Cub3D");
+				game->screen.width, game->screen.height, "cub3d");
 	if (!game->save_picture && !game->window)
 	{
 		ft_free_array(array);
 		ft_trash_game(game, win_creation_fail, fd, "In ft_two_parameter");
 	}
-	return (0);
 }
 
-static int	ft_one_parameter(t_game *game, char **array, int fd)
+static void	ft_one_parameter(t_game *game, char **array, int fd)
 {
 	char	*link;
 
@@ -96,12 +94,16 @@ static int	ft_one_parameter(t_game *game, char **array, int fd)
 		ft_img_generate(game, array[1], "EA");
 	else if (!ft_strncmp(*array, "S\0", 2))
 		ft_img_generate(game, array[1], "S");
-	else if (!ft_strncmp(*array, "L\0", 2))
-		ft_img_generate(game, array[1], "LI");
+	else if (!ft_strncmp(*array, "C\0", 2))
+		ft_img_generate(game, array[1], "C");
+	else if (!ft_strncmp(*array, "F\0", 2))
+		ft_img_generate(game, array[1], "F");
 	else
-		ft_img_generate(game, array[1], ft_strdup(array[0]));
+	{
+		ft_free_array(array);
+		ft_trash_game(game, unknow_instruction, fd, "");
+	}
 	free(link);
-	return (0);
 }
 
 int	ft_file_to_struct(t_game *game, char *line, int fd)

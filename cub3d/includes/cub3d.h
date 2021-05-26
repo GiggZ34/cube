@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 11:56:01 by grivalan          #+#    #+#             */
-/*   Updated: 2021/05/26 12:29:35 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/05/26 17:07:38 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@
 # define PRECISION .00001
 # define NB_THREADS 8
 # define INVISIBLE_COLOR -16777216
-# define SCALE_MAX 3
+# define SCALE_MAX 4
 # define FPS_MAX 60
-# define FPS_MIN 20
-# define DIST_MAX 0.1
+# define FPS_MIN 8
+# define DIST_MAX 0.3
 # define ROTATE_SPEED 0.785
 # define WEIGHTLESSNESS 9.81
 # define SPEED_MAX 10
@@ -151,7 +151,6 @@ typedef struct s_file
 	int			fd;
 	int			nb_img;
 	t_list		*check_file;
-	int			check_args;
 	int			ground_color;
 	int			sky_color;
 	float		light_color[3];
@@ -165,6 +164,8 @@ typedef struct s_file
 	t_texture	*texture_we;
 	t_texture	*texture_ea;
 	t_texture	*texture_s;
+	t_texture	*texture_c;
+	t_texture	*texture_f;
 	t_texture	*texture_light;
 	t_texture	*texture_obj;
 }t_file;
@@ -298,9 +299,7 @@ typedef struct s_dt
 typedef struct s_sky_ground
 {
 	t_plane		ground_plane;
-	t_texture	ground_texture;
 	t_plane		sky_plane;
-	t_texture	sky_texture;
 }t_sky_ground;
 
 typedef struct s_system_call
@@ -313,6 +312,7 @@ typedef struct s_system_call
 typedef struct s_music
 {
 	int			time;
+	int			play;
 }t_music;
 
 typedef struct s_game

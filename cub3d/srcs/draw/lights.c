@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/05 11:10:27 by grivalan          #+#    #+#             */
-/*   Updated: 2021/05/22 19:02:22 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/05/23 18:06:20 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,39 +36,11 @@ static float	is_wall(t_game *game, t_plane *p, t_vector *v, t_dot pos)
 	return (-1);
 }
 
-static int	define_lst_planes(t_game *game, t_vector *vec, t_list ***tab, char dir)
-{
-	int	step;
-
-	if (dir == 'x')
-	{
-		*tab = game->tab_planes.left;
-		step = -1;
-		if (vec->x > 0)
-		{
-			*tab = game->tab_planes.right;
-			step = 1;
-		}
-	}
-	else
-	{
-		*tab = game->tab_planes.top;
-		step = -1;
-		if (vec->y > 0)
-		{
-			*tab = game->tab_planes.bottom;
-			step = 1;
-		}
-	}
-	return (step);
-}
-
 static int	search_collide_x(t_game *game, t_vector *vec, t_light pos)
 {
 	t_list	*lst;
 	t_plane	*plane;
 	t_list	**tab;
-	int		i;
 	int		step;
 	float	size;
 
@@ -77,12 +49,7 @@ static int	search_collide_x(t_game *game, t_vector *vec, t_light pos)
 	if (!vec->x)
 		return (0);
 	step = define_lst_planes(game, vec, &tab, 'x');
-	i = floor(pos.x);
-	while (i >= 0 && i < game->file.width_map && !lst)
-	{
-		lst = tab[i];
-		i += step;
-	}
+	lst = search_list(tab, pos.x, step, game->file.width_map);
 	while (lst && size == -1)
 	{
 		plane = lst->content;
@@ -100,7 +67,6 @@ static int	search_collide_y(t_game *game, t_vector *vec, t_light pos)
 	t_list	*lst;
 	t_plane	*plane;
 	t_list	**tab;
-	int		i;
 	int		step;
 	float	size;
 
@@ -109,12 +75,7 @@ static int	search_collide_y(t_game *game, t_vector *vec, t_light pos)
 	if (!vec->y)
 		return (0);
 	step = define_lst_planes(game, vec, &tab, 'y');
-	i = floor(pos.y);
-	while (i >= 0 && i < game->file.height_map && !lst)
-	{
-		lst = tab[i];
-		i += step;
-	}
+	lst = search_list(tab, pos.y, step, game->file.height_map);
 	while (lst && size == -1)
 	{
 		plane = lst->content;
@@ -150,43 +111,29 @@ static void	ft_ratio_color(float *rgb)
 	}
 }
 
-int	luminosity_px(t_game *game, int color, t_dot collide)
+void	check_light(t_game *game, t_dot collide, float *rgb)
 {
-	float		rgb[3];
-	float		rgb_tmp[3];
-	int			i;
-	double		size;
-	t_vector	to_px;
 	t_light		*light;
+	t_vector	to_px;
+	double		size;
+	int			i;
 
-	rgb_tmp[0] = game->file.light_color[0] * 80;
-	rgb_tmp[1] = game->file.light_color[1] * 80;
-	rgb_tmp[2] = game->file.light_color[2] * 80;
-	if (!game->debug)
-		return (color);
-	if (color == INVISIBLE_COLOR)
-		return (INVISIBLE_COLOR);
-	i = -1;
-	while (++i < 3)
-		rgb[i] = ((unsigned char)(color >> (i * 8))) * 0.00392156862;
 	light = game->light;
 	while (light)
 	{
 		to_px.x = collide.x - light->x;
 		to_px.y = collide.y - light->y;
 		to_px.z = collide.z - light->z;
-		size = (to_px.x * to_px.x + to_px.y * to_px.y + to_px.z * to_px.z) * 0.25;
-		if (size < 15 && !search_collide_y(game, &to_px, *light) && !search_collide_x(game, &to_px, *light))
+		size = (to_px.x * to_px.x + to_px.y * to_px.y + to_px.z * to_px.z)
+			* 0.25;
+		if (size < 15 && !search_collide_y(game, &to_px, *light)
+			&& !search_collide_x(game, &to_px, *light))
 		{
 			i = -1;
 			while (++i < 3)
-				rgb_tmp[i] += light->rgb[i] * 255 / size;
-			ft_ratio_color(rgb_tmp);
+				rgb[i + 3] += light->rgb[i] * 255 / size * DIST_MAX;
+			ft_ratio_color(&(rgb[3]));
 		}
 		light = light->next;
 	}
-	i = -1;
-	while (++i < 3)
-		rgb[i] *= rgb_tmp[i];
-	return (ft_color_generate((unsigned char)rgb[2], (unsigned char)rgb[1], (unsigned char)rgb[0], 0));
 }

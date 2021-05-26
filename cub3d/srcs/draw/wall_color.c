@@ -6,43 +6,13 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/22 18:54:48 by grivalan          #+#    #+#             */
-/*   Updated: 2021/05/22 19:04:03 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/05/23 15:47:54 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static double	ft_is_wall(t_game *g, t_plane *plane, t_vector *v, t_dot *dot)
-{
-	double	size;
-	int		y;
-	int		x;
-
-	size = plane->nom_size / (plane->a * v->x + plane->b * v->y);
-	dot->x = g->player.position.x + v->x * size;
-	dot->y = g->player.position.y + v->y * size;
-	dot->z = g->player.position.z + v->z * size;
-	if (dot->z < 0 || dot->z > 1)
-		return (-1);
-	if (plane->a != 0)
-		x = ft_abs(plane->d);
-	else
-		x = floor(ft_abs((*dot).x));
-	if (plane->b != 0)
-		y = ft_abs(plane->d);
-	else
-		y = floor(ft_abs((*dot).y));
-	if (plane->a != 0 && v->x < 0)
-		x--;
-	if (plane->b != 0 && v->y < 0)
-		y--;
-	if (x >= 0 && y >= 0 && y < g->file.height_map
-		&& x < (int)ft_strlen(g->file.map[y]) && g->file.map[y][x] == '1')
-		return (size);
-	return (-1);
-}
-
-static int	define_lst_planes(t_game *g, t_vector *vec, t_list ***tab, char dir)
+int	define_lst_planes(t_game *g, t_vector *vec, t_list ***tab, char dir)
 {
 	int	step;
 
@@ -69,7 +39,7 @@ static int	define_lst_planes(t_game *g, t_vector *vec, t_list ***tab, char dir)
 	return (step);
 }
 
-static t_list	*search_list(t_list **lst, int pos, int step, int max)
+t_list	*search_list(t_list **lst, int pos, int step, int max)
 {
 	t_list	*result;
 

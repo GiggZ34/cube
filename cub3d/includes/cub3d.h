@@ -6,7 +6,7 @@
 /*   By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 11:56:01 by grivalan          #+#    #+#             */
-/*   Updated: 2021/05/22 19:00:03 by grivalan         ###   ########lyon.fr   */
+/*   Updated: 2021/05/26 12:29:35 by grivalan         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 # define SCALE_MAX 3
 # define FPS_MAX 60
 # define FPS_MIN 20
-# define DIST_MAX 2
+# define DIST_MAX 0.1
 # define ROTATE_SPEED 0.785
 # define WEIGHTLESSNESS 9.81
 # define SPEED_MAX 10
@@ -364,6 +364,11 @@ int				count_letters(char *line);
 
 void			ft_free_array(char **array);
 int				ft_trash_game(t_game *g, t_error_code cd, int fd, char *mg);
+void			clear_light(t_game *game);
+void			*free_with_protect(void *content);
+void			delete(void *content);
+int				ft_free_hud(t_game *g, t_player *p);
+void			*free_texture(t_game *game, t_texture *texture);
 
 /*
 **	Functions load
@@ -435,11 +440,15 @@ int				ft_mini_map(t_game *game);
 size_t			ft_image_save(t_game *game);
 void			ft_draw_multi_threads(t_game *game, t_screen *gun);
 int				ft_pixel_color(t_game *game, t_vector *v, t_sprite *s);
+int				define_lst_planes(t_game *g, t_vector *v, t_list ***t, char d);
+t_list			*search_list(t_list **lst, int pos, int step, int max);
 int				search_color_x(t_game *g, t_vector *vec, t_color *x);
 int				search_color_y(t_game *g, t_vector *vec, t_color *y, t_color x);
 int				ft_is_in_wall(t_texture *texture, t_dot inter, char dir);
+double			ft_is_wall(t_game *g, t_plane *plane, t_vector *v, t_dot *dot);
 int				ft_search_sprite(t_game *g, t_vector *v, t_color *s, t_list *l);
 int				ft_print_fps(t_game *game, char *fps, char *scale);
 int				luminosity_px(t_game *game, int color, t_dot collide);
+void			check_light(t_game *game, t_dot collide, float *rgb);
 
 #endif

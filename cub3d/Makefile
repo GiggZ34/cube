@@ -6,7 +6,7 @@
 #    By: grivalan <grivalan@student.42lyon.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/24 18:59:35 by grivalan          #+#    #+#              #
-#    Updated: 2021/05/22 19:00:31 by grivalan         ###   ########lyon.fr    #
+#    Updated: 2021/05/26 12:30:36 by grivalan         ###   ########lyon.fr    #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,6 +62,7 @@ SRCS =		main.c\
 			srcs/sprite/init_ennemy.c\
 			srcs/sprite/ft_edit_sprite_plan.c\
 			srcs/clear/clear_file.c\
+			srcs/clear/clear_utils.c\
 			srcs/tools/ft_color_generate.c\
 			srcs/tools/ft_delta_time_generator.c\
 			srcs/tools/ft_define_nb_anim.c\
@@ -83,6 +84,7 @@ SRCS =		main.c\
 			srcs/draw/sprite_color.c\
 			srcs/draw/ft_print_fps.c\
 			srcs/draw/lights.c\
+			srcs/draw/px_intensity.c\
 			srcs/image_save/image_save.c\
 			srcs/sound/play_sound.c\
 
